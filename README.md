@@ -55,7 +55,13 @@ xiezai 卸载全部
 · 由于作者15岁还在上学，可能无法做到定期维护和更新，在此致歉
 
 ---
+## 软件图片展示:
 
+![首页](https://raw.githubusercontent.com/siyecao-meng/termux-embellish/main/展示图片.png)
+
+![首页](https://raw.githubusercontent.com/siyecao-meng/termux-embellish/main/展示图片1.png)
+
+---
 📄 许可
 
 本项目基于 MIT License 发布。
