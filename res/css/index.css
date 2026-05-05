@@ -1,0 +1,1260 @@
+.确认弹窗 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(8px);
+    z-index: 50000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.确认弹窗.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.确认弹窗内容 {
+    width: 85vw;
+    max-width: 300px;
+    background: rgba(20, 20, 30, 0);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 24px 20px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.确认弹窗标题 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #ff8888;
+    font-weight: bold;
+}
+
+.确认弹窗消息 {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.确认弹窗按钮区域 {
+    display: flex;
+    gap: 12px;
+}
+
+.确认弹窗按钮 {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 10px 0;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.确认弹窗按钮:active {
+    transform: scale(0.96);
+}
+
+.确认弹窗按钮.取消 {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.确认弹窗按钮.确认 {
+    background: rgba(255, 80, 80, 0.5);
+    border-color: rgba(255, 80, 80, 0.8);
+}
+
+.确认弹窗按钮.确认:active {
+    background: rgba(255, 80, 80, 0.7);
+}
+
+.a {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.b {
+    width: 95vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 8px;
+    padding: 20px;
+    resize: none;
+    font-family: monospace;
+    white-space: pre-wrap;
+    overflow: auto;
+    transition: font-size 0.1s ease;
+}
+
+/* 底部按钮栏 */
+.底部按钮栏 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.12);
+    border: none;
+    border-radius: 20px 20px 0 0;
+    padding: 12px 16px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    transition: bottom 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+.底部按钮栏.隐藏 {
+    bottom: -100px;
+}
+
+.底部按钮栏 button {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    padding: 4px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.底部按钮栏 button:active {
+    background: rgba(255, 255, 0, 0.3);
+    transform: scale(0.96);
+}
+
+/* 会话抽屉 */
+.抽屉 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50vw;
+    height: 100vh;
+    background: rgba(20, 20, 30, 0.0);
+    backdrop-filter: blur(10px);
+    z-index: 10000;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.抽屉.打开 {
+    transform: translateX(0);
+}
+
+.抽屉内容 {
+    padding: 20px;
+    color: white;
+    font-family: monospace;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.抽屉标题 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.会话列表 {
+    list-style: none;
+    padding: 0;
+}
+
+.会话列表 li {
+    padding: 12px 16px;
+    margin: 8px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.会话列表 li:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+}
+
+/* ========== 设置面板 ========== */
+.设置面板 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(2px);
+    z-index: 10001;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    overflow-y: auto;
+}
+
+.设置面板.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.设置内容 {
+    padding: 30px 20px;
+    color: white;
+    font-family: monospace;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.设置选项 {
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 20px;
+}
+
+.设置选项 label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.设置选项 label span {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.设置选项 input[type="text"] {
+    width: 60%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: white;
+    font-family: monospace;
+}
+
+.设置选项 button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.设置选项 button:active {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(0.96);
+}
+
+/* ========== 颜色选择器弹窗 ========== */
+.颜色弹窗 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(8px);
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.颜色弹窗.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.颜色弹窗内容 {
+    width: 85vw;
+    max-width: 400px;
+    background: rgba(20, 20, 30, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.颜色弹窗标题 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: white;
+}
+
+.颜色选项区域 {
+    margin-bottom: 20px;
+}
+
+.颜色选项标题 {
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.颜色网格 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.颜色块 {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.颜色块.选中 {
+    border-color: white;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.图片块 {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    object-fit: cover;
+}
+
+.图片块.选中 {
+    border-color: white;
+    transform: scale(1.05);
+}
+
+/* ========== 字体选择器弹窗 ========== */
+.字体弹窗 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(8px);
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.字体弹窗.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.字体弹窗内容 {
+    width: 85vw;
+    max-width: 400px;
+    background: rgba(20, 20, 30, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.十六进制输入 {
+    width: 90%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: white;
+    font-family: monospace;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.弹窗按钮 {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+}
+
+/* 字体预览卡片 */
+.字体卡片 {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 6px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.字体卡片.选中 {
+    border-color: white;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.字体名称 {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.字体预览 {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* ========== 自定义输入弹窗 ========== */
+.输入弹窗 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(4px);
+    z-index: 30000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.输入弹窗.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.输入弹窗内容 {
+    width: 85vw;
+    max-width: 320px;
+    background: rgba(20, 20, 30, 0);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 24px 20px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.输入弹窗标题 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+}
+
+.输入弹窗输入框 {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: white;
+    font-size: 16px;
+    font-family: monospace;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.输入弹窗输入框:focus {
+    border-color: rgba(0, 150, 255, 0.8);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.输入弹窗按钮区域 {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.输入弹窗按钮 {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 10px 0;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.输入弹窗按钮:active {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0.96);
+}
+
+.输入弹窗按钮.确认 {
+    background: rgba(0, 150, 225, 0.5);
+    border-color: rgba(0, 150, 255, 0.8);
+}
+
+.输入弹窗按钮.确认:active {
+    background: rgba(0, 150, 255, 0.7);
+}
+
+/* ========== 欢迎弹窗 ========== */
+.欢迎弹窗 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(12px);
+    z-index: 40000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.欢迎弹窗.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.欢迎弹窗内容 {
+    width: 85vw;
+    max-width: 350px;
+    max-height: 70vh;
+    overflow-y: auto;
+    background: rgba(20, 20, 30, 0.0);
+    backdrop-filter: blur(25px);
+    border-radius: 28px;
+    padding: 28px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.欢迎弹窗标题 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #00ff88;
+}
+
+.欢迎弹窗正文 {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 16px;
+}
+
+.欢迎弹窗免责 {
+    font-size: 12px;
+    color: rgba(255, 100, 100, 0.8);
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ========== 高级弹窗 ========== */
+.高级弹窗 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(8px);
+    z-index: 35000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.高级弹窗.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.高级弹窗内容 {
+    width: 85vw;
+    max-width: 380px;
+    max-height: 75vh;
+    overflow-y: auto;
+    background: rgba(20, 20, 30, 0.05);
+    backdrop-filter: blur(25px);
+    border-radius: 24px;
+    padding: 24px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.高级弹窗标题 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+/* 选项列表容器 */
+.高级选项列表 {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+
+/* 单个选项行 - 横向布局 */
+.高级选项 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-wrap: wrap;
+}
+
+/* 选项标题行 */
+.高级选项行 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-start;
+    margin-bottom: 0;
+    flex: 1;
+}
+
+.高级选项标签 {
+    font-size: 14px;
+    color: white;
+    flex: 1;
+}
+
+/* ? 帮助按钮 */
+.高级选项帮助 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    color: #888;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.高级选项帮助:active {
+    background: rgba(0, 200, 255, 0.4);
+    color: white;
+}
+
+/* 教程/链接按钮 */
+.高级选项链接 {
+    color: #00ccff;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    background: rgba(0, 200, 255, 0.1);
+    padding: 6px 16px;
+    border-radius: 16px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.高级选项链接:active {
+    background: rgba(0, 200, 255, 0.3);
+    transform: scale(0.96);
+}
+
+/* 滑块开关容器 */
+.滑块开关 {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.滑块开关 input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.滑块 {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 28px;
+    transition: 0.3s;
+}
+
+.滑块:before {
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.滑块开关 input:checked + .滑块 {
+    background: #00ff88;
+}
+
+.滑块开关 input:checked + .滑块:before {
+    transform: translateX(20px);
+}
+
+/* 远程服务设置展开区域 */
+.远程服务设置 {
+    margin-top: 10px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+}
+
+/* 端口输入框 */
+.端口输入 {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: white;
+    font-family: monospace;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.端口输入:focus {
+    border-color: rgba(0, 200, 255, 0.6);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* 端口确定按钮 */
+.端口确定 {
+    background: rgba(0, 200, 255, 0.25);
+    border: 1px solid rgba(0, 200, 255, 0.5);
+    border-radius: 10px;
+    padding: 10px 18px;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.端口确定:active {
+    background: rgba(0, 200, 255, 0.5);
+    transform: scale(0.96);
+}
+
+/* 密码输入框 */
+.密码输入 {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: white;
+    font-family: monospace;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+/* 当前地址显示 */
+.当前地址 {
+    margin-top: 10px;
+    font-size: 11px;
+    color: #00ff88;
+    font-family: monospace;
+    word-break: break-all;
+}
+
+/* 重置按钮 */
+.重置按钮 {
+    color: #ff8888;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    background: rgba(255, 80, 80, 0.15);
+    padding: 6px 16px;
+    border-radius: 16px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    border: none;
+}
+
+.重置按钮:active {
+    background: rgba(255, 80, 80, 0.4);
+    transform: scale(0.96);
+}
+
+/* 关闭按钮 */
+.高级弹窗关闭 {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 12px 20px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.高级弹窗关闭:active {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(0.98);
+}
+
+/* ========== 帮助说明弹窗 ========== */
+.帮助弹窗 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(10px);
+    z-index: 50001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.帮助弹窗.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.帮助弹窗内容 {
+    width: 85vw;
+    max-width: 360px;
+    max-height: 70vh;
+    overflow-y: auto;
+    background: rgba(20, 20, 30, 0);
+    backdrop-filter: blur(30px);
+    border-radius: 24px;
+    padding: 24px 22px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.帮助弹窗标题 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: #00ff88;
+    font-weight: bold;
+}
+
+.帮助弹窗正文 {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* ========== 关于弹窗 ========== */
+.关于弹窗 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(8px);
+    z-index: 35000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.关于弹窗.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.关于弹窗内容 {
+    width: 85vw;
+    max-width: 350px;
+    background: rgba(20, 20, 30, 0.0);
+    backdrop-filter: blur(25px);
+    border-radius: 24px;
+    padding: 24px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+
+.关于弹窗标题 {
+    font-size: 22px;
+    margin-bottom: 16px;
+    color: #00ff88;
+    font-weight: bold;
+}
+
+.关于弹窗正文 {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 20px;
+}
+
+.关于弹窗版本 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.关于弹窗版本标签 {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.关于弹窗版本号 {
+    font-size: 13px;
+    color: #00ff88;
+}
+
+.关于弹窗关闭 {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 会话抽屉遮罩层 */
+.遮罩层 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+}
+
+.遮罩层.显示 {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========== 键盘抽屉样式 ========== */
+.键盘抽屉 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 90000;
+    background: rgba(30, 30, 40, 0.05);
+    backdrop-filter: blur(0px);
+    border-radius: 20px 20px 0 0;
+    padding: 12px 8px 20px 8px;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.键盘抽屉.打开 {
+    transform: translateY(0);
+}
+
+.键盘抽屉内容 {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.键盘行 {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+}
+
+.键位 {
+    flex: 1;
+    min-width: 0;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-family: monospace;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.键位:active {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0.92);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.键位.修饰键.激活 {
+    background: rgba(0, 200, 255, 0.4);
+    border-color: rgba(0, 200, 255, 0.7);
+    color: #00ff88;
+}
+
+.功能键 {
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 12px;
+    flex: 1.2;
+}
+
+.空格键 {
+    flex: 4;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+}
+
+/* 键盘遮罩 */
+.键盘遮罩 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.键盘遮罩.显示 {
+    opacity: 1;
+    visibility: visible;
+}
+/* 重置按钮图标动画 */
+.重置按钮图标 {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-left: 6px;
+}
+
+/* 加载中旋转动画 */
+.重置按钮图标.加载中 {
+    display: inline-block;
+    border-color: rgba(255,255,255,0.3);
+    border-top-color: white;
+    animation: 旋转 0.8s linear infinite;
+}
+
+/* 成功状态 - 绿色圆 */
+.重置按钮图标.成功 {
+    display: inline-block;
+    border-color: #00ff88;
+    background: rgba(0, 255, 136, 0.3);
+}
+
+/* 失败状态 - 红色圆 */
+.重置按钮图标.失败 {
+    display: inline-block;
+    border-color: #ff4444;
+    background: rgba(255, 68, 68, 0.3);
+}
+
+/* 按钮禁用状态 */
+.重置按钮.禁用 {
+    background: rgba(128, 128, 128, 0.15);
+    color: #888;
+    pointer-events: none;
+}
+
+@keyframes 旋转 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+/* ========== 通用弹窗模板 ========== */
+.通用弹窗 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(8px);
+    z-index: 50000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.通用弹窗.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.通用弹窗内容 {
+    width: 85vw;
+    max-width: 360px;
+    max-height: 70vh;
+    overflow-y: auto;
+    background: rgba(20, 20, 30, 0);
+    backdrop-filter: blur(25px);
+    border-radius: 24px;
+    padding: 24px 22px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.通用弹窗标题 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: white;
+    font-weight: bold;
+}
+
+.通用弹窗正文 {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.通用弹窗关闭 {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 12px 20px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.通用弹窗关闭:active {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(0.98);
+}
+
+/* ========== 禁用复制 ========== */
+body {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+/* 允许输入框和教程弹窗复制 */
+.输入弹窗输入框,
+.帮助弹窗正文,
+.远程地址输入,
+.端口输入,
+.十六进制输入,
+.密码输入,
+.关于弹窗正文,
+#输出框 {
+    user-select: text;
+    -webkit-user-select: text;
+}
