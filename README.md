@@ -1,4 +1,4 @@
-# Termux:Embellish
+# Termux:Embellish ![首页](https://raw.githubusercontent.com/siyecao-meng/termux-embellish/main/icon.png)
 
 > 让 Termux 终端变得好看又好用的 Web 远程管理工具。
 
