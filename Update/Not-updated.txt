@@ -1,0 +1,24 @@
+<h2>⚠️ 当前版本过旧</h2>
+<br>
+<strong>请更新到最新版本 v1.0.2 以获取以下新功能：</strong>
+<br><br>
+<strong>✨ v1.0.2 新增功能</strong><br>
+• 🌐 三语言切换 — 中文 / English / にちご<br>
+• 📋 更新日志弹窗 — 一键查看版本更新<br>
+• ⌨️ 键盘体验优化 — 更好的输入体验<br>
+<br>
+<strong>📦 如何更新：</strong><br>
+1. 在 Termux 中运行 <code>bash &lt;(curl -sL https://raw.githubusercontent.com/siyecao-meng/termux-embellish/main/install.sh)</code><br>
+2. 或者手动拉取最新代码后重新安装<br>
+<br>
+<strong>🔄 更新后你将获得：</strong><br>
+• 更流畅的键盘输入体验<br>
+• 多语言界面支持<br>
+• 更完善的 UI 界面<br>
+<br>
+<hr>
+<strong>📌 当前版本 (v1.0.1 及以下) 功能：</strong><br>
+• 自定义背景/颜色/字体<br>
+• 会话管理<br>
+• 虚拟键盘支持<br>
+• Cloudflare 远程隧道<br>
