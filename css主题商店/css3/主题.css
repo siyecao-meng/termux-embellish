@@ -1,6 +1,29 @@
-/* ===== 蜜桃乌龙主题 - 温柔蜜桃色 + 乌龙茶棕 ===== */
-/* 主色调：蜜桃粉 #fecdd3，琥珀橙 #fb923c，茶棕 #b45309 */
+/* ===== 蜜桃乌龙主题 - 独立完整版 ===== */
+/* 主色：蜜桃粉 #fda4af | 乌龙橙 #fb923c | 茶棕色 #b45309 */
+/* 键盘特性：点击后淡出动画，独立样式 */
 
+/* ========== 全局重置 ========== */
+body {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    font-family: "霞鹜文楷", "LXGW WenKai", system-ui, -apple-system, sans-serif;
+}
+
+/* 允许输入框复制 */
+.输入弹窗输入框,
+.帮助弹窗正文,
+.远程地址输入,
+.端口输入,
+.十六进制输入,
+.密码输入,
+.关于弹窗正文,
+#输出框 {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+/* ========== 确认弹窗 ========== */
 .确认弹窗 {
     position: fixed;
     top: 0;
@@ -8,14 +31,14 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(10px);
     z-index: 50000;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
 .确认弹窗.打开 {
@@ -26,26 +49,25 @@
 .确认弹窗内容 {
     width: 85vw;
     max-width: 300px;
-    background: rgba(254, 205, 211, 0.1);
+    background: rgba(253, 164, 175, 0.12);
     backdrop-filter: blur(28px);
-    border-radius: 36px;
+    border-radius: 32px;
     padding: 28px 24px 24px;
-    border: 1px solid rgba(255, 200, 180, 0.4);
-    box-shadow: 0 12px 40px rgba(251, 146, 60, 0.25);
+    border: 1px solid rgba(253, 164, 175, 0.5);
+    box-shadow: 0 12px 32px rgba(251, 146, 60, 0.25);
     text-align: center;
 }
 
 .确认弹窗标题 {
     font-size: 20px;
     margin-bottom: 12px;
-    color: #fecdd3;
+    color: #fda4af;
     font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .确认弹窗消息 {
     font-size: 14px;
-    color: rgba(255, 245, 235, 0.92);
+    color: rgba(255, 250, 240, 0.92);
     margin-bottom: 28px;
     line-height: 1.5;
 }
@@ -57,9 +79,9 @@
 
 .确认弹窗按钮 {
     flex: 1;
-    background: rgba(254, 205, 211, 0.25);
-    border: 1px solid rgba(255, 220, 200, 0.45);
-    border-radius: 44px;
+    background: rgba(253, 164, 175, 0.25);
+    border: 1px solid rgba(253, 164, 175, 0.5);
+    border-radius: 40px;
     padding: 10px 0;
     color: white;
     font-size: 14px;
@@ -70,7 +92,7 @@
 
 .确认弹窗按钮:active {
     transform: scale(0.96);
-    background: rgba(254, 205, 211, 0.45);
+    background: rgba(251, 146, 60, 0.55);
 }
 
 .确认弹窗按钮.取消 {
@@ -79,13 +101,14 @@
 
 .确认弹窗按钮.确认 {
     background: rgba(251, 146, 60, 0.6);
-    border-color: rgba(254, 205, 211, 0.7);
+    border-color: rgba(253, 164, 175, 0.7);
 }
 
 .确认弹窗按钮.确认:active {
     background: rgba(251, 146, 60, 0.85);
 }
 
+/* ========== 背景图 + 输出框 ========== */
 .a {
     width: 100vw;
     height: 100vh;
@@ -106,24 +129,24 @@
     background: transparent;
     border: none;
     outline: none;
-    color: white;
+    color: #fff5e6;
     font-size: 8px;
     padding: 20px;
     resize: none;
-    font-family: '霞鹜文楷', 'LXGW WenKai', monospace;
+    font-family: "霞鹜文楷", "LXGW WenKai", monospace;
     white-space: pre-wrap;
     overflow: auto;
     transition: font-size 0.1s ease;
 }
 
-/* 底部按钮栏 - 蜜桃乌龙 */
+/* ========== 底部按钮栏 ========== */
 .底部按钮栏 {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     z-index: 9999;
-    background: rgba(254, 205, 211, 0.18);
+    background: rgba(253, 164, 175, 0.18);
     backdrop-filter: blur(14px);
     border: none;
     border-radius: 32px 32px 0 0;
@@ -140,9 +163,9 @@
 }
 
 .底部按钮栏 button {
-    background: rgba(254, 205, 211, 0.28);
-    border: 1px solid rgba(255, 220, 200, 0.5);
-    border-radius: 44px;
+    background: rgba(253, 164, 175, 0.28);
+    border: 1px solid rgba(253, 164, 175, 0.55);
+    border-radius: 40px;
     color: white;
     font-size: 14px;
     font-weight: 500;
@@ -156,7 +179,7 @@
     transform: scale(0.95);
 }
 
-/* 会话抽屉 */
+/* ========== 会话抽屉 ========== */
 .抽屉 {
     position: fixed;
     top: 0;
@@ -164,13 +187,13 @@
     width: 60vw;
     max-width: 280px;
     height: 100vh;
-    background: rgba(254, 205, 211, 0.08);
+    background: rgba(253, 164, 175, 0.08);
     backdrop-filter: blur(22px);
     z-index: 10000;
     transform: translateX(-100%);
     transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     box-shadow: 4px 0 30px rgba(251, 146, 60, 0.2);
-    border-right: 1px solid rgba(254, 205, 211, 0.35);
+    border-right: 1px solid rgba(253, 164, 175, 0.4);
 }
 
 .抽屉.打开 {
@@ -179,8 +202,8 @@
 
 .抽屉内容 {
     padding: 24px 20px;
-    color: white;
-    font-family: '霞鹜文楷', 'LXGW WenKai', system-ui, sans-serif;
+    color: #fff5e6;
+    font-family: "霞鹜文楷", "LXGW WenKai", system-ui, sans-serif;
     height: 100%;
     overflow-y: auto;
 }
@@ -190,8 +213,8 @@
     font-weight: 600;
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 1px solid rgba(254, 205, 211, 0.55);
-    color: #fecdd3;
+    border-bottom: 1px solid rgba(253, 164, 175, 0.6);
+    color: #fda4af;
 }
 
 .会话列表 {
@@ -202,7 +225,7 @@
 .会话列表 li {
     padding: 12px 16px;
     margin: 10px 0;
-    background: rgba(254, 205, 211, 0.2);
+    background: rgba(253, 164, 175, 0.2);
     border-radius: 24px;
     cursor: pointer;
     transition: all 0.2s;
@@ -212,9 +235,27 @@
     font-weight: 500;
 }
 
-.会话列表 li:hover {
-    background: rgba(251, 146, 60, 0.4);
+.会话列表 li:active {
+    background: rgba(251, 146, 60, 0.45);
     transform: translateX(6px);
+}
+
+.遮罩层 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.12);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+}
+
+.遮罩层.显示 {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* ========== 设置面板 ========== */
@@ -224,7 +265,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.12);
+    background: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8px);
     z-index: 10001;
     opacity: 0;
@@ -240,15 +281,15 @@
 
 .设置内容 {
     padding: 30px 20px;
-    color: white;
-    font-family: '霞鹜文楷', system-ui, sans-serif;
+    color: #fff5e6;
+    font-family: "霞鹜文楷", system-ui, sans-serif;
     min-height: 100vh;
     box-sizing: border-box;
 }
 
 .设置选项 {
     margin-bottom: 28px;
-    border-bottom: 1px solid rgba(254, 205, 211, 0.35);
+    border-bottom: 1px solid rgba(253, 164, 175, 0.35);
     padding-bottom: 22px;
 }
 
@@ -261,30 +302,30 @@
 .设置选项 label span {
     display: block;
     margin-bottom: 8px;
-    color: #fecdd3;
+    color: #fda4af;
 }
 
 .设置选项 input[type="text"] {
     width: 70%;
-    background: rgba(254, 205, 211, 0.14);
-    border: 1px solid rgba(254, 205, 211, 0.55);
-    border-radius: 40px;
+    background: rgba(253, 164, 175, 0.14);
+    border: 1px solid rgba(253, 164, 175, 0.55);
+    border-radius: 36px;
     padding: 10px 18px;
-    color: white;
+    color: #fff5e6;
     font-family: monospace;
     transition: all 0.2s;
 }
 
 .设置选项 input[type="text"]:focus {
     border-color: #fb923c;
-    background: rgba(254, 205, 211, 0.24);
+    background: rgba(253, 164, 175, 0.24);
     outline: none;
 }
 
 .设置选项 button {
-    background: rgba(254, 205, 211, 0.3);
+    background: rgba(253, 164, 175, 0.3);
     border: none;
-    border-radius: 44px;
+    border-radius: 40px;
     padding: 8px 22px;
     color: white;
     font-weight: 500;
@@ -325,19 +366,19 @@
 .颜色弹窗内容 {
     width: 85vw;
     max-width: 400px;
-    background: rgba(254, 205, 211, 0.1);
+    background: rgba(253, 164, 175, 0.1);
     backdrop-filter: blur(32px);
-    border-radius: 40px;
+    border-radius: 36px;
     padding: 24px;
-    border: 1px solid rgba(255, 220, 200, 0.4);
-    box-shadow: 0 12px 40px rgba(251, 146, 60, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.45);
+    box-shadow: 0 12px 32px rgba(251, 146, 60, 0.2);
 }
 
 .颜色弹窗标题 {
     font-size: 20px;
     margin-bottom: 18px;
     text-align: center;
-    color: #fecdd3;
+    color: #fda4af;
     font-weight: 600;
 }
 
@@ -371,7 +412,7 @@
 .颜色块.选中 {
     border-color: white;
     transform: scale(1.08);
-    box-shadow: 0 0 0 3px rgba(254, 205, 211, 0.7);
+    box-shadow: 0 0 0 3px rgba(253, 164, 175, 0.7);
 }
 
 .图片块 {
@@ -415,30 +456,30 @@
 .字体弹窗内容 {
     width: 85vw;
     max-width: 400px;
-    background: rgba(254, 205, 211, 0.1);
+    background: rgba(253, 164, 175, 0.1);
     backdrop-filter: blur(32px);
-    border-radius: 40px;
+    border-radius: 36px;
     padding: 24px;
-    border: 1px solid rgba(255, 220, 200, 0.4);
-    box-shadow: 0 12px 40px rgba(251, 146, 60, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.45);
+    box-shadow: 0 12px 32px rgba(251, 146, 60, 0.2);
 }
 
 .十六进制输入 {
     width: 90%;
-    background: rgba(254, 205, 211, 0.14);
-    border: 1px solid rgba(254, 205, 211, 0.55);
+    background: rgba(253, 164, 175, 0.14);
+    border: 1px solid rgba(253, 164, 175, 0.55);
     border-radius: 36px;
     padding: 12px 18px;
-    color: white;
+    color: #fff5e6;
     font-family: monospace;
     font-size: 14px;
     margin-top: 12px;
 }
 
 .弹窗按钮 {
-    background: rgba(254, 205, 211, 0.32);
+    background: rgba(253, 164, 175, 0.32);
     border: none;
-    border-radius: 44px;
+    border-radius: 40px;
     padding: 12px 28px;
     color: white;
     font-weight: 500;
@@ -453,9 +494,8 @@
     background: rgba(251, 146, 60, 0.6);
 }
 
-/* 字体预览卡片 */
 .字体卡片 {
-    background: rgba(254, 205, 211, 0.2);
+    background: rgba(253, 164, 175, 0.2);
     border-radius: 28px;
     padding: 10px 18px;
     margin-bottom: 10px;
@@ -465,7 +505,7 @@
 }
 
 .字体卡片.选中 {
-    border-color: #fecdd3;
+    border-color: #fda4af;
     background: rgba(251, 146, 60, 0.35);
 }
 
@@ -507,29 +547,29 @@
 .输入弹窗内容 {
     width: 85vw;
     max-width: 320px;
-    background: rgba(254, 205, 211, 0.13);
+    background: rgba(253, 164, 175, 0.13);
     backdrop-filter: blur(32px);
-    border-radius: 40px;
+    border-radius: 36px;
     padding: 28px 24px 24px;
-    border: 1px solid rgba(255, 220, 200, 0.4);
-    box-shadow: 0 12px 32px rgba(251, 146, 60, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.5);
+    box-shadow: 0 12px 28px rgba(251, 146, 60, 0.2);
 }
 
 .输入弹窗标题 {
     font-size: 18px;
     margin-bottom: 20px;
     text-align: center;
-    color: #fecdd3;
+    color: #fda4af;
     font-weight: 600;
 }
 
 .输入弹窗输入框 {
     width: 100%;
-    background: rgba(254, 205, 211, 0.14);
-    border: 1px solid rgba(254, 205, 211, 0.55);
+    background: rgba(253, 164, 175, 0.14);
+    border: 1px solid rgba(253, 164, 175, 0.55);
     border-radius: 36px;
     padding: 12px 18px;
-    color: white;
+    color: #fff5e6;
     font-size: 15px;
     font-family: monospace;
     box-sizing: border-box;
@@ -539,7 +579,7 @@
 
 .输入弹窗输入框:focus {
     border-color: #fb923c;
-    background: rgba(254, 205, 211, 0.24);
+    background: rgba(253, 164, 175, 0.24);
 }
 
 .输入弹窗按钮区域 {
@@ -550,9 +590,9 @@
 
 .输入弹窗按钮 {
     flex: 1;
-    background: rgba(254, 205, 211, 0.25);
-    border: 1px solid rgba(255, 220, 200, 0.45);
-    border-radius: 44px;
+    background: rgba(253, 164, 175, 0.25);
+    border: 1px solid rgba(253, 164, 175, 0.5);
+    border-radius: 40px;
     padding: 10px 0;
     color: white;
     font-size: 14px;
@@ -569,7 +609,7 @@
 
 .输入弹窗按钮.确认 {
     background: rgba(251, 146, 60, 0.6);
-    border-color: rgba(254, 205, 211, 0.7);
+    border-color: rgba(253, 164, 175, 0.7);
 }
 
 /* ========== 欢迎弹窗 ========== */
@@ -580,7 +620,7 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(18px);
     z-index: 40000;
     display: flex;
     align-items: center;
@@ -600,12 +640,12 @@
     max-width: 350px;
     max-height: 70vh;
     overflow-y: auto;
-    background: rgba(254, 205, 211, 0.1);
+    background: rgba(253, 164, 175, 0.1);
     backdrop-filter: blur(38px);
-    border-radius: 44px;
+    border-radius: 40px;
     padding: 32px 28px;
-    border: 1px solid rgba(255, 220, 200, 0.45);
-    box-shadow: 0 20px 50px rgba(251, 146, 60, 0.25);
+    border: 1px solid rgba(253, 164, 175, 0.5);
+    box-shadow: 0 20px 40px rgba(251, 146, 60, 0.25);
 }
 
 .欢迎弹窗标题 {
@@ -613,7 +653,7 @@
     font-weight: 700;
     text-align: center;
     margin-bottom: 20px;
-    color: #fecdd3;
+    color: #fda4af;
 }
 
 .欢迎弹窗正文 {
@@ -625,10 +665,10 @@
 
 .欢迎弹窗免责 {
     font-size: 12px;
-    color: rgba(254, 205, 211, 0.8);
+    color: rgba(253, 164, 175, 0.8);
     margin-top: 20px;
     padding-top: 14px;
-    border-top: 1px solid rgba(254, 205, 211, 0.45);
+    border-top: 1px solid rgba(253, 164, 175, 0.45);
 }
 
 /* ========== 高级弹窗 ========== */
@@ -659,23 +699,22 @@
     max-width: 380px;
     max-height: 75vh;
     overflow-y: auto;
-    background: rgba(254, 205, 211, 0.09);
+    background: rgba(253, 164, 175, 0.09);
     backdrop-filter: blur(38px);
-    border-radius: 40px;
+    border-radius: 36px;
     padding: 28px 24px;
-    border: 1px solid rgba(255, 220, 200, 0.4);
-    box-shadow: 0 12px 40px rgba(251, 146, 60, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.45);
+    box-shadow: 0 12px 32px rgba(251, 146, 60, 0.2);
 }
 
 .高级弹窗标题 {
     font-size: 20px;
     margin-bottom: 24px;
     text-align: center;
-    color: #fecdd3;
+    color: #fda4af;
     font-weight: 700;
 }
 
-/* 选项列表容器 */
 .高级选项列表 {
     display: flex;
     flex-direction: column;
@@ -683,14 +722,13 @@
     margin-bottom: 20px;
 }
 
-/* 单个选项行 */
 .高级选项 {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     padding: 14px 0;
-    border-bottom: 1px solid rgba(254, 205, 211, 0.25);
+    border-bottom: 1px solid rgba(253, 164, 175, 0.25);
     flex-wrap: wrap;
 }
 
@@ -704,12 +742,11 @@
 
 .高级选项标签 {
     font-size: 14px;
-    color: white;
+    color: #fff5e6;
     font-weight: 500;
     flex: 1;
 }
 
-/* ? 帮助按钮 */
 .高级选项帮助 {
     display: inline-flex;
     align-items: center;
@@ -717,7 +754,7 @@
     width: 24px;
     height: 24px;
     border-radius: 32px;
-    background: rgba(254, 205, 211, 0.3);
+    background: rgba(253, 164, 175, 0.3);
     color: #ffe4d6;
     font-size: 12px;
     cursor: pointer;
@@ -732,15 +769,14 @@
     color: white;
 }
 
-/* 教程/链接按钮 */
 .高级选项链接 {
-    color: #fecdd3;
+    color: #fda4af;
     font-size: 13px;
     cursor: pointer;
     text-decoration: none;
-    background: rgba(254, 205, 211, 0.2);
+    background: rgba(253, 164, 175, 0.2);
     padding: 6px 20px;
-    border-radius: 44px;
+    border-radius: 40px;
     transition: all 0.2s;
     flex-shrink: 0;
 }
@@ -750,7 +786,6 @@
     transform: scale(0.96);
 }
 
-/* 滑块开关 */
 .滑块开关 {
     position: relative;
     display: inline-block;
@@ -773,7 +808,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(254, 205, 211, 0.3);
+    background: rgba(253, 164, 175, 0.3);
     border-radius: 34px;
     transition: 0.3s;
 }
@@ -799,24 +834,22 @@
     background: white;
 }
 
-/* 远程服务设置展开区域 */
 .远程服务设置 {
     margin-top: 14px;
     padding: 16px;
-    background: rgba(254, 205, 211, 0.07);
-    border-radius: 32px;
-    border: 1px solid rgba(254, 205, 211, 0.3);
+    background: rgba(253, 164, 175, 0.07);
+    border-radius: 28px;
+    border: 1px solid rgba(253, 164, 175, 0.35);
     width: 100%;
 }
 
-/* 端口输入框 */
 .端口输入 {
     flex: 1;
-    background: rgba(254, 205, 211, 0.12);
-    border: 1px solid rgba(254, 205, 211, 0.45);
+    background: rgba(253, 164, 175, 0.12);
+    border: 1px solid rgba(253, 164, 175, 0.5);
     border-radius: 36px;
     padding: 10px 18px;
-    color: white;
+    color: #fff5e6;
     font-family: monospace;
     font-size: 14px;
     outline: none;
@@ -825,14 +858,13 @@
 
 .端口输入:focus {
     border-color: #fb923c;
-    background: rgba(254, 205, 211, 0.2);
+    background: rgba(253, 164, 175, 0.22);
 }
 
-/* 端口确定按钮 */
 .端口确定 {
-    background: rgba(254, 205, 211, 0.32);
-    border: 1px solid rgba(254, 205, 211, 0.6);
-    border-radius: 44px;
+    background: rgba(253, 164, 175, 0.32);
+    border: 1px solid rgba(253, 164, 175, 0.6);
+    border-radius: 40px;
     padding: 10px 22px;
     color: white;
     cursor: pointer;
@@ -847,36 +879,33 @@
     transform: scale(0.96);
 }
 
-/* 密码输入框 */
 .密码输入 {
     flex: 1;
-    background: rgba(254, 205, 211, 0.12);
-    border: 1px solid rgba(254, 205, 211, 0.45);
+    background: rgba(253, 164, 175, 0.12);
+    border: 1px solid rgba(253, 164, 175, 0.5);
     border-radius: 36px;
     padding: 10px 18px;
-    color: white;
+    color: #fff5e6;
     font-family: monospace;
     font-size: 14px;
     outline: none;
 }
 
-/* 当前地址显示 */
 .当前地址 {
     margin-top: 12px;
     font-size: 11px;
-    color: #fecdd3;
+    color: #fda4af;
     font-family: monospace;
     word-break: break-all;
 }
 
-/* 重置按钮 */
 .重置按钮 {
-    color: #fecdd3;
+    color: #fda4af;
     font-size: 13px;
     cursor: pointer;
     background: rgba(251, 146, 60, 0.22);
     padding: 6px 20px;
-    border-radius: 44px;
+    border-radius: 40px;
     transition: all 0.2s;
     flex-shrink: 0;
     border: none;
@@ -888,11 +917,10 @@
     transform: scale(0.96);
 }
 
-/* 关闭按钮 */
 .高级弹窗关闭 {
-    background: rgba(254, 205, 211, 0.2);
-    border: 1px solid rgba(255, 220, 200, 0.4);
-    border-radius: 44px;
+    background: rgba(253, 164, 175, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.45);
+    border-radius: 40px;
     padding: 12px 28px;
     color: white;
     cursor: pointer;
@@ -916,7 +944,7 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(14px);
     z-index: 50001;
     display: flex;
     align-items: center;
@@ -936,19 +964,19 @@
     max-width: 360px;
     max-height: 70vh;
     overflow-y: auto;
-    background: rgba(254, 205, 211, 0.1);
+    background: rgba(253, 164, 175, 0.1);
     backdrop-filter: blur(42px);
-    border-radius: 40px;
+    border-radius: 36px;
     padding: 28px 26px;
-    border: 1px solid rgba(255, 220, 200, 0.45);
-    box-shadow: 0 12px 40px rgba(251, 146, 60, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.5);
+    box-shadow: 0 12px 32px rgba(251, 146, 60, 0.2);
     text-align: center;
 }
 
 .帮助弹窗标题 {
     font-size: 20px;
     margin-bottom: 18px;
-    color: #fecdd3;
+    color: #fda4af;
     font-weight: 700;
 }
 
@@ -986,18 +1014,18 @@
 .关于弹窗内容 {
     width: 85vw;
     max-width: 350px;
-    background: rgba(254, 205, 211, 0.1);
+    background: rgba(253, 164, 175, 0.1);
     backdrop-filter: blur(38px);
-    border-radius: 40px;
+    border-radius: 36px;
     padding: 28px 26px;
-    border: 1px solid rgba(255, 220, 200, 0.45);
+    border: 1px solid rgba(253, 164, 175, 0.5);
     text-align: center;
 }
 
 .关于弹窗标题 {
     font-size: 24px;
     margin-bottom: 18px;
-    color: #fecdd3;
+    color: #fda4af;
     font-weight: 700;
 }
 
@@ -1014,7 +1042,7 @@
     align-items: center;
     margin-top: 20px;
     padding-top: 14px;
-    border-top: 1px solid rgba(254, 205, 211, 0.35);
+    border-top: 1px solid rgba(253, 164, 175, 0.35);
 }
 
 .关于弹窗版本标签 {
@@ -1024,14 +1052,14 @@
 
 .关于弹窗版本号 {
     font-size: 13px;
-    color: #fecdd3;
+    color: #fda4af;
     font-weight: 600;
 }
 
 .关于弹窗关闭 {
-    background: rgba(254, 205, 211, 0.2);
-    border: 1px solid rgba(255, 220, 200, 0.4);
-    border-radius: 44px;
+    background: rgba(253, 164, 175, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.45);
+    border-radius: 40px;
     padding: 10px 28px;
     color: white;
     cursor: pointer;
@@ -1045,102 +1073,103 @@
     transform: scale(0.97);
 }
 
-/* 会话抽屉遮罩层 */
-.遮罩层 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.1);
-    z-index: 9998;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s;
-}
-
-.遮罩层.显示 {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* ========== 键盘抽屉样式 ========== */
+/* ========== 键盘抽屉 - 独立样式 + 点击淡出动画 ========== */
 .键盘抽屉 {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     z-index: 90000;
-    background: rgba(254, 205, 211, 0.12);
-    backdrop-filter: blur(20px);
+    background: rgba(253, 164, 175, 0.15);
+    backdrop-filter: blur(24px);
     border-radius: 36px 36px 0 0;
-    padding: 14px 12px 24px 12px;
+    padding: 16px 14px 28px 14px;
     transform: translateY(100%);
     transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1);
-    box-shadow: 0 -8px 30px rgba(251, 146, 60, 0.2);
-    border-top: 1px solid rgba(255, 220, 200, 0.3);
+    box-shadow: 0 -8px 28px rgba(251, 146, 60, 0.2);
+    border-top: 1px solid rgba(253, 164, 175, 0.5);
     user-select: none;
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
 }
 
 .键盘抽屉.打开 {
     transform: translateY(0);
 }
 
+/* 键盘淡出动画 - 点击键位后触发 */
+.键盘抽屉.淡出 {
+    animation: 键盘淡出 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes 键盘淡出 {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+}
+
 .键盘抽屉内容 {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .键盘行 {
     display: flex;
-    gap: 6px;
+    gap: 8px;
     justify-content: center;
 }
 
 .键位 {
     flex: 1;
     min-width: 0;
-    height: 38px;
-    background: rgba(254, 205, 211, 0.28);
-    border: 1px solid rgba(255, 220, 200, 0.4);
-    border-radius: 22px;
-    color: white;
-    font-size: 15px;
-    font-family: '霞鹜文楷', monospace;
+    height: 44px;
+    background: rgba(253, 164, 175, 0.32);
+    border: 1px solid rgba(253, 164, 175, 0.6);
+    border-radius: 28px;
+    color: #fff5e6;
+    font-size: 16px;
+    font-family: "霞鹜文楷", "LXGW WenKai", monospace;
     font-weight: 500;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.1s ease;
+    transition: all 0.08s linear;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
+/* 键位点击效果 - 温和缩小 */
 .键位:active {
-    background: rgba(251, 146, 60, 0.55);
-    transform: scale(0.94);
-    border-color: #fecdd3;
-}
-
-.键位.修饰键.激活 {
     background: rgba(251, 146, 60, 0.65);
-    border-color: #fecdd3;
-    color: white;
+    transform: scale(0.94);
+    border-color: #fda4af;
 }
 
+/* 修饰键激活状态 */
+.键位.修饰键.激活 {
+    background: rgba(251, 146, 60, 0.7);
+    border-color: #fda4af;
+    color: white;
+    box-shadow: 0 0 8px rgba(251, 146, 60, 0.5);
+}
+
+/* 功能键样式 */
 .功能键 {
-    background: rgba(254, 205, 211, 0.16);
-    font-size: 12px;
+    background: rgba(253, 164, 175, 0.2);
+    font-size: 13px;
     flex: 1.2;
 }
 
+/* 空格键 */
 .空格键 {
     flex: 4;
-    background: rgba(254, 205, 211, 0.22);
-    font-size: 15px;
+    background: rgba(253, 164, 175, 0.26);
+    font-size: 16px;
 }
 
 /* 键盘遮罩 */
@@ -1150,11 +1179,11 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0.08);
     z-index: 10000;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
 .键盘遮罩.显示 {
@@ -1162,7 +1191,23 @@
     visibility: visible;
 }
 
-/* 重置按钮图标动画 */
+/* 键盘遮罩淡出 */
+.键盘遮罩.淡出 {
+    animation: 遮罩淡出 0.25s ease forwards;
+}
+
+@keyframes 遮罩淡出 {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* ========== 重置按钮图标动画 ========== */
 .重置按钮图标 {
     display: inline-block;
     width: 16px;
@@ -1174,20 +1219,17 @@
 }
 
 .重置按钮图标.加载中 {
-    display: inline-block;
-    border-color: rgba(254,205,211,0.5);
-    border-top-color: #fecdd3;
+    border-color: rgba(253, 164, 175, 0.5);
+    border-top-color: #fda4af;
     animation: 旋转 0.8s linear infinite;
 }
 
 .重置按钮图标.成功 {
-    display: inline-block;
-    border-color: #fecdd3;
-    background: rgba(254, 205, 211, 0.45);
+    border-color: #fda4af;
+    background: rgba(253, 164, 175, 0.45);
 }
 
 .重置按钮图标.失败 {
-    display: inline-block;
     border-color: #fb923c;
     background: rgba(251, 146, 60, 0.45);
 }
@@ -1231,19 +1273,19 @@
     max-width: 360px;
     max-height: 70vh;
     overflow-y: auto;
-    background: rgba(254, 205, 211, 0.1);
+    background: rgba(253, 164, 175, 0.1);
     backdrop-filter: blur(38px);
-    border-radius: 40px;
+    border-radius: 36px;
     padding: 28px 26px;
-    border: 1px solid rgba(255, 220, 200, 0.45);
-    box-shadow: 0 12px 32px rgba(251, 146, 60, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.5);
+    box-shadow: 0 12px 28px rgba(251, 146, 60, 0.2);
     text-align: center;
 }
 
 .通用弹窗标题 {
     font-size: 18px;
     margin-bottom: 16px;
-    color: #fecdd3;
+    color: #fda4af;
     font-weight: 700;
 }
 
@@ -1256,9 +1298,9 @@
 }
 
 .通用弹窗关闭 {
-    background: rgba(254, 205, 211, 0.2);
-    border: 1px solid rgba(255, 220, 200, 0.4);
-    border-radius: 44px;
+    background: rgba(253, 164, 175, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.45);
+    border-radius: 40px;
     padding: 12px 28px;
     color: white;
     cursor: pointer;
@@ -1273,26 +1315,6 @@
     transform: scale(0.98);
 }
 
-/* ========== 禁用复制 ========== */
-body {
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
-}
-
-/* 允许输入框和教程弹窗复制 */
-.输入弹窗输入框,
-.帮助弹窗正文,
-.远程地址输入,
-.端口输入,
-.十六进制输入,
-.密码输入,
-.关于弹窗正文,
-#输出框 {
-    user-select: text;
-    -webkit-user-select: text;
-}
-
 /* ========== 更新日志弹窗 ========== */
 .更新日志弹窗 {
     position: fixed;
@@ -1301,7 +1323,7 @@ body {
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(14px);
     z-index: 50002;
     display: flex;
     align-items: center;
@@ -1321,19 +1343,19 @@ body {
     max-width: 380px;
     max-height: 80vh;
     overflow-y: auto;
-    background: rgba(254, 205, 211, 0.1);
+    background: rgba(253, 164, 175, 0.1);
     backdrop-filter: blur(38px);
-    border-radius: 40px;
+    border-radius: 36px;
     padding: 24px;
-    border: 1px solid rgba(255, 220, 200, 0.45);
-    box-shadow: 0 12px 32px rgba(251, 146, 60, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.5);
+    box-shadow: 0 12px 28px rgba(251, 146, 60, 0.2);
 }
 
 .更新日志弹窗标题 {
     font-size: 20px;
     margin-bottom: 18px;
     text-align: center;
-    color: #fecdd3;
+    color: #fda4af;
     font-weight: 700;
 }
 
@@ -1349,14 +1371,14 @@ body {
 .更新日志弹窗加载中 {
     text-align: center;
     padding: 40px;
-    color: rgba(254, 205, 211, 0.8);
+    color: rgba(253, 164, 175, 0.8);
     font-size: 14px;
 }
 
 .更新日志弹窗关闭 {
-    background: rgba(254, 205, 211, 0.2);
-    border: 1px solid rgba(255, 220, 200, 0.4);
-    border-radius: 44px;
+    background: rgba(253, 164, 175, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.45);
+    border-radius: 40px;
     padding: 10px 28px;
     color: white;
     cursor: pointer;
@@ -1370,33 +1392,6 @@ body {
     transform: scale(0.97);
 }
 
-/* 主题底部栏 */
-.主题-底部栏 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.主题-兼容标签 {
-    font-size: 11px;
-    padding: 4px 10px;
-    border-radius: 14px;
-    font-weight: normal;
-}
-
-.主题-兼容标签.标签兼容 {
-    color: #fecdd3;
-    background: rgba(254, 205, 211, 0.2);
-    border: 1px solid rgba(254, 205, 211, 0.4);
-}
-
-.主题-兼容标签.标签不兼容 {
-    color: #fb923c;
-    background: rgba(251, 146, 60, 0.2);
-    border: 1px solid rgba(251, 146, 60, 0.4);
-}
-
 /* ========== 主题商店弹窗 ========== */
 .主题商店弹窗 {
     position: fixed;
@@ -1405,7 +1400,7 @@ body {
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(14px);
     z-index: 50003;
     display: flex;
     align-items: center;
@@ -1425,19 +1420,19 @@ body {
     max-width: 400px;
     max-height: 80vh;
     overflow-y: auto;
-    background: rgba(254, 205, 211, 0.1);
+    background: rgba(253, 164, 175, 0.1);
     backdrop-filter: blur(38px);
-    border-radius: 40px;
+    border-radius: 36px;
     padding: 24px;
-    border: 1px solid rgba(255, 220, 200, 0.45);
-    box-shadow: 0 12px 32px rgba(251, 146, 60, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.5);
+    box-shadow: 0 12px 28px rgba(251, 146, 60, 0.2);
 }
 
 .主题商店弹窗标题 {
     font-size: 20px;
     margin-bottom: 18px;
     text-align: center;
-    color: #fecdd3;
+    color: #fda4af;
     font-weight: 700;
 }
 
@@ -1449,8 +1444,8 @@ body {
 }
 
 .主题卡片 {
-    background: rgba(254, 205, 211, 0.14);
-    border: 1px solid rgba(254, 205, 211, 0.35);
+    background: rgba(253, 164, 175, 0.14);
+    border: 1px solid rgba(253, 164, 175, 0.4);
     border-radius: 32px;
     padding: 14px;
     transition: all 0.2s;
@@ -1478,7 +1473,7 @@ body {
 .主题版本 {
     font-size: 11px;
     color: rgba(255, 245, 235, 0.7);
-    background: rgba(254, 205, 211, 0.3);
+    background: rgba(253, 164, 175, 0.3);
     padding: 3px 10px;
     border-radius: 22px;
 }
@@ -1493,7 +1488,7 @@ body {
 }
 
 .主题-类型 {
-    color: #fecdd3;
+    color: #fda4af;
 }
 
 .主题-作者 {
@@ -1505,8 +1500,8 @@ body {
 }
 
 .主题操作按钮 {
-    background: rgba(254, 205, 211, 0.32);
-    border: 1px solid rgba(254, 205, 211, 0.6);
+    background: rgba(253, 164, 175, 0.32);
+    border: 1px solid rgba(253, 164, 175, 0.6);
     border-radius: 32px;
     padding: 6px 20px;
     color: white;
@@ -1534,7 +1529,7 @@ body {
 .进度条 {
     width: 100%;
     height: 4px;
-    background: rgba(254, 205, 211, 0.35);
+    background: rgba(253, 164, 175, 0.35);
     border-radius: 4px;
     overflow: hidden;
 }
@@ -1542,13 +1537,13 @@ body {
 .进度条填充 {
     width: 0%;
     height: 100%;
-    background: linear-gradient(90deg, #fecdd3, #fb923c);
+    background: linear-gradient(90deg, #fda4af, #fb923c);
     transition: width 0.3s;
 }
 
 .进度条文字 {
     font-size: 10px;
-    color: rgba(254, 205, 211, 0.8);
+    color: rgba(253, 164, 175, 0.8);
     text-align: center;
     margin-top: 6px;
 }
@@ -1556,7 +1551,7 @@ body {
 .正在加载中 {
     text-align: center;
     padding: 40px;
-    color: rgba(254, 205, 211, 0.8);
+    color: rgba(253, 164, 175, 0.8);
     font-size: 14px;
 }
 
@@ -1569,8 +1564,8 @@ body {
 }
 
 .主题-兼容信息.兼容 {
-    color: #fecdd3;
-    background: rgba(254, 205, 211, 0.12);
+    color: #fda4af;
+    background: rgba(253, 164, 175, 0.12);
 }
 
 .主题-兼容信息.不兼容 {
@@ -1600,7 +1595,7 @@ body {
 }
 
 .强制装载链接:active {
-    color: #fecdd3;
+    color: #fda4af;
 }
 
 /* 服务请求弹窗 */
@@ -1611,7 +1606,7 @@ body {
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(14px);
     z-index: 49999;
     display: flex;
     align-items: center;
@@ -1631,18 +1626,18 @@ body {
     max-width: 450px;
     max-height: 80vh;
     overflow-y: auto;
-    background: rgba(254, 205, 211, 0.1);
+    background: rgba(253, 164, 175, 0.1);
     backdrop-filter: blur(38px);
     border-radius: 32px;
     padding: 20px;
-    border: 1px solid rgba(255, 220, 200, 0.45);
+    border: 1px solid rgba(253, 164, 175, 0.5);
 }
 
 .服务请求弹窗标题 {
     font-size: 18px;
     margin-bottom: 16px;
     text-align: center;
-    color: #fecdd3;
+    color: #fda4af;
     font-weight: bold;
 }
 
@@ -1652,7 +1647,7 @@ body {
 }
 
 .请求配置项 {
-    background: rgba(255, 220, 200, 0.05);
+    background: rgba(253, 164, 175, 0.06);
     border-radius: 20px;
     padding: 12px;
     margin: 12px 0;
@@ -1682,25 +1677,25 @@ body {
 
 .配置输入框小 {
     width: 50px;
-    background: rgba(254, 205, 211, 0.14);
-    border: 1px solid rgba(254, 205, 211, 0.45);
+    background: rgba(253, 164, 175, 0.14);
+    border: 1px solid rgba(253, 164, 175, 0.5);
     border-radius: 12px;
     padding: 4px 8px;
-    color: white;
+    color: #fff5e6;
     text-align: center;
 }
 
 .配置输入框 {
-    background: rgba(254, 205, 211, 0.14);
-    border: 1px solid rgba(254, 205, 211, 0.45);
+    background: rgba(253, 164, 175, 0.14);
+    border: 1px solid rgba(253, 164, 175, 0.5);
     border-radius: 12px;
     padding: 8px 12px;
-    color: white;
+    color: #fff5e6;
 }
 
 .配置按钮小 {
-    background: rgba(254, 205, 211, 0.2);
-    border: 1px solid rgba(255, 220, 200, 0.4);
+    background: rgba(253, 164, 175, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.45);
     border-radius: 28px;
     padding: 4px 14px;
     color: white;
@@ -1713,7 +1708,7 @@ body {
 }
 
 .Token配置区域 {
-    background: rgba(255, 220, 200, 0.05);
+    background: rgba(253, 164, 175, 0.06);
     border-radius: 20px;
     padding: 12px;
     margin-top: 12px;
@@ -1726,15 +1721,15 @@ body {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: rgba(254, 205, 211, 0.2);
-    color: #fecdd3;
+    background: rgba(253, 164, 175, 0.2);
+    color: #fda4af;
     font-size: 11px;
     cursor: pointer;
 }
 
 .服务请求弹窗按钮 {
-    background: rgba(254, 205, 211, 0.2);
-    border: 1px solid rgba(255, 220, 200, 0.4);
+    background: rgba(253, 164, 175, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.45);
     border-radius: 28px;
     padding: 8px 18px;
     color: white;
@@ -1751,4 +1746,31 @@ body {
     justify-content: center;
     gap: 12px;
     margin-top: 20px;
+}
+
+/* 主题底部栏 */
+.主题-底部栏 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.主题-兼容标签 {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-weight: normal;
+}
+
+.主题-兼容标签.标签兼容 {
+    color: #fda4af;
+    background: rgba(253, 164, 175, 0.2);
+    border: 1px solid rgba(253, 164, 175, 0.45);
+}
+
+.主题-兼容标签.标签不兼容 {
+    color: #fb923c;
+    background: rgba(251, 146, 60, 0.2);
+    border: 1px solid rgba(251, 146, 60, 0.45);
 }
