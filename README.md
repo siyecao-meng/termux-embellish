@@ -40,6 +40,7 @@ xiezai 卸载全部
 
 前往 Releases 下载对应平台安装包。
 
+[📦 点此下载](https://github.com/siyecao-meng/termux-embellish/releases)
 ---
 
 👤 作者
