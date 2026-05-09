@@ -145,3 +145,6 @@ flowchart TD
 本项目基于 MIT License 发布。
 
 商用、二次创作、二次转载需标明原作者。
+
+---
+[English](https://github.com/siyecao-meng/termux-embellish/blob/main/English.md)
