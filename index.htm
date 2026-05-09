@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+        <title>Termux:Embellish</title>
+        <link type="text/css" href="res/css/index.css" rel="stylesheet"/>
+        <!-- 预设字体链接（Google Fonts） -->
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    </head>
+<body>
+<img class="a" id="背景图片" src="res/2.jpg" alt="图片未找到">
+<div id="输出框容器" style="width: 95vw; height: 100vh; position: fixed; top: 0; left: 0; z-index: 0; overflow-y: auto;">
+  <div id="输出框内容区" style="min-height: 100%; padding: 20px; box-sizing: border-box;">
+    <textarea id="输出框" class="b" maxlength="10000000" style="height: auto; min-height: 100vh; overflow: hidden;"></textarea>
+  </div>
+</div>
+
+<div class="底部按钮栏">
+    
+    <button id="设置">设置</button>
+    <button id="键盘按钮">键盘</button>
+    <button id="会话">会话</button>
+</div>
+
+<div class="遮罩层" id="遮罩层"></div>
+
+<!-- 设置面板 -->
+<div class="设置面板" id="设置面板">
+    <div class="设置内容">
+        <div class="设置选项">
+            <label>
+                <span>背景图片路径</span>
+                <input type="text" id="背景图片路径" placeholder="输入图片路径" value="res/2.jpg" style="width: 70%;">
+            </label>
+            <button id="应用背景图片">应用</button>
+            <button id="重置背景图片">重置</button>
+        </div>
+        <div class="设置选项">
+            <span style="display: block; margin-bottom: 10px;">自定义主题</span>
+            <div style="display: flex; gap: 0px; flex-wrap: wrap;">
+                <button id="打开背景颜色选择器" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 12px 20px; color: white; cursor: pointer;">背景颜色</button>
+                <button id="打开字体颜色选择器" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 12px 20px; color: white; cursor: pointer;">字体颜色</button>
+                <button id="打开字体选择器" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 12px 20px; color: white; cursor: pointer;">字体选择</button>
+            </div>
+            <div style="margin-top: 15px; display: flex; gap: 15px;">
+                <button id="应用主题">应用主题</button>
+                <button id="重置主题">重置默认</button>
+            </div>
+        </div>
+        <div class="设置选项">
+            <span style="display: block; margin-bottom: 10px;">终端操作</span>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.5);">
+                双指缩放可调整终端字体大小
+            </div>
+        </div>
+        <div class="设置选项">
+    <span style="display: block; margin-bottom: 10px;">关于</span>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <button id="高级按钮" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">高级</button>
+        <button id="关于按钮" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">关于</button>
+        <button id="语言切换按钮" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">中文</button>
+    </div>
+</div>
+<div class="设置选项">
+    <span style="display: block; margin-bottom: 10px;">更多</span>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <button id="更新日志按钮" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">更新日志</button>
+         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <button id="主题商店" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">主题商店</button>
+        <button id="服务请求设置" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">服务</button>
+    </div>
+</div>
+        </div>
+    </div>
+</div>
+
+<!-- 颜色选择器弹窗（背景颜色） -->
+<div class="颜色弹窗" id="背景颜色弹窗">
+    <div class="颜色弹窗内容">
+        <div class="颜色弹窗标题">背景预设</div>
+        <div class="颜色选项区域">
+            <div class="颜色选项标题">预设颜色</div>
+            <div class="颜色网格" id="预设颜色网格"></div>
+        </div>
+        <div class="颜色选项区域">
+            <div class="颜色选项标题">预设图片</div>
+            <div class="颜色网格" id="预设图片网格"></div>
+        </div>
+        <div class="颜色选项区域">
+            <div class="颜色选项标题">十六进制颜色</div>
+            <input type="text" id="十六进制输入" class="十六进制输入" placeholder="#RRGGBB 例如 #ff0000">
+        </div>
+        <button id="确认背景颜色" class="弹窗按钮">确认选择</button>
+    </div>
+</div>
+
+<!-- 颜色选择器弹窗（字体颜色） -->
+<div class="颜色弹窗" id="字体颜色弹窗">
+    <div class="颜色弹窗内容">
+        <div class="颜色弹窗标题">字体预设</div>
+        <div class="颜色选项区域">
+            <div class="颜色选项标题">预设颜色</div>
+            <div class="颜色网格" id="字体预设颜色网格"></div>
+        </div>
+        <div class="颜色选项区域">
+            <div class="颜色选项标题">十六进制颜色</div>
+            <input type="text" id="字体十六进制输入" class="十六进制输入" placeholder="#RRGGBB 例如 #00ff00">
+        </div>
+        <button id="确认字体颜色" class="弹窗按钮">确认选择</button>
+    </div>
+</div>
+
+<!-- 字体选择器弹窗 -->
+<div class="字体弹窗" id="字体弹窗">
+    <div class="字体弹窗内容">
+        <div class="颜色弹窗标题">字体选择</div>
+        <div class="颜色选项区域">
+            <div class="颜色选项标题">预设字体</div>
+            <div id="预设字体列表" class="字体列表"></div>
+        </div>
+        <div class="颜色选项区域">
+            <div class="颜色选项标题">字体链接/路径</div>
+            <input type="text" id="自定义字体输入" class="十六进制输入" placeholder="字体链接 或 文件路径">
+            <button id="应用自定义字体" class="弹窗按钮" style="margin-top: 10px;">应用字体</button>
+        </div>
+        <button id="关闭字体弹窗" class="弹窗按钮">关闭</button>
+    </div>
+</div>
+
+<!-- 自定义输入弹窗 -->
+<div class="输入弹窗" id="输入弹窗">
+    <div class="输入弹窗内容">
+        <div class="输入弹窗标题" id="输入弹窗标题">输入会话名称</div>
+        <input type="text" id="输入弹窗输入框" class="输入弹窗输入框" placeholder="例如: 我的会话" autocomplete="off">
+        <div class="输入弹窗按钮区域">
+            <div class="输入弹窗按钮" id="输入弹窗取消">取消</div>
+            <div class="输入弹窗按钮 确认" id="输入弹窗确认">确认</div>
+        </div>
+    </div>
+</div>
+
+<!-- 欢迎弹窗 -->
+<div class="欢迎弹窗" id="欢迎弹窗">
+    <div class="欢迎弹窗内容">
+        <div class="欢迎弹窗标题">Termux:Embellish</div>
+        <div class="欢迎弹窗版本">版本 1.0.2</div>
+        <div class="欢迎弹窗正文">
+            Termux 服务连接成功<br><br>
+            <strong>Termux:Embellish</strong><br>
+            一个强大的终端美化与管理工具<br><br>
+            自定义背景 / 颜色 / 字体<br>
+            双指缩放字体大小<br>
+            会话管理（切换 / 添加 / 删除）<br>
+            虚拟键盘支持 (Ctrl / Alt / Esc / Tab / 方向键)<br>
+            WebSocket 连接 Termux 服务器<br>
+            远程连接支持 (Cloudflare Tunnel)<br>
+            Shizuku 保活 / 开机自启 / 桌面快捷方式<br>
+        </div>
+        <div class="欢迎弹窗免责">
+    免责声明<br><br>
+    本软件仅供学习交流使用。<br>
+    使用本软件产生的任何后果由使用者自行承担。<br>
+    本软件不收集、不存储、不上传任何用户数据。<br>
+    禁止将本软件用于任何违法违规用途。<br>
+    商用、二次创作、二次转载需标明原作者。<br><br>
+    作者: 四叶草<br>
+    小红书: 5331041368<br>
+    B站: 3706970185927059<br><br>
+    <span style="font-size: 10px; color: rgba(255,255,255,0.4);">
+        本项目基于 MIT 许可协议发布
+    </span>
+</div>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- 高级弹窗 -->
+<div class="高级弹窗" id="高级弹窗">
+    <div class="高级弹窗内容">
+        <div class="高级弹窗标题">高级设置</div>
+        <div class="高级选项列表">
+            
+<!-- 1. 远程连接地址 -->
+<div class="高级选项">
+    <div class="高级选项行">
+        <span class="高级选项标签">远程连接地址</span>
+        <span class="高级选项帮助" data-help="remote-addr">?</span>
+    </div>
+    <div style="display:flex; gap:8px; margin-top:8px; width:100%;">
+        <input type="text" id="远程地址输入" class="端口输入" value="ws://127.0.0.1:8081" placeholder="ws://IP:端口 或 wss://域名">
+        <button id="应用远程地址" class="端口确定">连接</button>
+    </div>
+    <div class="当前地址" style="margin-top:6px;">
+        当前地址: <span id="当前服务地址">ws://127.0.0.1:8081</span>
+    </div>
+</div>
+           
+            <!-- 3. 服务器脚本重置 -->
+     <div class="高级选项">
+    <div class="高级选项行">
+        <span class="高级选项标签">服务器脚本重置</span>
+        <span class="高级选项帮助" data-help="reset">?</span>
+    </div>
+    <button id="重置脚本按钮" class="重置按钮">
+        <span class="重置按钮文字">重置</span>
+        <span class="重置按钮图标" style="display:none;"></span>
+    </button>
+</div>
+            
+            <!-- 4. 本地服务保活 -->
+            <div class="高级选项">
+                <div class="高级选项行">
+                    <span class="高级选项标签">Termux 本地服务保活</span>
+                    <span class="高级选项帮助" data-help="keepalive">?</span>
+                </div>
+                <span class="高级选项链接" id="保活教程">教程</span>
+            </div>
+            
+            <!-- 5. 远程服务连接 -->
+            <div class="高级选项">
+                <div class="高级选项行">
+                    <span class="高级选项标签">Termux 远程服务连接</span>
+                    <span class="高级选项帮助" data-help="remote-connect">?</span>
+                </div>
+                <span class="高级选项链接" id="远程教程">教程</span>
+            </div>
+            
+            <!-- 6. 开机自启 -->
+            <div class="高级选项">
+                <div class="高级选项行">
+                    <span class="高级选项标签">Termux 开机自启服务</span>
+                    <span class="高级选项帮助" data-help="autostart">?</span>
+                </div>
+                <span class="高级选项链接" id="自启教程">教程</span>
+            </div>
+            
+        </div>
+        <div class="高级弹窗关闭" id="关闭高级弹窗">关闭</div>
+    </div>
+</div>
+
+<!-- 帮助说明弹窗 -->
+<div class="帮助弹窗" id="帮助弹窗">
+    <div class="帮助弹窗内容">
+        <div class="帮助弹窗标题" id="帮助弹窗标题">功能说明</div>
+        <div class="帮助弹窗正文" id="帮助弹窗正文"></div>
+        <button class="弹窗按钮" id="关闭帮助弹窗">知道了</button>
+    </div>
+</div>
+
+<!-- 关于弹窗 -->
+<div class="关于弹窗" id="关于弹窗">
+    <div class="关于弹窗内容">
+        <div class="关于弹窗标题">关于</div>
+        <div class="关于弹窗正文">
+            Termux:Embellish<br>
+            版本 1.0.2<br><br>
+            作者：四叶草<br><br>
+            小红书: 5331041368<br>
+            B站: 3706970185927059
+        </div>
+        <div class="关于弹窗版本">
+            <span class="关于弹窗版本标签">检查更新</span>
+            <span class="关于弹窗版本号" id="检查更新状态">最新版本</span>
+        </div>
+        <div class="关于弹窗关闭" id="关闭关于弹窗">关闭</div>
+    </div>
+</div>
+
+<!-- 键盘抽屉 -->
+<div class="键盘抽屉" id="键盘抽屉">
+    <div class="键盘抽屉内容">
+        <div class="键盘行">
+            <button class="键位 功能键" data-key="ESC">Esc</button>
+            <button class="键位" data-key="1">1</button>
+            <button class="键位" data-key="2">2</button>
+            <button class="键位" data-key="3">3</button>
+            <button class="键位" data-key="4">4</button>
+            <button class="键位" data-key="5">5</button>
+            <button class="键位" data-key="6">6</button>
+            <button class="键位" data-key="7">7</button>
+            <button class="键位" data-key="8">8</button>
+            <button class="键位" data-key="9">9</button>
+            <button class="键位" data-key="0">0</button>
+            <button class="键位 功能键" data-key="BACKSPACE">⌫</button>
+        </div>
+        <div class="键盘行">
+            <button class="键位 功能键" data-key="TAB">Tab</button>
+            <button class="键位" data-key="q">q</button>
+            <button class="键位" data-key="w">w</button>
+            <button class="键位" data-key="e">e</button>
+            <button class="键位" data-key="r">r</button>
+            <button class="键位" data-key="t">t</button>
+            <button class="键位" data-key="y">y</button>
+            <button class="键位" data-key="u">u</button>
+            <button class="键位" data-key="i">i</button>
+            <button class="键位" data-key="o">o</button>
+            <button class="键位" data-key="p">p</button>
+            <button class="键位 功能键" data-key="ENTER">⏎</button>
+        </div>
+        <div class="键盘行">
+            <button class="键位 功能键 修饰键" data-key="CTRL">Ctrl</button>
+            <button class="键位" data-key="a">a</button>
+            <button class="键位" data-key="s">s</button>
+            <button class="键位" data-key="d">d</button>
+            <button class="键位" data-key="f">f</button>
+            <button class="键位" data-key="g">g</button>
+            <button class="键位" data-key="h">h</button>
+            <button class="键位" data-key="j">j</button>
+            <button class="键位" data-key="k">k</button>
+            <button class="键位" data-key="l">l</button>
+            <button class="键位 功能键 修饰键" data-key="ALT">Alt</button>
+        </div>
+        <div class="键盘行">
+            <button class="键位 功能键" data-key="UP">↑</button>
+            <button class="键位" data-key="z">z</button>
+            <button class="键位" data-key="x">x</button>
+            <button class="键位" data-key="c">c</button>
+            <button class="键位" data-key="v">v</button>
+            <button class="键位" data-key="b">b</button>
+            <button class="键位" data-key="n">n</button>
+            <button class="键位" data-key="m">m</button>
+            <button class="键位 功能键" data-key="LEFT">←</button>
+            <button class="键位 功能键" data-key="DOWN">↓</button>
+            <button class="键位 功能键" data-key="RIGHT">→</button>
+        </div>
+        <div class="键盘行">
+            <button class="键位 功能键" data-key="HOME">Home</button>
+            <button class="键位 功能键" data-key="END">End</button>
+            <button class="键位 空格键" data-key=" ">Space</button>
+            <button class="键位" data-key="-">-</button>
+            <button class="键位" data-key="/">/</button>
+            <button class="键位" data-key=".">.</button>
+            <button class="键位 功能键" data-key="HIDE">▼</button>
+        </div>
+    </div>
+</div>
+<div class="键盘遮罩" id="键盘遮罩"></div>
+
+<div class="抽屉" id="抽屉">
+    <div class="抽屉内容">
+        <div class="抽屉标题">会话列表</div>
+        <ul class="会话列表" id="会话列表">
+        </ul>
+        <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <button id="添加会话按钮" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 16px; color: white; cursor: pointer; width: 100%;">
+                添加会话
+            </button>
+        </div>
+        <div style="margin-top: 12px; font-size: 12px; color: rgba(255,255,255,0.4); text-align: center;">
+            共 <span id="会话数量">0</span> 个会话
+        </div>
+    </div>
+</div>
+
+<!-- 自定义确认弹窗 -->
+<div class="确认弹窗" id="确认弹窗">
+    <div class="确认弹窗内容">
+        <div class="确认弹窗标题">确认删除</div>
+        <div class="确认弹窗消息" id="确认弹窗消息">确定要删除这个会话吗？</div>
+        <div class="确认弹窗按钮区域">
+            <div class="确认弹窗按钮 取消" id="确认弹窗取消">取消</div>
+            <div class="确认弹窗按钮 确认" id="确认弹窗确认">删除</div>
+        </div>
+    </div>
+</div>
+<!-- 更新日志弹窗 -->
+<div class="更新日志弹窗" id="更新日志弹窗">
+    <div class="更新日志弹窗内容">
+        <div class="更新日志弹窗标题">更新日志</div>
+        <div class="更新日志弹窗正文" id="更新日志弹窗正文">
+            <div class="更新日志弹窗加载中">加载中...</div>
+        </div>
+        <div class="更新日志弹窗关闭" id="关闭更新日志弹窗">关闭</div>
+    </div>
+</div>
+<!-- 主题商店弹窗 -->
+<div class="主题商店弹窗" id="主题商店弹窗">
+    <div class="主题商店弹窗内容">
+        <div class="主题商店弹窗标题">主题商店</div>
+        <div id="主题列表容器" class="主题列表">
+            <div class="正在加载中">加载主题中...</div>
+        </div>
+        <div class="更新日志弹窗关闭" id="关闭主题商店弹窗">关闭</div>
+    </div>
+</div>
+<!-- 服务请求设置弹窗 -->
+<div class="服务请求弹窗" id="服务请求弹窗">
+    <div class="服务请求弹窗内容">
+        <div class="服务请求弹窗标题">服务请求</div>
+        <div class="服务请求弹窗正文">
+            <div style="font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 16px;">
+                由于 GitHub 的无登录 API 请求限制（60次/小时），更新日志、主题商店、版本检查等功能可能受限。
+                <br>配置 Token 后可提升至 5000次/小时。
+            </div>
+            
+            <div class="请求配置项">
+                <div class="配置行">
+                    <span class="配置标签">统计:</span>
+                    <div class="配置控件">
+                        <span>目前已请求 </span>
+                        <span id="当前请求次数">0</span>
+                        <span> 次</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="Token配置区域">
+                <div class="配置行">
+                    <span class="配置标签">Token:</span>
+                    <div class="配置控件">
+                        <span id="Token状态标签">未配置</span>
+                        <button id="配置Token按钮" class="配置按钮小">配置 Token</button>
+                        <span class="帮助图标" data-help-token>?</span>
+                    </div>
+                </div>
+                <div id="Token输入区域" style="display: none; margin-top: 12px;">
+                    <input type="password" id="Token输入框" class="配置输入框" placeholder="输入 GitHub Personal Access Token" style="width: 70%;">
+                    <button id="保存Token按钮" class="配置按钮小">保存</button>
+                    <button id="清除Token按钮" class="配置按钮小">清除</button>
+                </div>
+                <div id="Token状态提示" style="font-size: 11px; color: #888; margin-top: 8px;"></div>
+            </div>
+            
+            <div class="弹窗按钮区域" style="margin-top: 20px;">
+                <button id="关闭服务请求弹窗" class="服务请求弹窗按钮">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="res/js/language.js"></script>
+        <script src="res/js/index.js"></script>
+    </body>
+</html>
