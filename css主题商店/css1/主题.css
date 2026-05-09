@@ -1,23 +1,28 @@
 /* ============================================
-   奶油紫罗兰主题 - 蓝紫色奶油风格
-   CSS 3D 凸起效果 | 现代化简洁设计
+   奶油紫罗兰主题 v2 - 蓝紫色奶油风格
+   CSS 3D 凸起效果 | 无多余遮罩渲染
    ============================================ */
 
-/* ---------- 全局背景 ---------- */
+/* ---------- 全局基础 ---------- */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
 body {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
     min-height: 100vh;
 }
 
+/* 背景图片淡化（不遮挡内容） */
 .a#背景图片 {
-    opacity: 0.3;
-    filter: blur(2px) brightness(0.7);
+    opacity: 0.2;
+    filter: brightness(0.6) blur(1px);
 }
 
 /* ---------- 终端输出框 ---------- */
 .b#输出框 {
-    background: rgba(30, 25, 55, 0.65) !important;
-    backdrop-filter: blur(12px);
+    background: rgba(30, 25, 55, 0.7) !important;
+    backdrop-filter: blur(16px);
     border-radius: 28px !important;
     margin: 12px !important;
     width: calc(100vw - 24px) !important;
@@ -26,143 +31,208 @@ body {
     font-family: 'SF Mono', 'Roboto Mono', 'Fira Code', monospace !important;
     font-size: 14px !important;
     color: #f0e6ff !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     box-shadow: 
-        8px 8px 16px rgba(0, 0, 0, 0.25),
-        inset 1px 1px 0px rgba(255, 255, 255, 0.1),
-        inset -1px -1px 0px rgba(0, 0, 0, 0.1);
+        8px 10px 20px rgba(0, 0, 0, 0.3),
+        inset 1px 1px 0px rgba(255, 255, 255, 0.08),
+        inset -1px -1px 0px rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(200, 180, 255, 0.2) !important;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
 }
 
-/* 3D 凸起 - 聚焦效果 */
 .b#输出框:focus {
     box-shadow: 
-        4px 4px 12px rgba(0, 0, 0, 0.3),
-        inset 0px 0px 0px rgba(255, 255, 255, 0.1);
+        4px 5px 12px rgba(0, 0, 0, 0.35),
+        inset 1px 1px 0px rgba(255, 255, 255, 0.05);
     transform: translateY(1px);
 }
 
-/* 滚动条美化 */
+/* 滚动条 */
 .b#输出框::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
 }
 .b#输出框::-webkit-scrollbar-track {
-    background: rgba(50, 40, 70, 0.5);
+    background: rgba(50, 40, 70, 0.4);
     border-radius: 10px;
 }
 .b#输出框::-webkit-scrollbar-thumb {
     background: linear-gradient(135deg, #a885ff, #7b5dd6);
     border-radius: 10px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
 }
 
 /* ---------- 底部按钮栏 ---------- */
 .底部按钮栏 {
-    background: rgba(35, 30, 55, 0.7) !important;
+    background: rgba(35, 30, 55, 0.8) !important;
     backdrop-filter: blur(20px);
     border-radius: 32px 32px 0 0 !important;
     padding: 10px 20px !important;
     gap: 14px !important;
-    border-top: 1px solid rgba(200, 180, 255, 0.25);
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(200, 180, 255, 0.3);
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .底部按钮栏 button {
-    background: linear-gradient(145deg, #3d2e6b, #2a1f4a) !important;
+    background: linear-gradient(145deg, #42336b, #2c214f) !important;
     border: none !important;
     border-radius: 40px !important;
     color: #e8ddff !important;
     font-size: 14px !important;
     font-weight: 500 !important;
-    padding: 8px 22px !important;
+    padding: 8px 24px !important;
     cursor: pointer;
     box-shadow: 
-        4px 5px 8px rgba(0, 0, 0, 0.25),
+        5px 6px 10px rgba(0, 0, 0, 0.28),
         inset -1px -1px 0px rgba(0, 0, 0, 0.2),
-        inset 1px 1px 0px rgba(255, 255, 255, 0.15);
-    transition: all 0.1s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        inset 1px 1px 0px rgba(255, 255, 255, 0.12);
+    transition: all 0.08s linear;
     letter-spacing: 0.5px;
 }
 
 .底部按钮栏 button:active {
     transform: translateY(2px);
     box-shadow: 
-        2px 3px 6px rgba(0, 0, 0, 0.3),
+        2px 3px 7px rgba(0, 0, 0, 0.32),
+        inset 1px 1px 0px rgba(255, 255, 255, 0.08);
+}
+
+/* ---------- 键盘抽屉（无额外遮罩干扰） ---------- */
+.键盘抽屉 {
+    background: rgba(30, 26, 52, 0.92) !important;
+    backdrop-filter: blur(24px);
+    border-radius: 36px 36px 0 0 !important;
+    border-top: 1px solid rgba(200, 180, 255, 0.35);
+    padding: 14px 12px 22px !important;
+    box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* 键盘遮罩 - 完全透明无渲染 */
+.键盘遮罩 {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* 键盘遮罩显示时依然透明 */
+.键盘遮罩.显示 {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* 键位 - 3D 凸起核心 */
+.键位 {
+    background: linear-gradient(145deg, #4e3f7e, #34285a) !important;
+    border: none !important;
+    border-radius: 18px !important;
+    color: #f5edff !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    height: 46px !important;
+    box-shadow: 
+        6px 7px 12px rgba(0, 0, 0, 0.35),
+        inset -2px -2px 0px rgba(0, 0, 0, 0.2),
+        inset 2px 2px 0px rgba(255, 255, 255, 0.18);
+    transition: all 0.05s linear;
+    font-family: 'SF Pro Text', system-ui, sans-serif;
+}
+
+/* 按下沉效果 */
+.键位:active {
+    transform: translateY(3px) scale(0.97);
+    box-shadow: 
+        2px 3px 7px rgba(0, 0, 0, 0.4),
+        inset -1px -1px 0px rgba(0, 0, 0, 0.15),
         inset 1px 1px 0px rgba(255, 255, 255, 0.1);
+}
+
+/* 功能键区域 */
+.功能键 {
+    background: linear-gradient(145deg, #6555a5, #40306e) !important;
+    font-size: 12px !important;
+}
+
+/* 空格键 */
+.空格键 {
+    background: linear-gradient(145deg, #5e4da3, #3e2d6c) !important;
+    box-shadow: 
+        7px 7px 14px rgba(0, 0, 0, 0.38),
+        inset -2px -2px 0px rgba(0, 0, 0, 0.2),
+        inset 2px 2px 0px rgba(255, 255, 255, 0.2);
+}
+
+/* 修饰键激活 */
+.键位.修饰键.激活 {
+    background: linear-gradient(145deg, #7b64c8, #5a46a0) !important;
+    transform: translateY(2px);
+    box-shadow: 
+        3px 4px 8px rgba(0, 0, 0, 0.4),
+        inset -1px -1px 0px rgba(0, 0, 0, 0.1);
 }
 
 /* ---------- 会话抽屉 ---------- */
 .抽屉 {
-    background: rgba(30, 25, 50, 0.75) !important;
-    backdrop-filter: blur(25px);
-    border-right: 1px solid rgba(200, 180, 255, 0.2);
-}
-
-.抽屉内容 {
-    padding: 20px;
+    background: rgba(28, 24, 48, 0.9) !important;
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(200, 180, 255, 0.25);
 }
 
 .抽屉标题 {
     font-size: 22px;
     font-weight: 600;
     color: #dccdff;
-    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
-    border-bottom: 2px solid rgba(168, 133, 255, 0.4);
+    border-bottom: 2px solid rgba(168, 133, 255, 0.5);
+    padding-bottom: 12px;
 }
 
 .会话列表 li {
-    background: linear-gradient(145deg, #3a2d62, #2a1f4a) !important;
-    border-radius: 18px !important;
+    background: linear-gradient(145deg, #3d3066, #2a1f4d) !important;
+    border-radius: 20px !important;
     margin: 10px 0 !important;
     padding: 12px 18px !important;
     box-shadow: 
-        5px 5px 10px rgba(0, 0, 0, 0.25),
+        5px 6px 11px rgba(0, 0, 0, 0.28),
         inset -1px -1px 0px rgba(0, 0, 0, 0.15),
         inset 1px 1px 0px rgba(255, 255, 255, 0.1);
-    transition: all 0.15s ease;
 }
 
 .会话列表 li:active {
     transform: translateY(2px);
     box-shadow: 
-        3px 3px 8px rgba(0, 0, 0, 0.3),
-        inset 1px 1px 0px rgba(255, 255, 255, 0.08);
+        3px 3px 8px rgba(0, 0, 0, 0.32);
 }
 
 .会话名称 {
-    font-weight: 500;
     color: #efe6ff;
+    font-weight: 500;
 }
 
 .删除会话按钮 {
-    background: rgba(100, 80, 140, 0.5) !important;
+    background: rgba(110, 85, 155, 0.6) !important;
     border-radius: 30px !important;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1), 2px 2px 5px rgba(0,0,0,0.2) !important;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1), 2px 2px 6px rgba(0,0,0,0.2) !important;
 }
 
-.删除会话按钮:active {
-    transform: translateY(1px);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08) !important;
+/* ---------- 遮罩层（会话抽屉背景）透明化 ---------- */
+.遮罩层 {
+    background: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(3px);
 }
 
 /* ---------- 设置面板 ---------- */
 .设置面板 {
-    background: rgba(20, 18, 35, 0.6) !important;
-    backdrop-filter: blur(20px);
-}
-
-.设置内容 {
-    padding: 25px;
+    background: rgba(15, 13, 28, 0.65) !important;
+    backdrop-filter: blur(18px);
 }
 
 .设置选项 {
-    background: rgba(45, 38, 70, 0.5);
+    background: rgba(45, 38, 70, 0.55);
     border-radius: 28px;
     padding: 18px 20px;
     margin-bottom: 18px;
     border: 1px solid rgba(200, 180, 255, 0.15);
-    backdrop-filter: blur(5px);
 }
 
 .设置选项 > span,
@@ -170,102 +240,52 @@ body {
     color: #dccdff;
     font-weight: 600;
     font-size: 16px;
-    margin-bottom: 12px;
 }
 
 .设置选项 input[type="text"] {
-    background: rgba(30, 25, 55, 0.8);
-    border: 1px solid rgba(168, 133, 255, 0.3);
-    border-radius: 20px;
+    background: rgba(30, 25, 55, 0.85);
+    border: 1px solid rgba(168, 133, 255, 0.35);
+    border-radius: 22px;
     padding: 10px 16px;
     color: #f0e6ff;
-    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2), inset -1px -1px 0px rgba(255,255,255,0.05);
+    box-shadow: inset 3px 3px 7px rgba(0,0,0,0.2), inset -1px -1px 0px rgba(255,255,255,0.05);
 }
 
 .设置选项 button {
     background: linear-gradient(145deg, #4a3a7a, #352858) !important;
     border: none !important;
     border-radius: 40px !important;
-    padding: 8px 20px !important;
+    padding: 8px 22px !important;
     color: #efe6ff !important;
     font-weight: 500 !important;
     box-shadow: 
-        4px 5px 8px rgba(0, 0, 0, 0.25),
+        5px 5px 10px rgba(0, 0, 0, 0.28),
         inset -1px -1px 0px rgba(0, 0, 0, 0.15),
         inset 1px 1px 0px rgba(255, 255, 255, 0.12);
-    margin-right: 10px;
-    margin-bottom: 8px;
 }
 
 .设置选项 button:active {
     transform: translateY(2px);
     box-shadow: 
-        2px 3px 6px rgba(0, 0, 0, 0.3),
-        inset 1px 1px 0px rgba(255, 255, 255, 0.08);
+        2px 3px 7px rgba(0, 0, 0, 0.32);
 }
 
-/* ---------- 键盘抽屉 (3D 凸起核心) ---------- */
-.键盘抽屉 {
-    background: rgba(35, 30, 58, 0.85) !important;
-    backdrop-filter: blur(30px);
-    border-radius: 40px 40px 0 0 !important;
-    border-top: 1px solid rgba(200, 180, 255, 0.3);
-    padding: 16px 12px 24px !important;
+/* ---------- 所有弹窗（不含额外遮罩） ---------- */
+.颜色弹窗,
+.字体弹窗,
+.高级弹窗,
+.关于弹窗,
+.欢迎弹窗,
+.确认弹窗,
+.输入弹窗,
+.更新日志弹窗,
+.主题商店弹窗,
+.服务请求弹窗,
+.帮助弹窗 {
+    background: transparent !important;
+    backdrop-filter: none !important;
 }
 
-.键位 {
-    background: linear-gradient(145deg, #4b3c7a, #312553) !important;
-    border: none !important;
-    border-radius: 16px !important;
-    color: #f5edff !important;
-    font-weight: 600 !important;
-    font-size: 14px !important;
-    height: 44px !important;
-    box-shadow: 
-        5px 6px 10px rgba(0, 0, 0, 0.35),
-        inset -2px -2px 0px rgba(0, 0, 0, 0.2),
-        inset 2px 2px 0px rgba(255, 255, 255, 0.18);
-    transition: all 0.05s linear;
-    font-family: 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
-    letter-spacing: 0.3px;
-}
-
-/* 3D 按下效果 —— 下沉 */
-.键位:active {
-    transform: translateY(3px) scale(0.97);
-    box-shadow: 
-        2px 3px 6px rgba(0, 0, 0, 0.4),
-        inset -1px -1px 0px rgba(0, 0, 0, 0.15),
-        inset 1px 1px 0px rgba(255, 255, 255, 0.1);
-}
-
-/* 功能键样式 (Esc, Tab, 方向键等) */
-.功能键 {
-    background: linear-gradient(145deg, #6150a0, #3f2e6a) !important;
-    font-size: 12px !important;
-    font-weight: 600;
-}
-
-/* 空格键特殊宽度 */
-.空格键 {
-    background: linear-gradient(145deg, #5a48a0, #3a2a68) !important;
-    box-shadow: 
-        6px 6px 12px rgba(0, 0, 0, 0.35),
-        inset -2px -2px 0px rgba(0, 0, 0, 0.2),
-        inset 2px 2px 0px rgba(255, 255, 255, 0.2);
-}
-
-/* 修饰键激活状态 (Ctrl/Alt 按下) */
-.键位.修饰键.激活 {
-    background: linear-gradient(145deg, #7b64c8, #5a46a0) !important;
-    transform: translateY(2px);
-    box-shadow: 
-        3px 4px 8px rgba(0, 0, 0, 0.4),
-        inset -1px -1px 0px rgba(0, 0, 0, 0.1),
-        inset 2px 2px 0px rgba(255, 255, 255, 0.2);
-}
-
-/* ---------- 所有弹窗统一 3D 凸起风格 ---------- */
 .颜色弹窗内容,
 .字体弹窗内容,
 .高级弹窗内容,
@@ -277,16 +297,16 @@ body {
 .主题商店弹窗内容,
 .服务请求弹窗内容,
 .帮助弹窗内容 {
-    background: rgba(40, 34, 65, 0.85) !important;
-    backdrop-filter: blur(30px);
-    border: 1px solid rgba(200, 180, 255, 0.25) !important;
-    border-radius: 32px !important;
+    background: rgba(40, 34, 68, 0.92) !important;
+    backdrop-filter: blur(28px);
+    border: 1px solid rgba(200, 180, 255, 0.3) !important;
+    border-radius: 36px !important;
     box-shadow: 
-        12px 12px 24px rgba(0, 0, 0, 0.4),
+        14px 16px 30px rgba(0, 0, 0, 0.45),
         inset 1px 1px 0px rgba(255, 255, 255, 0.08);
 }
 
-/* 弹窗内按钮 */
+/* 弹窗内通用按钮 */
 .弹窗按钮,
 .确认弹窗按钮,
 .输入弹窗按钮,
@@ -299,14 +319,14 @@ body {
 .更新日志弹窗关闭,
 .高级弹窗关闭,
 .关于弹窗关闭 {
-    background: linear-gradient(145deg, #504180, #3a2d62) !important;
+    background: linear-gradient(145deg, #524286, #3c2e66) !important;
     border: none !important;
     border-radius: 36px !important;
-    padding: 10px 22px !important;
-    color: #efe6ff !important;
+    padding: 10px 24px !important;
+    color: #f0e6ff !important;
     font-weight: 500 !important;
     box-shadow: 
-        4px 5px 8px rgba(0, 0, 0, 0.3),
+        5px 6px 11px rgba(0, 0, 0, 0.3),
         inset -1px -1px 0px rgba(0, 0, 0, 0.15),
         inset 1px 1px 0px rgba(255, 255, 255, 0.12);
     transition: all 0.08s linear;
@@ -326,39 +346,32 @@ body {
 .关于弹窗关闭:active {
     transform: translateY(2px);
     box-shadow: 
-        2px 3px 6px rgba(0, 0, 0, 0.35),
-        inset 1px 1px 0px rgba(255, 255, 255, 0.08);
+        2px 3px 7px rgba(0, 0, 0, 0.35);
 }
 
-/* 特殊按钮颜色调整 (删除/确认类) */
+/* 删除确认按钮特殊色 */
 .确认弹窗按钮.确认 {
-    background: linear-gradient(145deg, #b87ac0, #9b5da8) !important;
+    background: linear-gradient(145deg, #c48ace, #a86bb5) !important;
 }
 
-.删除会话按钮 {
-    background: linear-gradient(145deg, #a06e8a, #7d4e6b) !important;
-}
-
-/* ---------- 输入框 3D 凹陷效果 ---------- */
+/* 输入框 3D 内凹效果 */
 .十六进制输入,
 .端口输入,
 .密码输入,
 .配置输入框,
 .Token输入框,
 #自定义字体输入 {
-    background: rgba(25, 20, 45, 0.7) !important;
-    border: 1px solid rgba(168, 133, 255, 0.3) !important;
-    border-radius: 22px !important;
+    background: rgba(25, 20, 48, 0.85) !important;
+    border: 1px solid rgba(168, 133, 255, 0.35) !important;
+    border-radius: 24px !important;
     padding: 12px 18px !important;
     color: #efe6ff !important;
-    box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.25), inset -1px -1px 0px rgba(255, 255, 255, 0.05) !important;
+    box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.3), inset -1px -1px 0px rgba(255, 255, 255, 0.05) !important;
 }
 
-/* ---------- 文本颜色优化 ---------- */
-.设置选项 .终端操作提示,
+/* 文本颜色统一 */
 .设置选项 div,
 .颜色选项标题,
-.设置选项 .配置控件 span,
 .高级选项标签,
 .当前地址,
 .关于弹窗正文,
@@ -369,45 +382,19 @@ body {
 }
 
 .颜色弹窗标题,
-.字体弹窗 .颜色弹窗标题,
 .高级弹窗标题,
 .关于弹窗标题,
 .欢迎弹窗标题,
 .确认弹窗标题,
 .输入弹窗标题 {
     color: #cbb5ff !important;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* ---------- 主题商店卡片 3D 化 ---------- */
+/* 主题卡片 */
 .主题卡片 {
-    background: rgba(45, 38, 70, 0.7) !important;
-    border-radius: 24px !important;
-    padding: 14px !important;
+    background: rgba(48, 40, 75, 0.8) !important;
+    border-radius: 26px !important;
     box-shadow: 
-        5px 5px 12px rgba(0, 0, 0, 0.25),
+        6px 6px 14px rgba(0, 0, 0, 0.3),
         inset 1px 1px 0px rgba(255, 255, 255, 0.08);
-}
-
-.主题卡片:active {
-    transform: translateY(1px);
-    box-shadow: 
-        3px 3px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* ---------- 键盘遮罩 ---------- */
-.键盘遮罩 {
-    background: rgba(10, 8, 20, 0.4) !important;
-    backdrop-filter: blur(4px);
-}
-
-/* ---------- 遮罩层 ---------- */
-.遮罩层.显示 {
-    background: rgba(10, 8, 20, 0.5) !important;
-    backdrop-filter: blur(4px);
-}
-
-/* ---------- 底部按钮栏隐藏时的平滑过渡 ---------- */
-.底部按钮栏.隐藏 {
-    transform: translateY(100%);
 }
