@@ -68,27 +68,34 @@ bash <(curl -sL https://raw.githubusercontent.com/siyecao-meng/termux-embellish/
 ## 🛠️ 它是怎么实现的？
 
 ### 架构概览
+```mermaid
+flowchart TD
+    subgraph Termux["Termux:Embellish"]
+        subgraph Frontend["前端 (index.htm)"]
+            F1["三语言切换"]
+            F2["主题商店"]
+            F3["虚拟键盘"]
+            F4["设置面板"]
+        end
+        
+        subgraph Backend["后端 (server.js)"]
+            B1["Node.js 服务"]
+            B2["WebSocket 服务器"]
+            B3["会话管理"]
+            B4["命令执行"]
+        end
+        
+        Frontend <--|WebSocket|--> Backend
+    end
+    
+    subgraph GitHub["GitHub API"]
+        G1["主题商店获取主题列表"]
+        G2["更新日志获取更新内容"]
+        G3["版本检查"]
+    end
+    
+    Termux --> GitHub
 ```
-
-┌─────────────────────────────────────────────────────────┐
-│                    Termux:Embellish                      │
-├─────────────────────────────────────────────────────────┤
-│  前端 (index.htm)  ←── WebSocket ──→  后端 (server.js)  │
-│  • 三语言切换                        • Node.js 服务      │
-│  • 主题商店                          • WebSocket 服务器  │
-│  • 虚拟键盘                          • 会话管理          │
-│  • 设置面板                          • 命令执行          │
-└─────────────────────────────────────────────────────────┘
-↓
-┌─────────────────────────────────────────────────────────┐
-│                      GitHub API                         │
-│  • 主题商店获取主题列表                                   │
-│  • 更新日志获取更新内容                                   │
-│  • 版本检查                                              │
-└─────────────────────────────────────────────────────────┘
-
-```
-
 ### 技术栈
 
 | 模块 | 技术 |
