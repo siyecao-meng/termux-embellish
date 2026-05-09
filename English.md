@@ -140,8 +140,11 @@ https://raw.githubusercontent.com/siyecao-meng/termux-embellish/main/展示图�
 
 ---
 
-📄 License
 
 This project is released under the MIT License.
 
 Commercial use, modification, and redistribution are allowed, but proper attribution to the original author is required.
+
+---
+
+[中文](https://github.com/siyecao-meng/termux-embellish/blob/main/README.md)
