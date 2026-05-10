@@ -1,0 +1,9 @@
+{
+  "name": "v1.0.2版本兼容补丁",
+  "version": "0.1",
+  "author": "四叶草",
+  "date": "2026-05-10",
+  "type": "官方",
+  "description": "解决 Android 10 以下版本的毛玻璃渲染问题",
+  "compatible": "v1.0.2~v1.0.2"
+}
