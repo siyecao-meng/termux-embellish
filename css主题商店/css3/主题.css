@@ -1,9 +1,10 @@
 /* ============================================
-   v1.0.2 低版本 Android 兼容补丁
-   仅修改弹窗和面板，不动终端输出框
+   v1.0.2 低版本 Android 兼容补丁 v0.3
+   解决 Android 10 以下版本的毛玻璃渲染问题
+   仅修改弹窗样式，不动终端核心区域
    ============================================ */
 
-/* ========== 1. 移除所有毛玻璃，改用纯色背景 ========== */
+/* 1. 移除所有毛玻璃效果，改用纯色背景（黑色系） */
 .设置面板,
 .颜色弹窗,
 .字体弹窗,
@@ -18,35 +19,18 @@
 .确认弹窗,
 .通用弹窗,
 .键盘抽屉,
-.抽屉,
-.底部按钮栏 {
+.抽屉 {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+    background: #1a1a2e !important;  /* 深蓝黑背景 */
 }
 
-/* ========== 2. 弹窗背景（深色） ========== */
-.设置面板,
-.颜色弹窗,
-.字体弹窗,
-.输入弹窗,
-.高级弹窗,
-.帮助弹窗,
-.关于弹窗,
-.更新日志弹窗,
-.主题商店弹窗,
-.服务请求弹窗,
-.确认弹窗,
-.通用弹窗,
-.键盘抽屉,
-.抽屉 {
-    background: #1a1a2e !important;
-}
-
-/* 弹窗内容区 */
+/* 2. 弹窗内容背景 */
 .设置内容,
 .颜色弹窗内容,
 .字体弹窗内容,
 .输入弹窗内容,
+.欢迎弹窗内容,
 .高级弹窗内容,
 .帮助弹窗内容,
 .关于弹窗内容,
@@ -54,21 +38,23 @@
 .主题商店弹窗内容,
 .服务请求弹窗内容,
 .确认弹窗内容,
-.通用弹窗内容,
-.键盘抽屉内容,
-.抽屉内容 {
-    background: #16162a !important;
+.通用弹窗内容 {
+    background: #1e1e2e !important;
+    backdrop-filter: none !important;
 }
 
-/* ========== 3. 弹窗文字（白色） ========== */
+/* 3. 所有文字改为白色（深色背景下的可读性） */
 .设置选项 span,
+.设置选项 label span,
 .颜色弹窗标题,
 .颜色选项标题,
 .字体名称,
 .输入弹窗标题,
+.欢迎弹窗正文,
 .高级弹窗标题,
 .高级选项标签,
 .帮助弹窗标题,
+.帮助弹窗正文,
 .关于弹窗标题,
 .关于弹窗正文,
 .关于弹窗版本标签,
@@ -78,16 +64,52 @@
 .服务请求弹窗标题,
 .服务请求弹窗正文,
 .配置标签,
+.Token状态标签,
+.配置行 span:not(.配置标签),
+.不兼容文字,
+.强制装载链接,
 .抽屉标题,
 .会话列表 li,
-.不兼容文字,
-.Token状态标签,
-.Token提示,
-.配置行 span {
+.会话名称,
+.主题名称,
+.主题-元信息,
+.主题-类型,
+.主题-作者,
+.主题-日期,
+.主题兼容标签,
+.进度条文字,
+.正在加载中 {
     color: #ffffff !important;
 }
 
-/* ========== 4. 按钮样式（浅色背景 + 黑色字） ========== */
+/* 4. 输入框样式（浅色背景，深色文字） */
+.设置选项 input[type="text"],
+.端口输入,
+.密码输入,
+.十六进制输入,
+.配置输入框,
+.配置输入框小,
+.Token输入框,
+.输入弹窗输入框 {
+    color: #1a1a2e !important;
+    background: #f0f0f5 !important;
+    border: 1px solid #3a3a4e !important;
+}
+
+/* 5. 输入框聚焦效果 */
+.设置选项 input[type="text"]:focus,
+.端口输入:focus,
+.密码输入:focus,
+.十六进制输入:focus,
+.配置输入框:focus,
+.配置输入框小:focus,
+.Token输入框:focus,
+.输入弹窗输入框:focus {
+    border-color: #00ff88 !important;
+    outline: none !important;
+}
+
+/* 6. 按钮样式（深色背景 + 白色字 + 绿色边框） */
 .设置选项 button,
 .底部按钮栏 button,
 .弹窗按钮,
@@ -100,14 +122,13 @@
 .服务请求弹窗按钮,
 .通用弹窗关闭,
 .主题操作按钮,
-.输入弹窗按钮,
-.确认弹窗按钮 {
-    background: #e8e8e8 !important;
-    color: #111111 !important;
-    border: 1px solid #cccccc !important;
+.添加会话按钮 {
+    color: #ffffff !important;
+    background: #2a2a3e !important;
+    border: 1px solid #00ff88 !important;
 }
 
-/* 按钮点击效果 */
+/* 7. 按钮点击效果 */
 .设置选项 button:active,
 .底部按钮栏 button:active,
 .弹窗按钮:active,
@@ -120,70 +141,106 @@
 .服务请求弹窗按钮:active,
 .通用弹窗关闭:active,
 .主题操作按钮:active,
-.输入弹窗按钮:active,
-.确认弹窗按钮:active {
-    background: #d0d0d0 !important;
+.添加会话按钮:active {
+    background: #3a3a5e !important;
     transform: scale(0.96);
 }
 
-/* 确认弹窗删除按钮（保持红色） */
-.确认弹窗按钮.确认 {
-    background: #cc3333 !important;
-    color: #ffffff !important;
-}
-
-/* ========== 5. 输入框（保持原样，不改！） ========== */
-/* 注意：不修改 #输出框 和 .b 相关样式，保持终端原样 */
-
-/* ========== 6. 链接颜色 ========== */
+/* 8. 链接样式（绿色） */
 a,
 .高级选项链接,
 .强制装载链接 {
-    color: #66ccff !important;
+    color: #00ff88 !important;
 }
 
-/* ========== 7. 主题卡片 ========== */
-.主题卡片 {
-    background: #202030 !important;
-    border: 1px solid #333355 !important;
-}
-
-.主题名称,
-.主题-元信息,
-.主题-类型,
-.主题-作者,
-.主题-日期 {
-    color: #ffffff !important;
-}
-
-.主题兼容标签.兼容 {
-    color: #66ff66 !important;
-}
-
-.主题兼容标签.不兼容 {
-    color: #ff8888 !important;
-}
-
-/* ========== 8. 底部按钮栏 ========== */
-.底部按钮栏 {
-    background: #252540 !important;
-}
-
-/* ========== 9. 键盘遮罩 ========== */
-.键盘遮罩,
+/* 9. 遮罩层 */
 .遮罩层 {
     background: rgba(0, 0, 0, 0.7) !important;
 }
 
-/* ========== 10. 进度条 ========== */
+/* 10. 底部按钮栏 */
+.底部按钮栏 {
+    background: #1a1a2e !important;
+    backdrop-filter: none !important;
+}
+
+/* 11. 主题卡片样式 */
+.主题卡片 {
+    background: #252538 !important;
+    border: 1px solid #3a3a50 !important;
+}
+
+.主题操作按钮.已装载 {
+    background: #3a2a2a !important;
+    border-color: #ff6666 !important;
+}
+
+/* 12. 兼容性标签 */
+.主题-兼容标签.标签兼容 {
+    color: #00ff88 !important;
+    background: rgba(0, 255, 136, 0.15) !important;
+}
+
+.主题-兼容标签.标签不兼容 {
+    color: #ff8888 !important;
+    background: rgba(255, 136, 136, 0.15) !important;
+}
+
+/* 13. 键盘抽屉按钮 */
+.键位 {
+    background: #2a2a3e !important;
+    border: 1px solid #4a4a5e !important;
+    color: #ffffff !important;
+}
+
+.键位:active {
+    background: #3a3a5e !important;
+}
+
+/* 14. 进度条 */
 .进度条 {
-    background: rgba(255, 255, 255, 0.2) !important;
+    background: #3a3a4e !important;
 }
 
 .进度条填充 {
     background: #00ff88 !important;
 }
 
-.进度条文字 {
+/* 15. 确认弹窗特殊样式 */
+.确认弹窗标题 {
+    color: #ff8888 !important;
+}
+
+.确认弹窗消息 {
     color: #ffffff !important;
 }
+
+.确认弹窗按钮.确认 {
+    background: #2a3a2a !important;
+    border-color: #ff6666 !important;
+}
+
+/* 16. 通用弹窗 */
+.通用弹窗标题 {
+    color: #00ff88 !important;
+}
+
+/* 17. 关于弹窗版本号 */
+.关于弹窗版本号 {
+    color: #00ff88 !important;
+}
+
+/* 18. 服务请求弹窗 Token 状态 */
+#Token状态标签 {
+    color: #00ff88 !important;
+}
+
+/* 19. 帮助图标 */
+.帮助图标,
+.高级选项帮助 {
+    background: #3a3a4e !important;
+    color: #ffffff !important;
+}
+
+/* 20. ⚠️ 不覆盖终端输出框区域 ⚠️ */
+/* #输出框 完全不修改，保持用户自定义的背景和字体 */
