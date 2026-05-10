@@ -1,24 +1,52 @@
-<h2>📦 v1.0.2 更新内容 (2026-05-07)</h2>
+<h2>🚀 Termux:Embellish v1.0.2 重大更新 (2026-05-10)</h2>
 <br>
+
+<div style="background: rgba(255, 100, 100, 0.2); border-left: 4px solid #ff8888; padding: 12px; margin-bottom: 16px; border-radius: 8px;">
+⚠️ <strong>TV版用户注意</strong><br>
+TV版本目前为实验性打包，在部分电视设备上可能存在显示问题。<br>
+建议使用手机版本，或等待后续优化。感谢理解！
+</div>
+
+<strong>⚠️ 升级须知</strong><br>
+• 本版本更换了应用签名密钥，无法覆盖安装旧版本<br>
+• 请先卸载 v1.0.1 或更早版本，再安装本版本<br>
+<br>
+
 <strong>✨ 新增功能</strong><br>
 • 🌐 三语言切换 — 中文 / English / にちご，点击按钮循环切换<br>
-• 📋 更新日志弹窗 — 点击查看版本更新内容<br>
-• 🌍 自动判断新版/旧版，显示不同的更新日志<br>
+• 🎨 主题商店 — 支持在线装载/卸下主题，自动检测版本兼容性<br>
+• 📋 更新日志弹窗 — 一键查看官方更新动态<br>
+• 🔧 服务请求配置 — 支持 GitHub Token，提升 API 限制至 5000次/小时<br>
+• 🖥️ 服务器脚本重置 — 一键清空会话记录并重启服务<br>
 <br>
+
 <strong>⌨️ 键盘优化</strong><br>
-• 弹出键盘时底部固定30行空行<br>
-• 光标始终保持在空行顶部，输入不会进入空行区域<br>
+• 弹出键盘时自动清屏，底部固定30行空行<br>
+• 光标始终保持在空行顶部，输入流畅不遮挡<br>
 • 关闭键盘后自动清理并保留10行空行<br>
 <br>
+
 <strong>🎨 UI 优化</strong><br>
-• 设置面板按钮间距调整<br>
-• 更新日志弹窗样式优化，支持更多内容<br>
+• 设置面板新增"更多"区域，整合更新日志/主题商店/服务配置<br>
 • 关于页面统一使用全局版本号<br>
+• 弹窗样式全面毛玻璃优化<br>
 <br>
-<strong>🐛 修复</strong><br>
-• 修复键盘弹出时滚动位置不正确的问题<br>
-• 修复版本检测与更新日志版本号不一致的问题<br>
+
+<strong>🐛 问题修复</strong><br>
+• 修复了键盘弹出时，会产生空行的问题<br>
+• 修复了装脚本快捷命令失效以及配置失败的问题<br>
+• 将默认背景图片输入框中的res/IMG_20260502_183913.jpg改为正确的路径<br>
 <br>
+
+<strong>🔐 安全更新</strong><br>
+• 更换 APK 签名密钥，提升安全性<br>
+<br>
+
+📢 **相关链接**<br>
+• <a href="https://github.com/siyecao-meng/termux-embellish/issues">问题反馈</a><br>
+• <a href="https://github.com/siyecao-meng/termux-embellish/releases">版本列表</a><br>
+• <a href="https://github.com/siyecao-meng/termux-embellish">关于项目</a><br>
+
 <hr>
 <strong>📦 v1.0.1 更新内容</strong><br>
 • 初始稳定版本发布<br>
@@ -26,3 +54,168 @@
 • 支持会话管理<br>
 • 支持虚拟键盘<br>
 • 支持 Cloudflare 远程隧道<br>
+<br>
+<hr>
+<br>
+
+<details>
+<summary>🎮 彩蛋：淘金币小游戏 (点击展开)</summary>
+<br>
+<div style="text-align: center;">
+    <canvas id="coinCanvas" width="350" height="350" style="background: linear-gradient(135deg, #2d1b4e, #1a0f2e); border-radius: 24px; display: block; margin: 0 auto; box-shadow: 0 8px 32px rgba(0,0,0,0.3); cursor: pointer;"></canvas>
+    <div style="margin-top: 12px;">
+        <span style="color: #ffd700;">💰 金币: <span id="coinScore" style="font-size: 24px; font-weight: bold; color: #ffd700;">0</span></span>
+        <button id="coinRestart" style="background: rgba(255,215,0,0.3); border: none; border-radius: 20px; padding: 6px 20px; color: white; margin-left: 20px; cursor: pointer;">🔄 重来</button>
+    </div>
+    <p style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 8px;">✨ 点击金币淘金币！ ✨</p>
+</div>
+<script>
+(function(){
+    const canvas = document.getElementById('coinCanvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const scoreSpan = document.getElementById('coinScore');
+    const restartBtn = document.getElementById('coinRestart');
+    
+    let coins = [];
+    let score = 0;
+    let animationId = null;
+    let spawnInterval = null;
+    let gameRunning = true;
+    
+    const width = canvas.width = 350;
+    const height = canvas.height = 350;
+    
+    class Coin {
+        constructor() {
+            this.radius = 15;
+            this.x = Math.random() * (width - 2 * this.radius) + this.radius;
+            this.y = Math.random() * (height - 2 * this.radius) + this.radius;
+            this.value = 1;
+        }
+        
+        draw() {
+            ctx.save();
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = '#ffd700';
+            // 金币渐变
+            const grad = ctx.createLinearGradient(this.x - 5, this.y - 5, this.x + 5, this.y + 5);
+            grad.addColorStop(0, '#ffd700');
+            grad.addColorStop(1, '#ffaa00');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fill();
+            // 内圈
+            ctx.fillStyle = '#ffcc00';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius - 3, 0, Math.PI * 2);
+            ctx.fill();
+            // 钱币符号
+            ctx.fillStyle = '#b8860b';
+            ctx.font = `bold ${this.radius + 4}px monospace`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('¥', this.x, this.y);
+            ctx.restore();
+        }
+        
+        contains(px, py) {
+            const dx = px - this.x;
+            const dy = py - this.y;
+            return Math.sqrt(dx * dx + dy * dy) <= this.radius;
+        }
+    }
+    
+    function initCoins(count = 8) {
+        coins = [];
+        for(let i = 0; i < count; i++) {
+            coins.push(new Coin());
+        }
+    }
+    
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+        
+        // 绘制网格装饰
+        ctx.strokeStyle = 'rgba(255,215,0,0.1)';
+        for(let i = 0; i < width; i += 30) {
+            ctx.beginPath();
+            ctx.moveTo(i, 0);
+            ctx.lineTo(i, height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, i);
+            ctx.lineTo(width, i);
+            ctx.stroke();
+        }
+        
+        for(let coin of coins) {
+            coin.draw();
+        }
+    }
+    
+    function handleClick(e) {
+        if(!gameRunning) return;
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        
+        let clientX, clientY;
+        if(e.touches) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+            e.preventDefault();
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        
+        const canvasX = (clientX - rect.left) * scaleX;
+        const canvasY = (clientY - rect.top) * scaleY;
+        
+        for(let i = coins.length - 1; i >= 0; i--) {
+            if(coins[i].contains(canvasX, canvasY)) {
+                coins.splice(i, 1);
+                score++;
+                if(scoreSpan) scoreSpan.textContent = score;
+                
+                // 添加新金币
+                coins.push(new Coin());
+                
+                // 特效：短暂闪烁
+                canvas.style.filter = 'brightness(1.3)';
+                setTimeout(() => { canvas.style.filter = ''; }, 100);
+                break;
+            }
+        }
+        draw();
+    }
+    
+    function restart() {
+        score = 0;
+        if(scoreSpan) scoreSpan.textContent = '0';
+        initCoins(8);
+        draw();
+        gameRunning = true;
+    }
+    
+    canvas.addEventListener('click', handleClick);
+    canvas.addEventListener('touchstart', handleClick);
+    if(restartBtn) restartBtn.onclick = () => restart();
+    
+    initCoins(8);
+    draw();
+    
+    // 动画循环（让金币微微跳动）
+    let time = 0;
+    function animate() {
+        if(!gameRunning) return;
+        time += 0.05;
+        draw();
+        requestAnimationFrame(animate);
+    }
+    animate();
+})();
+</script>
+</details>
