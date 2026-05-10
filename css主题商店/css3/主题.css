@@ -1,7 +1,6 @@
 /* ============================================
    v1.0.2 低版本 Android 兼容补丁
-   适用于 Android 4.0.3 - Android 10
-   原则：黑色背景用白色字体，白色背景用黑色字体
+   仅修改弹窗和面板，不动终端输出框
    ============================================ */
 
 /* ========== 1. 移除所有毛玻璃，改用纯色背景 ========== */
@@ -25,9 +24,7 @@
     -webkit-backdrop-filter: none !important;
 }
 
-/* ========== 2. 深色区域（黑色/深灰背景 + 白色字体） ========== */
-
-/* 设置面板背景 */
+/* ========== 2. 弹窗背景（深色） ========== */
 .设置面板,
 .颜色弹窗,
 .字体弹窗,
@@ -45,7 +42,7 @@
     background: #1a1a2e !important;
 }
 
-/* 弹窗内容背景 */
+/* 弹窗内容区 */
 .设置内容,
 .颜色弹窗内容,
 .字体弹窗内容,
@@ -63,9 +60,8 @@
     background: #16162a !important;
 }
 
-/* 深色区域文字（白色） */
+/* ========== 3. 弹窗文字（白色） ========== */
 .设置选项 span,
-.设置选项 label span,
 .颜色弹窗标题,
 .颜色选项标题,
 .字体名称,
@@ -82,41 +78,16 @@
 .服务请求弹窗标题,
 .服务请求弹窗正文,
 .配置标签,
-.配置行 span,
 .抽屉标题,
 .会话列表 li,
-.不兼容文字 {
+.不兼容文字,
+.Token状态标签,
+.Token提示,
+.配置行 span {
     color: #ffffff !important;
 }
 
-/* ========== 3. 浅色区域（白色/浅灰背景 + 黑色字体） ========== */
-
-/* 输入框白色背景 */
-.设置选项 input[type="text"],
-.端口输入,
-.密码输入,
-.十六进制输入,
-.配置输入框,
-.配置输入框小,
-.Token输入框 {
-    background: #f0f0f0 !important;
-    color: #111111 !important;
-    border: 1px solid #cccccc !important;
-}
-
-/* 输入框聚焦 */
-.设置选项 input[type="text"]:focus,
-.端口输入:focus,
-.密码输入:focus,
-.十六进制输入:focus,
-.配置输入框:focus,
-.配置输入框小:focus,
-.Token输入框:focus {
-    border-color: #00ff88 !important;
-    outline: none;
-}
-
-/* 按钮白色背景 + 黑色字体 */
+/* ========== 4. 按钮样式（浅色背景 + 黑色字） ========== */
 .设置选项 button,
 .底部按钮栏 button,
 .弹窗按钮,
@@ -128,10 +99,12 @@
 .更新日志弹窗关闭,
 .服务请求弹窗按钮,
 .通用弹窗关闭,
-.主题操作按钮 {
+.主题操作按钮,
+.输入弹窗按钮,
+.确认弹窗按钮 {
     background: #e8e8e8 !important;
     color: #111111 !important;
-    border: 1px solid #bbbbbb !important;
+    border: 1px solid #cccccc !important;
 }
 
 /* 按钮点击效果 */
@@ -146,28 +119,33 @@
 .更新日志弹窗关闭:active,
 .服务请求弹窗按钮:active,
 .通用弹窗关闭:active,
-.主题操作按钮:active {
+.主题操作按钮:active,
+.输入弹窗按钮:active,
+.确认弹窗按钮:active {
     background: #d0d0d0 !important;
     transform: scale(0.96);
 }
 
-/* 确认弹窗特殊按钮 */
+/* 确认弹窗删除按钮（保持红色） */
 .确认弹窗按钮.确认 {
-    background: #ff4444 !important;
+    background: #cc3333 !important;
     color: #ffffff !important;
 }
 
-/* ========== 4. 链接颜色 ========== */
+/* ========== 5. 输入框（保持原样，不改！） ========== */
+/* 注意：不修改 #输出框 和 .b 相关样式，保持终端原样 */
+
+/* ========== 6. 链接颜色 ========== */
 a,
 .高级选项链接,
 .强制装载链接 {
-    color: #00ccff !important;
+    color: #66ccff !important;
 }
 
-/* ========== 5. 主题卡片 ========== */
+/* ========== 7. 主题卡片 ========== */
 .主题卡片 {
     background: #202030 !important;
-    border: 1px solid #333344 !important;
+    border: 1px solid #333355 !important;
 }
 
 .主题名称,
@@ -178,42 +156,26 @@ a,
     color: #ffffff !important;
 }
 
-.主题版本 {
-    background: #333355 !important;
-    color: #cccccc !important;
-}
-
 .主题兼容标签.兼容 {
     color: #66ff66 !important;
-    background: rgba(102, 255, 102, 0.15) !important;
 }
 
 .主题兼容标签.不兼容 {
     color: #ff8888 !important;
-    background: rgba(255, 136, 136, 0.15) !important;
 }
 
-/* ========== 6. 输出框 ========== */
-#输出框 {
-    background: #0d0d1a !important;
-    color: #ffffff !important;
+/* ========== 8. 底部按钮栏 ========== */
+.底部按钮栏 {
+    background: #252540 !important;
 }
 
-/* ========== 7. 遮罩层 ========== */
-.遮罩层,
-.键盘遮罩 {
+/* ========== 9. 键盘遮罩 ========== */
+.键盘遮罩,
+.遮罩层 {
     background: rgba(0, 0, 0, 0.7) !important;
 }
 
-/* ========== 8. 俄罗斯方块等游戏文字 ========== */
-.score-text,
-.tetris-info div,
-[class*="score"],
-[class*="Score"] {
-    color: #ffffff !important;
-}
-
-/* ========== 9. 进度条 ========== */
+/* ========== 10. 进度条 ========== */
 .进度条 {
     background: rgba(255, 255, 255, 0.2) !important;
 }
@@ -224,20 +186,4 @@ a,
 
 .进度条文字 {
     color: #ffffff !important;
-}
-
-/* ========== 10. 正在加载 ========== */
-.正在加载中 {
-    color: #ffffff !important;
-}
-
-/* ========== 11. 弹窗底部关闭按钮区域 ========== */
-.弹窗按钮区域 .服务请求弹窗按钮 {
-    background: #e8e8e8 !important;
-    color: #111111 !important;
-}
-
-/* ========== 12. Token 状态提示 ========== */
-#Token状态提示 {
-    color: #cccccc !important;
 }
