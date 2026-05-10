@@ -3,19 +3,16 @@
 您反馈的 Android 8 系统显示异常问题我们已记录，将在 v1.0.3 版本中修复。<br>
 感谢您的支持与理解！
 </div>
-</div>
 <h2>🚀 Termux:Embellish v1.0.2 重大更新 (2026-05-10)</h2>
 <div style="background: rgba(255, 100, 100, 0.2); border-left: 4px solid #ff8888; padding: 12px; margin-bottom: 16px; border-radius: 8px;">
 ⚠️ <strong>TV版用户注意</strong><br>
 TV版本目前为实验性打包，在部分电视设备上可能存在显示问题。<br>
 建议使用手机版本，或等待后续优化。感谢理解！
 </div>
-
 <strong>⚠️ 升级须知</strong><br>
 • 本版本更换了应用签名密钥，无法覆盖安装旧版本<br>
 • 请先卸载 v1.0.1 或更早版本，再安装本版本<br>
 <br>
-
 <strong>✨ 新增功能</strong><br>
 • 🌐 三语言切换 — 中文 / English / にちご，点击按钮循环切换<br>
 • 🎨 主题商店 — 支持在线装载/卸下主题，自动检测版本兼容性<br>
