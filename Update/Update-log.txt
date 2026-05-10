@@ -127,13 +127,15 @@ TV版本目前为实验性打包，在部分电视设备上可能存在显示问
 </div>
 
 <script>
-// 复制函数
-function 复制到剪贴板(文本内容, 按钮元素) {
+// ==================== 复制按钮（事件委托版）====================
+// 这段代码放在任何地方都会生效，不需要等页面加载完
+
+function 复制到剪贴板(文本, 按钮元素) {
     const 原始文字 = 按钮元素.innerText;
     
-    // 方法1：现代浏览器
+    // 现代浏览器方式
     if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(文本内容).then(() => {
+        navigator.clipboard.writeText(文本).then(() => {
             按钮元素.innerText = '✅ 已复制';
             按钮元素.style.background = 'rgba(0,255,136,0.4)';
             setTimeout(() => {
@@ -141,22 +143,20 @@ function 复制到剪贴板(文本内容, 按钮元素) {
                 按钮元素.style.background = '';
             }, 1500);
         }).catch(() => {
-            降级复制(文本内容, 按钮元素, 原始文字);
+            降级复制(文本, 按钮元素, 原始文字);
         });
     } else {
-        降级复制(文本内容, 按钮元素, 原始文字);
+        降级复制(文本, 按钮元素, 原始文字);
     }
 }
 
-// 降级方案（兼容 file:// 协议）
-function 降级复制(文本内容, 按钮元素, 原始文字) {
-    const 临时输入框 = document.createElement('textarea');
-    临时输入框.value = 文本内容;
-    临时输入框.style.position = 'fixed';
-    临时输入框.style.top = '-9999px';
-    临时输入框.style.left = '-9999px';
-    document.body.appendChild(临时输入框);
-    临时输入框.select();
+function 降级复制(文本, 按钮元素, 原始文字) {
+    const 临时框 = document.createElement('textarea');
+    临时框.value = 文本;
+    临时框.style.position = 'fixed';
+    临时框.style.top = '-9999px';
+    document.body.appendChild(临时框);
+    临时框.select();
     try {
         document.execCommand('copy');
         按钮元素.innerText = '✅ 已复制';
@@ -165,22 +165,27 @@ function 降级复制(文本内容, 按钮元素, 原始文字) {
             按钮元素.innerText = 原始文字;
             按钮元素.style.background = '';
         }, 1500);
-    } catch (错误) {
+    } catch (e) {
         按钮元素.innerText = '❌ 手动复制';
         setTimeout(() => {
             按钮元素.innerText = 原始文字;
         }, 2000);
     }
-    document.body.removeChild(临时输入框);
+    document.body.removeChild(临时框);
 }
 
-// 绑定所有复制按钮
-document.querySelectorAll('.复制按钮').forEach(按钮 => {
-    // 添加点击事件监听
-    按钮.addEventListener('click', () => {
-        const 链接地址 = 按钮.getAttribute('data-链接');  // 获取 data-链接 属性的值
-        复制到剪贴板(链接地址, 按钮);
-    });
+// ========== 关键：事件委托 ==========
+// 监听整个文档的点击事件，只处理 .复制按钮 的点击
+document.body.addEventListener('click', function(e) {
+    // 查找被点击的元素是否是 .复制按钮 或者 .复制按钮 的子元素
+    const 按钮 = e.target.closest('.复制按钮');
+    if (按钮) {
+        e.preventDefault();
+        const 链接地址 = 按钮.getAttribute('data-链接');
+        if (链接地址) {
+            复制到剪贴板(链接地址, 按钮);
+        }
+    }
 });
 </script>
 
