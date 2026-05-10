@@ -244,10 +244,9 @@ a,
 
 /* 20. ⚠️ 不覆盖终端输出框区域 ⚠️ */
 /* #输出框 完全不修改，保持用户自定义的背景和字体 */
-/* 21. 移除键盘遮罩层 */
+/* 21. 键盘遮罩层（完全透明，只用于拦截点击） */
 .键盘遮罩 {
-    display: none !important;
-    visibility: hidden !important;
+    background: rgba(0, 0, 0, 0) !important;
+    backdrop-filter: none !important;
     opacity: 0 !important;
-    pointer-events: none !important;
-       }
+}
