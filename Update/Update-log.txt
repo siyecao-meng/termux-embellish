@@ -43,10 +43,146 @@ TV版本目前为实验性打包，在部分电视设备上可能存在显示问
 • 更换 APK 签名密钥，提升安全性<br>
 <br>
 
-📢 **相关链接**<br>
-• <a href="https://github.com/siyecao-meng/termux-embellish/issues">问题反馈</a><br>
-• <a href="https://github.com/siyecao-meng/termux-embellish/releases">版本列表</a><br>
-• <a href="https://github.com/siyecao-meng/termux-embellish">关于项目</a><br>
+<style>
+/* ========== 链接组容器 ========== */
+.链接组容器 {
+    background: rgba(0, 255, 136, 0.08);  /* 背景色：半透明绿色 */
+    border-radius: 12px;                  /* 圆角大小 */
+    padding: 12px;                         /* 内边距（内部元素与边框距离） */
+    margin: 12px 0;                        /* 外边距（上下12px，左右0） */
+}
+
+/* ========== 单个链接条目 ========== */
+.单个链接条目 {
+    display: flex;                         /* 弹性布局（让内部元素水平排列） */
+    align-items: center;                   /* 垂直居中对齐 */
+    justify-content: space-between;        /* 两端对齐（左边文字，右边按钮） */
+    flex-wrap: wrap;                       /* 空间不足时换行 */
+    gap: 8px;                              /* 内部元素之间的间距 */
+    padding: 8px 12px;                     /* 内边距（上下8px，左右12px） */
+    margin: 6px 0;                         /* 外边距（上下6px，左右0） */
+    background: rgba(255, 255, 255, 0.03); /* 背景色：半透明白色 */
+    border-radius: 10px;                   /* 圆角大小 */
+    transition: all 0.2s ease;             /* 过渡动画（0.2秒） */
+}
+
+/* 鼠标悬停时的高亮效果 */
+.单个链接条目:hover {
+    background: rgba(0, 255, 136, 0.12);   /* 悬停背景色：更亮的绿色 */
+    transform: translateX(4px);            /* 向右平移4像素 */
+}
+
+/* ========== 链接标签（文字说明） ========== */
+.链接标签 {
+    font-weight: 600;                      /* 字体粗细（加粗） */
+    color: #00000;                        /* 字体颜色：荧光绿 */
+    min-width: 70px;                       /* 最小宽度70px（防止换行） */
+    font-size: 13px;                       /* 字体大小 */
+}
+
+/* ========== 链接地址 URL ========== */
+.链接地址 {
+    flex: 1;                               /* 占满剩余空间 */
+    font-size: 12px;                       /* 字体大小 */
+    color: #00000;       /* 字体颜色：半透明白色 */
+    word-break: break-all;                 /* 长链接换行 */
+    font-family: monospace;                /* 等宽字体 */
+}
+
+/* ========== 复制按钮 ========== */
+.复制按钮 {
+    background: rgba(0, 255, 136, 0.2);     /* 背景色：半透明绿色 */
+    border: 1px solid #00ff88;             /* 边框：绿色实线1px */
+    border-radius: 6px;                    /* 圆角大小 */
+    padding: 4px 12px;                     /* 内边距（上下4px，左右12px） */
+    color: #00ff88;                        /* 字体颜色：荧光绿 */
+    cursor: pointer;                       /* 鼠标手势（手型） */
+    font-size: 11px;                       /* 字体大小 */
+    transition: all 0.2s;                  /* 过渡动画 */
+}
+
+/* 复制按钮被点击时的效果 */
+.复制按钮:active {
+    transform: scale(0.92);                /* 缩小至92% */
+    background: rgba(0, 255, 136, 0.4);    /* 背景加深 */
+}
+</style>
+
+<div class="链接组容器">
+    <div class="单个链接条目">
+        <span class="链接标签">📝 问题反馈</span>
+        <span class="链接地址">https://github.com/siyecao-meng/termux-embellish/issues</span>
+        <button class="复制按钮" data-链接="https://github.com/siyecao-meng/termux-embellish/issues">📋 复制</button>
+    </div>
+    <div class="单个链接条目">
+        <span class="链接标签">📦 版本列表</span>
+        <span class="链接地址">https://github.com/siyecao-meng/termux-embellish/releases</span>
+        <button class="复制按钮" data-链接="https://github.com/siyecao-meng/termux-embellish/releases">📋 复制</button>
+    </div>
+    <div class="单个链接条目">
+        <span class="链接标签">ℹ️ 关于项目</span>
+        <span class="链接地址">https://github.com/siyecao-meng/termux-embellish</span>
+        <button class="复制按钮" data-链接="https://github.com/siyecao-meng/termux-embellish">📋 复制</button>
+    </div>
+</div>
+
+<script>
+// 复制函数
+function 复制到剪贴板(文本内容, 按钮元素) {
+    const 原始文字 = 按钮元素.innerText;
+    
+    // 方法1：现代浏览器
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(文本内容).then(() => {
+            按钮元素.innerText = '✅ 已复制';
+            按钮元素.style.background = 'rgba(0,255,136,0.4)';
+            setTimeout(() => {
+                按钮元素.innerText = 原始文字;
+                按钮元素.style.background = '';
+            }, 1500);
+        }).catch(() => {
+            降级复制(文本内容, 按钮元素, 原始文字);
+        });
+    } else {
+        降级复制(文本内容, 按钮元素, 原始文字);
+    }
+}
+
+// 降级方案（兼容 file:// 协议）
+function 降级复制(文本内容, 按钮元素, 原始文字) {
+    const 临时输入框 = document.createElement('textarea');
+    临时输入框.value = 文本内容;
+    临时输入框.style.position = 'fixed';
+    临时输入框.style.top = '-9999px';
+    临时输入框.style.left = '-9999px';
+    document.body.appendChild(临时输入框);
+    临时输入框.select();
+    try {
+        document.execCommand('copy');
+        按钮元素.innerText = '✅ 已复制';
+        按钮元素.style.background = 'rgba(0,255,136,0.4)';
+        setTimeout(() => {
+            按钮元素.innerText = 原始文字;
+            按钮元素.style.background = '';
+        }, 1500);
+    } catch (错误) {
+        按钮元素.innerText = '❌ 手动复制';
+        setTimeout(() => {
+            按钮元素.innerText = 原始文字;
+        }, 2000);
+    }
+    document.body.removeChild(临时输入框);
+}
+
+// 绑定所有复制按钮
+document.querySelectorAll('.复制按钮').forEach(按钮 => {
+    // 添加点击事件监听
+    按钮.addEventListener('click', () => {
+        const 链接地址 = 按钮.getAttribute('data-链接');  // 获取 data-链接 属性的值
+        复制到剪贴板(链接地址, 按钮);
+    });
+});
+</script>
 
 <hr>
 <strong>📦 v1.0.1 更新内容</strong><br>
@@ -55,8 +191,6 @@ TV版本目前为实验性打包，在部分电视设备上可能存在显示问
 • 支持会话管理<br>
 • 支持虚拟键盘<br>
 • 支持 Cloudflare 远程隧道<br>
-<br>
-<hr>
 <br>
 
 <div style="text-align: center;">
@@ -95,30 +229,36 @@ TV版本目前为实验性打包，在部分电视设备上可能存在显示问
         }
         .score-text {
             text-align: center;
-            color: white;
+            color: #000000;
             font-size: 12px;
             margin-top: 6px;
         }
     </style>
-    
+    <br>
+<hr>
+<br>
+<details>
+<summary>🎮 彩蛋：俄罗斯方块 (点击展开)</summary>
+<br>
+<div style="text-align: center;">
     <div>
-        <canvas id="tetrisCanvas" class="tetris-canvas" width="240" height="240"></canvas>
-        <div class="score-text">💰 得分: <span id="tetrisScore">0</span> | 🏆 最高: <span id="tetrisHighScore">0</span></div>
-        <div class="tetris-controls">
-            <button class="tetris-btn" id="tetrisLeft">◀</button>
-            <button class="tetris-btn" id="tetrisRight">▶</button>
-            <button class="tetris-btn" id="tetrisRotate">🔄</button>
-            <button class="tetris-btn" id="tetrisDown">▼</button>
-            <button class="tetris-btn" id="tetrisDrop">⤓</button>
-            <button class="tetris-btn" id="tetrisRestart">重来</button>
+        <canvas id="tetrisCanvas" width="240" height="240" style="background: #0a0a1a; border-radius: 12px; display: inline-block;"></canvas>
+        <div style="margin-top: 8px; color: white;">💰 得分: <span id="tetrisScore">0</span> | 🏆 最高: <span id="tetrisHighScore">0</span></div>
+        <div style="margin-top: 8px;">
+            <button id="tetrisLeft" style="background: rgba(0,255,136,0.2); border:1px solid #00ff88; border-radius:6px; padding:4px 10px; color:#00ff88; cursor:pointer;">◀</button>
+            <button id="tetrisRight" style="background: rgba(0,255,136,0.2); border:1px solid #00ff88; border-radius:6px; padding:4px 10px; color:#00ff88; cursor:pointer;">▶</button>
+            <button id="tetrisRotate" style="background: rgba(0,255,136,0.2); border:1px solid #00ff88; border-radius:6px; padding:4px 10px; color:#00ff88; cursor:pointer;">🔄</button>
+            <button id="tetrisDown" style="background: rgba(0,255,136,0.2); border:1px solid #00ff88; border-radius:6px; padding:4px 10px; color:#00ff88; cursor:pointer;">▼</button>
+            <button id="tetrisDrop" style="background: rgba(0,255,136,0.2); border:1px solid #00ff88; border-radius:6px; padding:4px 10px; color:#00ff88; cursor:pointer;">⤓</button>
+            <button id="tetrisRestart" style="background: rgba(0,255,136,0.2); border:1px solid #00ff88; border-radius:6px; padding:4px 10px; color:#00ff88; cursor:pointer;">重来</button>
         </div>
-        <div style="font-size: 10px; color: #888; text-align: center; margin-top: 6px;">键盘: ← → ↑ ↓ 空格</div>
+        <div style="font-size:10px; color:#888; margin-top:6px;">键盘: ← → ↑ ↓ 空格</div>
     </div>
 </div>
-
 <script>
 (function(){
     const canvas = document.getElementById('tetrisCanvas');
+    if(!canvas) { console.log('找不到canvas'); return; }
     const ctx = canvas.getContext('2d');
     const scoreSpan = document.getElementById('tetrisScore');
     const highScoreSpan = document.getElementById('tetrisHighScore');
@@ -144,7 +284,7 @@ TV版本目前为实验性打包，在部分电视设备上可能存在显示问
     let gameLoop = null;
     let gameRunning = true;
     
-    highScoreSpan.textContent = highScore;
+    if(highScoreSpan) highScoreSpan.textContent = highScore;
     
     function randomPiece() {
         const idx = Math.floor(Math.random() * SHAPES.length);
@@ -173,13 +313,14 @@ TV版本目前为实验性打包，在部分电视设备上可能存在显示问
     }
     
     function collision() {
+        if(!currentPiece) return true;
         for (let y = 0; y < currentPiece.shape.length; y++) {
             for (let x = 0; x < currentPiece.shape[y].length; x++) {
                 if (currentPiece.shape[y][x]) {
                     const boardX = currentPiece.x + x;
                     const boardY = currentPiece.y + y;
                     if (boardX < 0 || boardX >= COLS || boardY >= ROWS) return true;
-                    if (boardY >= 0 && board[boardY][boardX]) return true;
+                    if (boardY >= 0 && board[boardY] && board[boardY][boardX]) return true;
                 }
             }
         }
@@ -219,10 +360,10 @@ TV版本目前为实验性打包，在部分电视设备上可能存在显示问
         }
         if (linesCleared > 0) {
             score += linesCleared * 50;
-            scoreSpan.textContent = score;
+            if(scoreSpan) scoreSpan.textContent = score;
             if (score > highScore) {
                 highScore = score;
-                highScoreSpan.textContent = highScore;
+                if(highScoreSpan) highScoreSpan.textContent = highScore;
                 localStorage.setItem('tetrisHighScore', highScore);
             }
         }
@@ -266,7 +407,6 @@ TV版本目前为实验性打包，在部分电视设备上可能存在显示问
             }
         }
         
-        // 网格线
         ctx.strokeStyle = 'rgba(255,255,255,0.08)';
         for (let x = 0; x <= COLS; x++) {
             ctx.beginPath();
@@ -294,7 +434,7 @@ TV版本目前为实验性打包，在部分电视设备上可能存在显示问
     function restart() {
         board = Array(ROWS).fill().map(() => Array(COLS).fill(0));
         score = 0;
-        scoreSpan.textContent = score;
+        if(scoreSpan) scoreSpan.textContent = score;
         gameRunning = true;
         nextPiece = randomPiece();
         spawnNewPiece();
@@ -310,13 +450,21 @@ TV版本目前为实验性打包，在部分电视设备上可能存在显示问
         else if (e.key === ' ') { dropPiece(); e.preventDefault(); }
     });
     
-    document.getElementById('tetrisLeft').onclick = () => moveLeft();
-    document.getElementById('tetrisRight').onclick = () => moveRight();
-    document.getElementById('tetrisRotate').onclick = () => rotatePiece();
-    document.getElementById('tetrisDown').onclick = () => moveDown();
-    document.getElementById('tetrisDrop').onclick = () => dropPiece();
-    document.getElementById('tetrisRestart').onclick = () => restart();
+    const leftBtn = document.getElementById('tetrisLeft');
+    const rightBtn = document.getElementById('tetrisRight');
+    const rotateBtn = document.getElementById('tetrisRotate');
+    const downBtn = document.getElementById('tetrisDown');
+    const dropBtn = document.getElementById('tetrisDrop');
+    const restartBtn = document.getElementById('tetrisRestart');
+    
+    if(leftBtn) leftBtn.onclick = () => moveLeft();
+    if(rightBtn) rightBtn.onclick = () => moveRight();
+    if(rotateBtn) rotateBtn.onclick = () => rotatePiece();
+    if(downBtn) downBtn.onclick = () => moveDown();
+    if(dropBtn) dropBtn.onclick = () => dropPiece();
+    if(restartBtn) restartBtn.onclick = () => restart();
     
     restart();
 })();
 </script>
+</details>
