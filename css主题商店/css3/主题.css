@@ -1,0 +1,193 @@
+/* ============================================
+   v1.0.2 低版本 Android 兼容补丁
+   适用于 Android 4.0.3 - Android 10
+   ============================================ */
+
+/* 1. 移除所有毛玻璃效果，改用纯色背景 */
+.设置面板,
+.颜色弹窗,
+.字体弹窗,
+.输入弹窗,
+.欢迎弹窗,
+.高级弹窗,
+.帮助弹窗,
+.关于弹窗,
+.更新日志弹窗,
+.主题商店弹窗,
+.服务请求弹窗,
+.确认弹窗,
+.通用弹窗 {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(30, 30, 40, 0.95) !important;
+}
+
+/* 2. 弹窗内容背景 */
+.设置内容,
+.颜色弹窗内容,
+.字体弹窗内容,
+.输入弹窗内容,
+.欢迎弹窗内容,
+.高级弹窗内容,
+.帮助弹窗内容,
+.关于弹窗内容,
+.更新日志弹窗内容,
+.主题商店弹窗内容,
+.服务请求弹窗内容,
+.确认弹窗内容,
+.通用弹窗内容 {
+    background: rgba(25, 25, 35, 0.98) !important;
+    backdrop-filter: none !important;
+}
+
+/* 3. 键盘抽屉 */
+.键盘抽屉 {
+    backdrop-filter: none !important;
+    background: rgba(35, 35, 45, 0.98) !important;
+}
+
+/* 4. 底部按钮栏 */
+.底部按钮栏 {
+    backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* 5. 会话抽屉 */
+.抽屉 {
+    backdrop-filter: none !important;
+    background: rgba(30, 30, 40, 0.96) !important;
+}
+
+/* 6. 深色底纹变实色 */
+.遮罩层 {
+    background: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* 7. 白色/灰色文字改为黑色（为了可读性） */
+.设置选项 span,
+.设置选项 label span,
+.颜色弹窗标题,
+.颜色选项标题,
+.字体名称,
+.输入弹窗标题,
+.欢迎弹窗正文,
+.高级弹窗标题,
+.高级选项标签,
+.帮助弹窗标题,
+.帮助弹窗正文,
+.关于弹窗标题,
+.关于弹窗正文,
+.关于弹窗版本标签,
+.更新日志弹窗标题,
+.更新日志弹窗正文,
+.主题商店弹窗标题,
+.服务请求弹窗标题,
+.服务请求弹窗正文,
+.配置标签,
+.Token状态标签,
+.配置行 span:not(.配置标签),
+.不兼容文字,
+.强制装载链接 {
+    color: #000000 !important;
+}
+
+/* 8. 输入框和按钮文字颜色调整 */
+.设置选项 input[type="text"],
+.端口输入,
+.密码输入,
+.十六进制输入,
+.配置输入框,
+.配置输入框小,
+.Token输入框 {
+    color: #000000 !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* 9. 按钮样式（保持可见，但文字改深色） */
+.设置选项 button,
+.底部按钮栏 button,
+.弹窗按钮,
+.配置按钮小,
+.端口确定,
+.重置按钮,
+.高级弹窗关闭,
+.关于弹窗关闭,
+.更新日志弹窗关闭,
+.服务请求弹窗按钮,
+.通用弹窗关闭,
+.主题操作按钮 {
+    color: #111111 !important;
+    background: rgba(240, 240, 245, 0.9) !important;
+    border: 1px solid rgba(200, 200, 210, 0.8) !important;
+}
+
+/* 10. 按钮点击效果（低版本适配） */
+.设置选项 button:active,
+.底部按钮栏 button:active,
+.弹窗按钮:active,
+.配置按钮小:active,
+.端口确定:active,
+.重置按钮:active,
+.高级弹窗关闭:active,
+.关于弹窗关闭:active,
+.更新日志弹窗关闭:active,
+.服务请求弹窗按钮:active,
+.通用弹窗关闭:active,
+.主题操作按钮:active {
+    background: rgba(220, 220, 230, 0.95) !important;
+    transform: scale(0.96);
+}
+
+/* 11. 链接颜色（深色模式可见） */
+a,
+.高级选项链接,
+.强制装载链接 {
+    color: #0066cc !important;
+}
+
+/* 12. 输出框文字颜色（保持白色，因为背景透明） */
+#输出框 {
+    color: #ffffff !important;
+}
+
+/* 13. 主题卡片调整 */
+.主题卡片 {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid #dddddd !important;
+}
+
+.主题名称,
+.主题-元信息,
+.主题-类型,
+.主题-作者,
+.主题-日期 {
+    color: #111111 !important;
+}
+
+.主题兼容标签.兼容 {
+    color: #006600 !important;
+    background: rgba(0, 136, 0, 0.15) !important;
+}
+
+.主题兼容标签.不兼容 {
+    color: #cc0000 !important;
+    background: rgba(204, 0, 0, 0.15) !important;
+}
+
+/* 14. 分数和游戏文字（俄罗斯方块等） */
+.score-text,
+.tetris-info div,
+[class*="score"],
+[class*="Score"] {
+    color: #111111 !important;
+}
+
+/* 15. 所有白色文字覆盖 */
+[style*="color: white"],
+[style*="color:white"],
+[style*="color: #fff"],
+[style*="color:#fff"],
+[style*="color: rgba(255"],
+[style*="color: rgba(255"] {
+    color: #111111 !important;
+                     }
