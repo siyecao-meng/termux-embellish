@@ -1,0 +1,34 @@
+/* ========== 黑客主题：数字流动背景 ========== */
+
+/* 流动画布容器 */
+.黑客背景 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* 流动列 */
+.黑客列 {
+    position: absolute;
+    top: -100%;
+    color: #00ff41;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.2;
+    white-space: nowrap;
+    animation: 黑客下落 linear infinite;
+    opacity: 0.6;
+    text-shadow: 0 0 5px #00ff41;
+}
+
+@keyframes 黑客下落 {
+    0%   { transform: translateY(0); opacity: 0; }
+    10%  { opacity: 0.8; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(100vh); opacity: 0; }
+}
