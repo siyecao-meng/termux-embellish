@@ -1,7 +1,46 @@
 <h2>⚠️ 当前版本过旧</h2>
 <br>
-<strong>请更新到最新版本 v1.0.2 以获取以下新功能：</strong>
+<strong>请更新到最新版本 v1.0.3 以获取以下新功能：</strong>
 <br><br>
+
+<h2>🚀 v1.0.3重大更新 — 全 AI 服务系列</h2>
+<div style="background: rgba(0, 200, 255, 0.1); border-left: 4px solid #00ccff; padding: 12px; margin-bottom: 16px; border-radius: 8px;">
+
+<strong>✨ AI 核心能力</strong><br>
+• 🤖 让 AI 直接操作 Termux 终端，执行命令<br>
+• 🔌 可自定义接入任何大模型 API（DeepSeek、OpenAI 等）<br>
+• 📦 支持 Ollama 本地模型，完全离线运行<br>
+<br>
+
+<strong>⚙️ 终端 AI 服务（设置面板新增）</strong><br>
+• <strong>配置 AI</strong> — 支持接入任意大模型 API，可同时配置多个模型，对话框中支持并行输出<br>
+• <strong>AI 命令执行权限</strong> — 三级控制：询问 / 允许 / 禁止，防止 AI 执行危险命令<br>
+• <strong>本地 AI 模型</strong> — 学生党福音！AI 完全在设备上本地运行，无需联网，Termux 中执行快捷命令 <code>model</code> 即可开箱即用<br>
+
+<br>
+<strong>🖥️ 主页面</strong><br>
+• 新增 AI 头像入口，点击即可与 AI 对话<br>
+• 流式输出（打字机效果）<br>
+• 思考模式：AI 展示推理过程，回答更透明<br>
+
+</div>
+
+<strong>📷 功能截图</strong><br>
+<br>
+<strong>配置 AI 界面</strong><br>
+<img width="720" alt="配置AI" src="https://github.com/user-attachments/assets/a8cc8507-cfce-4a71-9728-3c746e6c34dd" />
+<br><br>
+<strong>AI 命令执行权限</strong><br>
+<img width="720" alt="命令权限" src="https://github.com/user-attachments/assets/40977ba2-f712-494c-8ee3-7a42d2468694" />
+<br><br>
+<strong>本地 AI 模型管理</strong><br>
+<img width="720" alt="本地模型" src="https://github.com/user-attachments/assets/e413ab9b-c479-43ed-abbc-df9ad9ed197b" />
+
+<br><br>
+<strong>🛠️ 问题修复</strong><br>
+• 修复了测试版（beta）中兼容模式无法覆盖全局的问题<br>
+• 修复了毛玻璃效果在部分 Android 版本上不生效的问题<br>
+
 <strong>✨ v1.0.2 新增功能</strong><br>
 • 🌐 三语言切换 — 中文 / English / にちご<br>
 • 📋 更新日志弹窗 — 一键查看版本更新<br>
