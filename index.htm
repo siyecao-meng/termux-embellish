@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
         <title>Termux:Embellish</title>
         <link type="text/css" href="res/css/index.css" rel="stylesheet"/>
-        <!-- 预设字体链接（Google Fonts） -->
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -19,15 +18,15 @@
 </div>
 
 <div class="底部按钮栏">
-    
     <button id="设置">设置</button>
     <button id="键盘按钮">键盘</button>
     <button id="会话">会话</button>
+    <button id="ai">⌘</button>
 </div>
 
 <div class="遮罩层" id="遮罩层"></div>
 
-<!-- 设置面板 -->
+<!-- ==================== 设置面板 ==================== -->
 <div class="设置面板" id="设置面板">
     <div class="设置内容">
         <div class="设置选项">
@@ -51,33 +50,49 @@
             </div>
         </div>
         <div class="设置选项">
-            <span style="display: block; margin-bottom: 10px;">终端操作</span>
-            <div style="font-size: 12px; color: rgba(255,255,255,0.5);">
-                双指缩放可调整终端字体大小
+            <span style="display: block; margin-bottom: 10px;">界面主题</span>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <button id="主题玻璃" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 8px 20px; color: white; cursor: pointer;">默认模式</button>
+                <button id="主题兼容" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 8px 20px; color: white; cursor: pointer;">兼容模式</button>
+            </div>
+            <div style="font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 8px;" id="主题提示"></div>
+        </div>
+        <div class="设置选项">
+            <span style="display: block; margin-bottom: 10px;">关于</span>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <button id="高级按钮" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">高级</button>
+                <button id="关于按钮" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">关于</button>
+                <button id="语言切换按钮" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">中文</button>
             </div>
         </div>
         <div class="设置选项">
-    <span style="display: block; margin-bottom: 10px;">关于</span>
-    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-        <button id="高级按钮" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">高级</button>
-        <button id="关于按钮" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">关于</button>
-        <button id="语言切换按钮" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">中文</button>
-    </div>
-</div>
-<div class="设置选项">
-    <span style="display: block; margin-bottom: 10px;">更多</span>
-    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-        <button id="更新日志按钮" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">更新日志</button>
-         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-        <button id="主题商店" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">主题商店</button>
-        <button id="服务请求设置" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">服务</button>
-    </div>
-</div>
+            <span style="display: block; margin-bottom: 10px;">更多</span>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <button id="更新日志按钮" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">更新日志</button>
+                <button id="主题商店" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">主题商店</button>
+                <button id="服务请求设置" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">服务</button>
+            </div>
         </div>
+<div class="设置选项">
+    <span id="AI服务标题" style="display: block; margin-bottom: 10px;">
+        终端AI服务
+        <svg width="85" height="28" viewBox="0 0 160 70" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-left: 6px;">
+            <rect x="10" y="10" width="140" height="50" rx="6" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" transform="rotate(10 80 35)"/>
+            <text x="80" y="44" text-anchor="middle" font-size="20" font-weight="bold" fill="rgba(255,255,255,0.55)" font-family="sans-serif" transform="rotate(10 80 35)">支持作者</text>
+        </svg>
+    </span>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <button id="打开AI配置" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">配置</button>
+        <button id="打开可执行命令" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">命令</button>
+        <button id="本地ai模型" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; color: white; cursor: pointer;">模型</button>
+    </div>
+    <div style="font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 8px;" id="AI状态提示">未配置</div>
+</div>
     </div>
 </div>
+<!-- ==================== 设置面板结束 ==================== -->
 
-<!-- 颜色选择器弹窗（背景颜色） -->
+<!-- ==================== 颜色选择器弹窗（背景颜色） ==================== -->
 <div class="颜色弹窗" id="背景颜色弹窗">
     <div class="颜色弹窗内容">
         <div class="颜色弹窗标题">背景预设</div>
@@ -97,7 +112,7 @@
     </div>
 </div>
 
-<!-- 颜色选择器弹窗（字体颜色） -->
+<!-- ==================== 颜色选择器弹窗（字体颜色） ==================== -->
 <div class="颜色弹窗" id="字体颜色弹窗">
     <div class="颜色弹窗内容">
         <div class="颜色弹窗标题">字体预设</div>
@@ -113,7 +128,7 @@
     </div>
 </div>
 
-<!-- 字体选择器弹窗 -->
+<!-- ==================== 字体选择器弹窗 ==================== -->
 <div class="字体弹窗" id="字体弹窗">
     <div class="字体弹窗内容">
         <div class="颜色弹窗标题">字体选择</div>
@@ -130,7 +145,7 @@
     </div>
 </div>
 
-<!-- 自定义输入弹窗 -->
+<!-- ==================== 自定义输入弹窗 ==================== -->
 <div class="输入弹窗" id="输入弹窗">
     <div class="输入弹窗内容">
         <div class="输入弹窗标题" id="输入弹窗标题">输入会话名称</div>
@@ -142,11 +157,11 @@
     </div>
 </div>
 
-<!-- 欢迎弹窗 -->
+<!-- ==================== 欢迎弹窗 ==================== -->
 <div class="欢迎弹窗" id="欢迎弹窗">
     <div class="欢迎弹窗内容">
         <div class="欢迎弹窗标题">Termux:Embellish</div>
-        <div class="欢迎弹窗版本">版本 1.0.2</div>
+        <div class="欢迎弹窗版本">版本 1.0.3</div>
         <div class="欢迎弹窗正文">
             Termux 服务连接成功<br><br>
             <strong>Termux:Embellish</strong><br>
@@ -173,45 +188,37 @@
         本项目基于 MIT 许可协议发布
     </span>
 </div>
-            </span>
-        </div>
     </div>
 </div>
 
-<!-- 高级弹窗 -->
+<!-- ==================== 高级弹窗 ==================== -->
 <div class="高级弹窗" id="高级弹窗">
     <div class="高级弹窗内容">
         <div class="高级弹窗标题">高级设置</div>
         <div class="高级选项列表">
-            
-<!-- 1. 远程连接地址 -->
-<div class="高级选项">
-    <div class="高级选项行">
-        <span class="高级选项标签">远程连接地址</span>
-        <span class="高级选项帮助" data-help="remote-addr">?</span>
-    </div>
-    <div style="display:flex; gap:8px; margin-top:8px; width:100%;">
-        <input type="text" id="远程地址输入" class="端口输入" value="ws://127.0.0.1:8081" placeholder="ws://IP:端口 或 wss://域名">
-        <button id="应用远程地址" class="端口确定">连接</button>
-    </div>
-    <div class="当前地址" style="margin-top:6px;">
-        当前地址: <span id="当前服务地址">ws://127.0.0.1:8081</span>
-    </div>
-</div>
-           
-            <!-- 3. 服务器脚本重置 -->
-     <div class="高级选项">
-    <div class="高级选项行">
-        <span class="高级选项标签">服务器脚本重置</span>
-        <span class="高级选项帮助" data-help="reset">?</span>
-    </div>
-    <button id="重置脚本按钮" class="重置按钮">
-        <span class="重置按钮文字">重置</span>
-        <span class="重置按钮图标" style="display:none;"></span>
-    </button>
-</div>
-            
-            <!-- 4. 本地服务保活 -->
+            <div class="高级选项">
+                <div class="高级选项行">
+                    <span class="高级选项标签">远程连接地址</span>
+                    <span class="高级选项帮助" data-help="remote-addr">?</span>
+                </div>
+                <div style="display:flex; gap:8px; margin-top:8px; width:100%;">
+                    <input type="text" id="远程地址输入" class="端口输入" value="ws://127.0.0.1:8081" placeholder="ws://IP:端口 或 wss://域名">
+                    <button id="应用远程地址" class="端口确定">连接</button>
+                </div>
+                <div class="当前地址" style="margin-top:6px;">
+                    当前地址: <span id="当前服务地址">ws://127.0.0.1:8081</span>
+                </div>
+            </div>
+            <div class="高级选项">
+                <div class="高级选项行">
+                    <span class="高级选项标签">服务器脚本重置</span>
+                    <span class="高级选项帮助" data-help="reset">?</span>
+                </div>
+                <button id="重置脚本按钮" class="重置按钮">
+                    <span class="重置按钮文字">重置</span>
+                    <span class="重置按钮图标" style="display:none;"></span>
+                </button>
+            </div>
             <div class="高级选项">
                 <div class="高级选项行">
                     <span class="高级选项标签">Termux 本地服务保活</span>
@@ -219,8 +226,6 @@
                 </div>
                 <span class="高级选项链接" id="保活教程">教程</span>
             </div>
-            
-            <!-- 5. 远程服务连接 -->
             <div class="高级选项">
                 <div class="高级选项行">
                     <span class="高级选项标签">Termux 远程服务连接</span>
@@ -228,8 +233,6 @@
                 </div>
                 <span class="高级选项链接" id="远程教程">教程</span>
             </div>
-            
-            <!-- 6. 开机自启 -->
             <div class="高级选项">
                 <div class="高级选项行">
                     <span class="高级选项标签">Termux 开机自启服务</span>
@@ -237,13 +240,12 @@
                 </div>
                 <span class="高级选项链接" id="自启教程">教程</span>
             </div>
-            
         </div>
         <div class="高级弹窗关闭" id="关闭高级弹窗">关闭</div>
     </div>
 </div>
 
-<!-- 帮助说明弹窗 -->
+<!-- ==================== 帮助说明弹窗 ==================== -->
 <div class="帮助弹窗" id="帮助弹窗">
     <div class="帮助弹窗内容">
         <div class="帮助弹窗标题" id="帮助弹窗标题">功能说明</div>
@@ -252,13 +254,13 @@
     </div>
 </div>
 
-<!-- 关于弹窗 -->
+<!-- ==================== 关于弹窗 ==================== -->
 <div class="关于弹窗" id="关于弹窗">
     <div class="关于弹窗内容">
         <div class="关于弹窗标题">关于</div>
         <div class="关于弹窗正文">
             Termux:Embellish<br>
-            版本 1.0.2<br><br>
+            版本 1.0.3<br><br>
             作者：四叶草<br><br>
             小红书: 5331041368<br>
             B站: 3706970185927059
@@ -271,7 +273,7 @@
     </div>
 </div>
 
-<!-- 键盘抽屉 -->
+<!-- ==================== 键盘抽屉 ==================== -->
 <div class="键盘抽屉" id="键盘抽屉">
     <div class="键盘抽屉内容">
         <div class="键盘行">
@@ -341,15 +343,13 @@
 </div>
 <div class="键盘遮罩" id="键盘遮罩"></div>
 
+<!-- ==================== 会话抽屉 ==================== -->
 <div class="抽屉" id="抽屉">
     <div class="抽屉内容">
         <div class="抽屉标题">会话列表</div>
-        <ul class="会话列表" id="会话列表">
-        </ul>
+        <ul class="会话列表" id="会话列表"></ul>
         <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
-            <button id="添加会话按钮" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 16px; color: white; cursor: pointer; width: 100%;">
-                添加会话
-            </button>
+            <button id="添加会话按钮" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 16px; color: white; cursor: pointer; width: 100%;">添加会话</button>
         </div>
         <div style="margin-top: 12px; font-size: 12px; color: rgba(255,255,255,0.4); text-align: center;">
             共 <span id="会话数量">0</span> 个会话
@@ -357,18 +357,19 @@
     </div>
 </div>
 
-<!-- 自定义确认弹窗 -->
+<!-- ==================== 自定义确认弹窗 ==================== -->
 <div class="确认弹窗" id="确认弹窗">
     <div class="确认弹窗内容">
         <div class="确认弹窗标题">确认删除</div>
         <div class="确认弹窗消息" id="确认弹窗消息">确定要删除这个会话吗？</div>
         <div class="确认弹窗按钮区域">
             <div class="确认弹窗按钮 取消" id="确认弹窗取消">取消</div>
-            <div class="确认弹窗按钮 确认" id="确认弹窗确认">删除</div>
+            <div class="确认弹窗按钮 确认" id="确认弹窗确认">确认</div>
         </div>
     </div>
 </div>
-<!-- 更新日志弹窗 -->
+
+<!-- ==================== 更新日志弹窗 ==================== -->
 <div class="更新日志弹窗" id="更新日志弹窗">
     <div class="更新日志弹窗内容">
         <div class="更新日志弹窗标题">更新日志</div>
@@ -378,7 +379,8 @@
         <div class="更新日志弹窗关闭" id="关闭更新日志弹窗">关闭</div>
     </div>
 </div>
-<!-- 主题商店弹窗 -->
+
+<!-- ==================== 主题商店弹窗 ==================== -->
 <div class="主题商店弹窗" id="主题商店弹窗">
     <div class="主题商店弹窗内容">
         <div class="主题商店弹窗标题">主题商店</div>
@@ -388,7 +390,8 @@
         <div class="更新日志弹窗关闭" id="关闭主题商店弹窗">关闭</div>
     </div>
 </div>
-<!-- 服务请求设置弹窗 -->
+
+<!-- ==================== 服务请求设置弹窗 ==================== -->
 <div class="服务请求弹窗" id="服务请求弹窗">
     <div class="服务请求弹窗内容">
         <div class="服务请求弹窗标题">服务请求</div>
@@ -397,7 +400,6 @@
                 由于 GitHub 的无登录 API 请求限制（60次/小时），更新日志、主题商店、版本检查等功能可能受限。
                 <br>配置 Token 后可提升至 5000次/小时。
             </div>
-            
             <div class="请求配置项">
                 <div class="配置行">
                     <span class="配置标签">统计:</span>
@@ -408,7 +410,6 @@
                     </div>
                 </div>
             </div>
-            
             <div class="Token配置区域">
                 <div class="配置行">
                     <span class="配置标签">Token:</span>
@@ -423,17 +424,196 @@
                     <button id="保存Token按钮" class="配置按钮小">保存</button>
                     <button id="清除Token按钮" class="配置按钮小">清除</button>
                 </div>
-                <div id="Token状态提示" style="font-size: 11px; color: #888; margin-top: 8px;"></div>
+                <div id="Token状态提示" style="font-size: 11px; color: #fff; margin-top: 8px;"></div>
             </div>
-            
             <div class="弹窗按钮区域" style="margin-top: 20px;">
                 <button id="关闭服务请求弹窗" class="服务请求弹窗按钮">关闭</button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- ==================== AI 抽屉 ==================== -->
+<div class="AI抽屉" id="AI抽屉">
+    <div class="AI抽屉内容">
+        <div class="AI对话区" id="AI对话区"></div>
+        <div class="AI底部工具栏">
+            <div class="AI圆形按钮" id="AI新对话按钮" style="cursor:pointer;display:flex;align-items:center;justify-content:center;">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 2L11 13" stroke="#fff" stroke-width="1.5"/>
+        <path d="M22 2l-7 20-4-9-9-4 20-7z" stroke="#fff" stroke-width="1.5"/>
+    </svg>
+</div>
+            <div class="AI圆形按钮" style="cursor:pointer;display:flex;align-items:center;justify-content:center;" title="添加">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.5"/>
+        <line x1="8" y1="12" x2="16" y2="12" stroke="#fff" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="12" y2="16" stroke="#fff" stroke-width="1.5"/>
+    </svg>
+</div>
+            <button class="AI操作按钮">思考</button>
+            <button class="AI操作按钮">联网</button>
+        </div>
+        <textarea class="AI输入框" id="AI输入框" placeholder="欢迎使用终端AI服务..."></textarea>
+    </div>
+</div>
+<!-- ==================== AI 配置弹窗 ==================== -->
+<div class="AI配置弹窗" id="AI配置弹窗">
+    <div class="AI配置弹窗内容">
+        <div class="AI配置弹窗标题">
+            termux:embellish 终端AI服务
+            <span class="AI配置帮助" id="AI配置帮助">?</span>
+        </div>
+        <div class="AI配置行">
+            <span class="AI配置标签">配置名称</span>
+            <input type="text" class="AI配置输入" id="AI配置名称" placeholder="例如：DeepSeek">
+        </div>
+        <div class="AI配置行">
+            <span class="AI配置标签">模型名称</span>
+            <input type="text" class="AI配置输入" id="AI模型名称" placeholder="例如：deepseek-v4-flash">
+        </div>
+        <div class="AI配置行">
+            <span class="AI配置标签">模型端口</span>
+            <input type="text" class="AI配置输入" id="AI地址输入" placeholder="https://api.deepseek.com/v1/chat/completions">
+        </div>
+        <div class="AI配置行">
+            <span class="AI配置标签">模型Key</span>
+            <input type="password" class="AI配置输入" id="AI密钥输入" placeholder="sk-xxxxxxxx">
+        </div>
+        <div class="AI配置行">
+            <span class="AI配置标签">选择模型</span>
+            <select class="AI配置选择" id="AI选择模型">
+                <option value="">— 从已保存配置中选择 —</option>
+            </select>
+        </div>
+        <div class="AI配置行">
+            <span class="AI配置标签">配置优先级</span>
+            <div class="AI配置单选组">
+                <label class="AI单选"><input type="radio" name="优先级" value="优先" checked> 优先</label>
+                <label class="AI单选"><input type="radio" name="优先级" value="同时"> 同时</label>
+                <label class="AI单选"><input type="radio" name="优先级" value="等待"> 等待</label>
+            </div>
+            <span class="AI配置帮助" id="AI优先级帮助">?</span>
+        </div>
+        <div class="AI配置状态" id="AI配置状态">当前：未配置</div>
+        <div class="AI配置按钮区">
+            <button class="AI配置按钮 确认" id="AI保存配置">配置服务</button>
+            <button class="AI配置按钮 取消" id="AI配置列表按钮">配置列表</button>
+            <button class="AI配置按钮 取消" id="AI删除配置">删除配置</button>
+        </div>
+        <button class="AI配置按钮 取消" id="AI自定义JS" style="width:100%; margin-top:8px;">更改 JS 配置文件</button>
+    </div>
+</div>
+
+<!-- ==================== 配置列表弹窗 ==================== -->
+<div class="AI配置名单" id="AI配置名单">
+    <div class="AI配置弹窗内容">
+        <div class="AI配置弹窗标题">已保存的配置</div>
+        <div class="AI配置列表区" id="AI配置列表区"></div>
+        <button class="AI配置按钮 取消" id="AI关闭配置列表">关闭</button>
+    </div>
+</div>
+
+<!-- ==================== 自定义 JS 编辑弹窗 ==================== -->
+<div class="AI自定义JS弹窗" id="AI自定义JS弹窗">
+    <div class="AI自定义JS弹窗内容">
+        <div class="AI配置弹窗标题">编辑 API 自定义 JS</div>
+        <textarea class="AI自定义JS输入" id="AI自定义JS输入" placeholder="在此编写自定义 API 请求逻辑..."></textarea>
+        <div class="AI配置按钮区" style="margin-top:12px;">
+            <button class="AI配置按钮 确认" id="AI保存自定义JS">保存</button>
+            <button class="AI配置按钮 取消" id="AI取消自定义JS">取消</button>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== 可执行命令弹窗 ==================== -->
+<div class="AI命令弹窗" id="AI命令弹窗">
+    <div class="AI命令弹窗内容">
+        <div class="AI配置弹窗标题">AI服务可执行命令</div>
+        <div class="AI配置行">
+            <span class="AI配置标签" style="width:25px;margin-right:0;">搜索</span>
+            <input type="text" class="AI配置输入" id="AI命令搜索" placeholder="搜索命令...">
+            <button class="AI配置按钮 确认" id="AI命令搜索确定" style="flex:0;width:50px;">确定</button>
+        </div>
+        <div class="AI命令列表" id="AI命令列表"></div>
+        <div class="AI配置按钮区" style="margin-top:12px;">
+            <button class="AI配置按钮 取消" id="AI执行日志级别">执行日志：普通</button>
+        </div>
+        <div class="AI配置按钮 取消" id="AI关闭命令弹窗" style="width:100%;margin-top:8px;">关闭</div>
+    </div>
 </div>
 <script src="res/js/language.js"></script>
-        <script src="res/js/index.js"></script>
-    </body>
+<script src="res/js/index.js"></script>
+<script src="res/js/community.js"></script>
+<div id="AI浮动工具栏" style="position:fixed;opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:10002;display:flex;gap:8px;align-items:center;background:rgba(30,30,40,0.9);backdrop-filter:blur(10px);border-radius:20px;padding:6px 12px;border:1px solid rgba(255,255,255,0.2);">
+    <div id="浮动修改按钮" title="修改" style="cursor:pointer;padding:4px;border-radius:12px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
+            <path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4L16.5 3.5z" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
+        </svg>
+    </div>
+    <div id="浮动重新生成按钮" title="重新生成" style="cursor:pointer;padding:4px;border-radius:12px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 1 1-9-9c2.5 0 4.9 1 6.7 2.8" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
+            <polyline points="21 3 21 9 15 9" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
+        </svg>
+    </div>
+</div>
+<!-- ==================== 本地AI模型弹窗 ==================== -->
+<div class="通用弹窗" id="本地模型弹窗" style="z-index:50012;">
+    <div class="通用弹窗内容" style="max-width:420px;text-align:left;">
+        <div class="通用弹窗标题" style="text-align:center;">本地AI模型 <span class="帮助图标" id="本地模型帮助按钮" style="cursor:pointer;">?</span></div>
+        
+        <!-- 搜索 -->
+        <input type="text" id="本地模型搜索" class="AI配置输入" placeholder="搜索模型..." style="width:100%;margin-bottom:12px;">
+        
+        <!-- 模型列表 -->
+        <div id="本地模型列表" style="max-height:40vh;overflow-y:auto;margin-bottom:12px;font-size:12px;color:rgba(255,255,255,0.7);">加载中...</div>
+        
+        <!-- 按钮 -->
+        <div style="display:flex;gap:8px;margin-bottom:12px;">
+            <button id="拉取模型按钮" class="AI配置按钮 确认" style="flex:1;">拉取模型</button>
+            <button id="已拉取模型按钮" class="AI配置按钮 取消" style="flex:1;">已拉取模型</button>
+        </div>
+        <button class="AI配置按钮 取消" id="关闭本地模型弹窗" style="width:100%;">关闭</button>
+    </div>
+</div>
+
+<!-- ==================== 已拉取模型弹窗 ==================== -->
+<div class="通用弹窗" id="已拉取模型弹窗" style="z-index:50013;">
+    <div class="通用弹窗内容" style="max-width:420px;text-align:left;">
+        <div class="通用弹窗标题" style="text-align:center;">已拉取AI模型</div>
+        <input type="text" id="已拉取模型搜索" class="AI配置输入" placeholder="搜索已拉取模型..." style="width:100%;margin-bottom:12px;">
+        <div id="已拉取模型列表" style="max-height:40vh;overflow-y:auto;margin-bottom:12px;font-size:12px;color:rgba(255,255,255,0.7);">加载中...</div>
+        <div style="display:flex;gap:8px;margin-bottom:12px;">
+            <button id="全部同时按钮" class="AI配置按钮 确认" style="flex:1;">全部同时</button>
+            <button id="全部等待按钮" class="AI配置按钮 取消" style="flex:1;">全部等待</button>
+        </div>
+        <button class="AI配置按钮 取消" id="关闭已拉取模型弹窗" style="width:100%;">关闭</button>
+    </div>
+</div>
+
+<!-- ==================== 本地模型帮助弹窗 ==================== -->
+<div class="通用弹窗" id="本地模型帮助弹窗" style="z-index:50014;">
+    <div class="通用弹窗内容" style="text-align:center;">
+        <div class="通用弹窗标题">本地AI模型说明</div>
+        <div class="通用弹窗正文" style="text-align:left;">
+            <strong>什么是本地AI模型？</strong><br>
+            通过Ollama在您的设备上直接运行AI大语言模型，无需联网，隐私安全。<br><br>
+            <strong>使用步骤：</strong><br>
+            1. 先在Termux中运行 <code>model</code> 命令启动服务<br>
+            2. 在「拉取模型」中搜索并下载模型<br>
+            3. 在「已拉取模型」中设置优先级<br><br>
+            <strong>优先级说明：</strong><br>
+            · 优先：优先使用此模型<br>
+            · 同时：与其他模型并行使用<br>
+            · 等待：作为备用模型<br><br>
+            <strong>推荐模型：</strong><br>
+            低配手机：llama3.2:1b / qwen2.5:0.5b<br>
+            高配手机：qwen2.5:1.5b / deepseek-r1:1.5b
+        </div>
+        <button class="通用弹窗关闭" style="width:100%;">知道了</button>
+    </div>
+</div>
+</body>
 </html>

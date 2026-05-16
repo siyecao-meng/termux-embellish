@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 # ======================================================
-# Termux:Embellish v1.0.2 服务安装脚本
+# Termux:Embellish v1.0.3 服务安装脚本
 # 作者: 四叶草
 # ======================================================
 
@@ -17,10 +17,122 @@ KEEPER_FILE="$SERVER_DIR/keeper.sh"
 BOOT_FILE="$HOME/.termux/boot/start-server"
 SHORTCUT_DIR="$HOME/.shortcuts"
 CF_INSTALL="$HOME/install-cloudflare-tunnel.sh"
+MODEL_SCRIPT="$PREFIX/bin/model"
 LOG_FILE="$SERVER_DIR/install.log"
 
 log() {
     echo "[$(date '+%H:%M:%S')] $1" >> "$LOG_FILE"
+}
+
+# ==================== 协议声明 ====================
+show_license() {
+    clear
+    echo ""
+    echo -e "${CYAN}==========================================${NC}"
+    echo -e "${CYAN}   Termux:Embellish v1.0.3 服务安装脚本${NC}"
+    echo -e "${CYAN}==========================================${NC}"
+    echo ""
+    echo -e "作者: ${GREEN}四叶草${NC}"
+    echo -e "小红书: ${GREEN}5331041368${NC}"
+    echo -e "B站 UID: ${GREEN}3706970185927059${NC}"
+    echo ""
+    echo -e "${YELLOW}------------------------------------------${NC}"
+    echo ""
+    echo -e "本项目基于 ${GREEN}MIT 开源许可协议${NC}发布。"
+    echo ""
+    echo "你可以自由地："
+    echo "  · 使用、复制、修改、分发、再授权本软件"
+    echo "  · 将本软件用于个人用途或商业用途"
+    echo "  · 将本软件合并到其他项目中（包括闭源项目）"
+    echo ""
+    echo "只需遵守："
+    echo "  · 保留原始版权声明和 MIT 许可声明"
+    echo ""
+    echo "完整协议: https://opensource.org/licenses/MIT"
+    echo ""
+    echo -e "${YELLOW}------------------------------------------${NC}"
+    echo ""
+    echo -e "${RED}免责声明：${NC}"
+    echo ""
+    echo "本软件仅供学习交流使用。"
+    echo ""
+    echo "  1. 使用本软件产生的任何后果（包括但不限于"
+    echo "     数据丢失、系统损坏、设备异常）由使用者"
+    echo "     自行承担。"
+    echo ""
+    echo "  2. 远程连接功能涉及网络安全，请自行做好"
+    echo "     访问控制和密码保护，作者不对因远程暴露"
+    echo "     导致的安全问题负责。"
+    echo ""
+    echo "  3. 本软件不收集、不存储、不上传任何用户"
+    echo "     数据，所有会话数据仅保存在本地。"
+    echo ""
+    echo "  4. 禁止将本软件用于任何违法违规用途。"
+    echo ""
+    echo "  5. 本软件中的背景示例图片均为AI生成，"
+    echo "     如涉及侵权请联系删除。"
+    echo ""
+    echo "  6. 商用、二次创作、二次转载需标明原作者。"
+    echo ""
+    echo "  7. 作者保留对以上条款的最终解释权。"
+    echo ""
+    echo -e "${YELLOW}------------------------------------------${NC}"
+    echo ""
+    echo "本软件依赖以下开源项目（版权归原作者所有）："
+    echo "  · Node.js        (MIT 许可)"
+    echo "  · ws 模块        (MIT 许可)"
+    echo "  · Cloudflared    (Apache 2.0 许可)"
+    echo "  · Shizuku        (MIT 许可)"
+    echo "  · Termux 系列    (GPL-3.0 许可)"
+    echo "  · Ollama         (MIT 许可)"
+    echo ""
+    echo -e "${YELLOW}------------------------------------------${NC}"
+    echo ""
+    echo -ne "请输入 ${GREEN}y${NC} 确认同意以上协议，输入 ${RED}n${NC} 退出安装: "
+    read agree
+
+    if [ "$agree" != "y" ] && [ "$agree" != "Y" ]; then
+        echo ""
+        echo -e "${RED}已取消安装。${NC}"
+        exit 0
+    fi
+}
+
+# ==================== AI 免责声明 ====================
+show_ai_disclaimer() {
+    clear
+    echo ""
+    echo -e "${CYAN}==========================================${NC}"
+    echo -e "${CYAN}         AI 服务免责声明${NC}"
+    echo -e "${CYAN}==========================================${NC}"
+    echo ""
+    echo -e "1. 本工具仅提供 AI 服务的接入功能，"
+    echo -e "   所有 AI 模型及 API 均由用户自行配置。"
+    echo ""
+    echo -e "2. 对话内容由第三方服务商（如 DeepSeek、"
+    echo -e "   OpenAI、硅基流动、七牛云等）或用户本地的"
+    echo -e "   Ollama 模型生成，与 Termux:Embellish"
+    echo -e "   开发者无关。"
+    echo ""
+    echo -e "3. 开发者不对以下事项承担责任："
+    echo -e "   • AI 生成内容的准确性、完整性、合法性"
+    echo -e "   • 因使用 AI 服务产生的任何直接或间接损失"
+    echo -e "   • 第三方服务商的数据收集与隐私政策"
+    echo ""
+    echo -e "4. 用户应自行："
+    echo -e "   • 遵守各 AI 服务商的使用条款"
+    echo -e "   • 确保 API Key 的安全存储"
+    echo -e "   • 对 AI 执行的命令进行审核确认"
+    echo ""
+    echo -e "5. 本地 Ollama 模型完全离线运行，"
+    echo -e "   数据不会上传至任何服务器。"
+    echo ""
+    echo -e "${CYAN}==========================================${NC}"
+    echo -e "${YELLOW}使用本工具的 AI 功能即表示您已知悉并同意以上条款${NC}"
+    echo -e "${CYAN}==========================================${NC}"
+    echo ""
+    echo -ne "按 ${GREEN}回车键${NC} 继续安装..."
+    read
 }
 
 # ==================== 检查并安装依赖 ====================
@@ -82,77 +194,112 @@ check_dependencies() {
     fi
 }
 
-# ==================== 协议声明 ====================
-show_license() {
-    clear
+# ==================== 安装 model 命令（本地AI模型脚本） ====================
+install_model_command() {
     echo ""
     echo -e "${CYAN}==========================================${NC}"
-    echo -e "${CYAN}   Termux:Embellish v1.0.2 服务安装脚本${NC}"
+    echo -e "${CYAN}   安装本地AI模型命令${NC}"
     echo -e "${CYAN}==========================================${NC}"
     echo ""
-    echo -e "作者: ${GREEN}四叶草${NC}"
-    echo -e "小红书: ${GREEN}5331041368${NC}"
-    echo -e "B站 UID: ${GREEN}3706970185927059${NC}"
-    echo ""
-    echo -e "${YELLOW}------------------------------------------${NC}"
-    echo ""
-    echo -e "本项目基于 ${GREEN}MIT 开源许可协议${NC}发布。"
-    echo ""
-    echo "你可以自由地："
-    echo "  · 使用、复制、修改、分发、再授权本软件"
-    echo "  · 将本软件用于个人用途或商业用途"
-    echo "  · 将本软件合并到其他项目中（包括闭源项目）"
-    echo ""
-    echo "只需遵守："
-    echo "  · 保留原始版权声明和 MIT 许可声明"
-    echo ""
-    echo "完整协议: https://opensource.org/licenses/MIT"
-    echo ""
-    echo -e "${YELLOW}------------------------------------------${NC}"
-    echo ""
-    echo -e "${RED}免责声明：${NC}"
-    echo ""
-    echo "本软件仅供学习交流使用。"
-    echo ""
-    echo "  1. 使用本软件产生的任何后果（包括但不限于"
-    echo "     数据丢失、系统损坏、设备异常）由使用者"
-    echo "     自行承担。"
-    echo ""
-    echo "  2. 远程连接功能涉及网络安全，请自行做好"
-    echo "     访问控制和密码保护，作者不对因远程暴露"
-    echo "     导致的安全问题负责。"
-    echo ""
-    echo "  3. 本软件不收集、不存储、不上传任何用户"
-    echo "     数据，所有会话数据仅保存在本地。"
-    echo ""
-    echo "  4. 禁止将本软件用于任何违法违规用途。"
-    echo ""
-    echo "  5. 本软件中的背景示例图片均为AI生成，"
-    echo "     如涉及侵权请联系删除。"
-    echo ""
-    echo "  6. 商用、二次创作、二次转载需标明原作者。"
-    echo ""
-    echo "  7. 作者保留对以上条款的最终解释权。"
-    echo ""
-    echo -e "${YELLOW}------------------------------------------${NC}"
-    echo ""
-    echo "本软件依赖以下开源项目（版权归原作者所有）："
-    echo "  · Node.js        (MIT 许可)"
-    echo "  · ws 模块        (MIT 许可)"
-    echo "  · Cloudflared    (Apache 2.0 许可)"
-    echo "  · Shizuku        (MIT 许可)"
-    echo "  · Termux 系列    (GPL-3.0 许可)"
-    echo ""
-    echo -e "${YELLOW}------------------------------------------${NC}"
-    echo ""
-    echo -ne "请输入 ${GREEN}y${NC} 确认同意以上协议，输入 ${RED}n${NC} 退出安装: "
-    read agree
-
-    if [ "$agree" != "y" ] && [ "$agree" != "Y" ]; then
-        echo ""
-        echo -e "${RED}已取消安装。${NC}"
-        exit 0
+    
+    if [ -f "$MODEL_SCRIPT" ]; then
+        echo -e "${YELLOW}  model 命令已存在，跳过安装${NC}"
+        return
     fi
+    
+    cat > "$MODEL_SCRIPT" << 'MODELEOF'
+#!/data/data/com.termux/files/usr/bin/bash
+
+# ======================================================
+# Termux:Embellish 本地AI模型服务脚本
+# 快捷命令: model
+# ======================================================
+
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+# 清除屏幕并显示标题
+clear
+echo ""
+echo -e "${CYAN}==========================================${NC}"
+echo -e "${CYAN}   本地AI模型服务${NC}"
+echo -e "${CYAN}==========================================${NC}"
+echo ""
+
+# 检查并安装 Ollama
+if ! command -v ollama &> /dev/null; then
+    echo -e "${YELLOW}正在安装 Ollama...${NC}"
+    pkg update -y && pkg install ollama -y
+    echo -e "${GREEN}✓ Ollama 安装完成${NC}"
+else
+    echo -e "${GREEN}✓ Ollama 已安装${NC}"
+fi
+
+# 停止已有的 Ollama 进程
+if pgrep -x ollama > /dev/null 2>&1; then
+    echo -e "${YELLOW}正在停止旧的 Ollama 进程...${NC}"
+    pkill ollama
+    sleep 2
+fi
+
+# 启动 ollama serve（前台运行，输出直接显示）
+echo -e "${YELLOW}正在启动 Ollama 服务...${NC}"
+echo ""
+
+# 创建临时文件记录日志
+TEMP_LOG=$(mktemp)
+
+# 启动 ollama serve，同时输出到屏幕和临时文件
+ollama serve 2>&1 | tee "$TEMP_LOG" &
+OLLAMA_PID=$!
+
+# 等待服务完全启动（连续2秒没有新输出）
+LAST_SIZE=0
+SLEEP_COUNT=0
+while true; do
+    sleep 1
+    CURRENT_SIZE=$(stat -c%s "$TEMP_LOG" 2>/dev/null || echo 0)
+    if [ "$CURRENT_SIZE" -eq "$LAST_SIZE" ]; then
+        SLEEP_COUNT=$((SLEEP_COUNT + 1))
+        # 连续2秒日志大小没变化，认为启动完成
+        if [ "$SLEEP_COUNT" -ge 2 ]; then
+            break
+        fi
+    else
+        SLEEP_COUNT=0
+        LAST_SIZE=$CURRENT_SIZE
+    fi
+done
+
+# 输出空行分隔
+echo ""
+
+# 显示服务状态信息
+echo -e "${CYAN}==========================================${NC}"
+echo -e "${GREEN}  本地AI服务已启用${NC}"
+echo -e "${CYAN}==========================================${NC}"
+echo ""
+echo -e "  模型: ${GREEN}deepseek-r1:1.5b${NC}"
+echo -e "  地址: ${GREEN}http://127.0.0.1:11434${NC}"
+echo ""
+echo -e "${CYAN}==========================================${NC}"
+echo ""
+echo -e "${YELLOW}提示: 按 Ctrl+C 停止服务${NC}"
+
+# 清理临时文件
+rm -f "$TEMP_LOG"
+
+# 等待 ollama 进程结束
+wait $OLLAMA_PID
+MODELEOF
+    
+    chmod +x "$MODEL_SCRIPT"
+    echo -e "  ${GREEN}✓ model 命令安装完成${NC}"
+    echo -e "  使用方式: 输入 ${CYAN}model${NC} 启动本地AI服务"
+    log "model 命令安装完成"
 }
 
 # ==================== 安装主服务 ====================
@@ -607,9 +754,11 @@ finish_install() {
     [ -f "$BOOT_FILE" ] && echo "  ✓ 开机自启 (bootsh)"
     [ -f "$SHORTCUT_DIR/启动Termux服务器" ] && echo "  ✓ 桌面快捷方式 (widsh)"
     [ -f "$CF_INSTALL" ] && echo "  ✓ 远程连接脚本 (closh)"
+    [ -f "$MODEL_SCRIPT" ] && echo "  ✓ 本地AI模型 (model)"
     echo ""
     echo -e "${GREEN}快捷命令:${NC}"
     echo -e "  ${CYAN}embellish${NC}  - 一键启动主服务"
+    echo -e "  ${CYAN}model${NC}      - 启动本地AI模型服务"
     echo -e "  ${CYAN}closh${NC}      - 启动远程连接"
     echo -e "  ${CYAN}shish${NC}      - 保活脚本"
     echo -e "  ${CYAN}bootsh${NC}     - 编辑开机自启脚本"
@@ -628,6 +777,9 @@ finish_install() {
     # 添加别名（不重复）
     if ! grep -q "alias embellish=" "$HOME/.bashrc" 2>/dev/null; then
         echo "alias embellish='cd ~/termux-server && if pgrep -f \"node.*server.js\" > /dev/null 2>&1; then echo \"✓ 服务器已在运行中\"; else nohup node server.js > /dev/null 2>&1 & sleep 2; if pgrep -f \"node.*server.js\" > /dev/null 2>&1; then echo \"✓ 服务器已启动\"; else echo \"✗ 启动失败，请检查 node 是否安装\"; fi; fi'" >> "$HOME/.bashrc"
+    fi
+    if ! grep -q "alias model=" "$HOME/.bashrc" 2>/dev/null; then
+        echo "alias model='bash $PREFIX/bin/model'" >> "$HOME/.bashrc"
     fi
     if ! grep -q "alias xiezai=" "$HOME/.bashrc" 2>/dev/null; then
         echo "alias xiezai='bash ~/uninstall.sh'" >> "$HOME/.bashrc"
@@ -679,6 +831,7 @@ echo "  · ~/.termux_sessions.json"
 echo "  · crontab 保活任务"
 echo "  · ~/.bashrc 别名"
 echo "  · ~/install-cloudflare-tunnel.sh"
+echo "  · $PREFIX/bin/model"
 echo "  · ~/uninstall.sh"
 echo ""
 echo -ne "确认卸载? 输入 yes 继续: "
@@ -702,13 +855,15 @@ rm -f ~/.shortcuts/启动远程连接
 rm -f ~/.shortcuts/停止远程连接
 rm -f ~/.termux_sessions.json
 rm -f ~/install-cloudflare-tunnel.sh
+rm -f $PREFIX/bin/model
 rm -f ~/uninstall.sh
 
 crontab -l 2>/dev/null | grep -v "keeper.sh" | crontab - 2>/dev/null
 
-# 删除别名（保留原 .bashrc 备份）
+# 删除别名
 if [ -f "$HOME/.bashrc" ]; then
     sed -i '/alias embellish=/d' "$HOME/.bashrc" 2>/dev/null
+    sed -i '/alias model=/d' "$HOME/.bashrc" 2>/dev/null
     sed -i '/alias xiezai=/d' "$HOME/.bashrc" 2>/dev/null
     sed -i '/alias shish=/d' "$HOME/.bashrc" 2>/dev/null
     sed -i '/alias bootsh=/d' "$HOME/.bashrc" 2>/dev/null
@@ -717,7 +872,7 @@ if [ -f "$HOME/.bashrc" ]; then
 fi
 
 echo ""
-echo "卸载完成。依赖包（nodejs、cloudflared 等）未删除。"
+echo "卸载完成。依赖包（nodejs、cloudflared、ollama 等）未删除。"
 UNEOF
     chmod +x "$HOME/uninstall.sh"
     log "卸载脚本已创建"
@@ -725,12 +880,15 @@ UNEOF
 
 main() {
     show_license
-    check_dependencies      # 新增：检查依赖
+    show_ai_disclaimer    # 总声明同意后，显示 AI 免责声明
+    check_dependencies
+    install_model_command  # 新增：安装 model 命令
     install_main_server
     install_options
     finish_install
     echo ""
     echo -e "${GREEN}请重启 Termux 或执行 'source ~/.bashrc' 使命令生效${NC}"
+    echo -e "${GREEN}本地AI模型服务请执行 'model' 命令启动${NC}"
 }
 
 main "$@"
