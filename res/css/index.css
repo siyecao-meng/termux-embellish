@@ -6,7 +6,7 @@
     height: 100vh;
     background: rgba(0, 0, 0, 0);
     backdrop-filter: blur(8px);
-    z-index: 50000;
+    z-index: 50006;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -457,7 +457,7 @@
     height: 100vh;
     background: rgba(0, 0, 0, 0);
     backdrop-filter: blur(4px);
-    z-index: 30000;
+    z-index: 50010;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -886,7 +886,7 @@
     height: 100vh;
     background: rgba(0, 0, 0, 0);
     backdrop-filter: blur(10px);
-    z-index: 50001;
+    z-index: 50009;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1179,7 +1179,7 @@
     height: 100vh;
     background: rgba(0, 0, 0, 0);
     backdrop-filter: blur(8px);
-    z-index: 50000;
+    z-index: 50200;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1254,7 +1254,15 @@ body {
 .十六进制输入,
 .密码输入,
 .关于弹窗正文,
-#输出框 {
+#输出框,
+/* 新增：更新日志弹窗正文 */
+.更新日志弹窗正文,
+/* 新增：AI 对话区 */
+.AI对话区,
+/* 新增：AI 纯文本（AI 回复内容） */
+.AI纯文本,
+/* 新增：用户消息气泡 */
+.AI用户气泡 {
     user-select: text;
     -webkit-user-select: text;
 }
@@ -1267,7 +1275,7 @@ body {
     height: 100vh;
     background: rgba(0, 0, 0, 0);
     backdrop-filter: blur(12px);
-    z-index: 50002;
+    z-index: 50008;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1370,7 +1378,7 @@ body {
     height: 100vh;
     background: rgba(0, 0, 0, 0);
     backdrop-filter: blur(12px);
-    z-index: 50003;
+    z-index: 50007;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1719,4 +1727,793 @@ body {
     border-radius: 10px;
     padding: 2px 6px;
     color: #ffaa44;
+}
+/* ========== AI 抽屉（从右往左滑出）========== */
+.AI抽屉 {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 75vw;
+    height: 100vh;
+    background: rgba(20, 20, 30, 0.05);
+    backdrop-filter: blur(3px);
+    z-index: 10001;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.4);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.AI抽屉.打开 {
+    transform: translateX(0);
+}
+
+.AI抽屉内容 {
+    position: relative;
+    padding: 20px 20px 0 20px;  /* 底部padding去掉，让对话区自己控制 */
+    color: white;
+    font-family: monospace;
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+.AI抽屉标题 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: #00ccff;
+}
+/*AI输入框==========================*/
+.AI输入框 {
+    position: fixed;
+    bottom: 15px;
+    left: calc(0vw + 10px);
+    right: 8px;
+    width: auto;
+    height: 100px;
+    background: rgba(225,225,225,0.18);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 18px;
+    padding: 14px 40px;
+    color: white;
+    font-size: 14px;
+    font-family: monospace;
+    outline: none;
+    box-sizing: border-box;
+    z-index: 4;
+    resize: none;
+}
+
+.AI输入框::placeholder {
+    color: rgba(255,255,255,0.35);
+}
+
+/* ========== 底部工具栏 ========== */
+.AI底部工具栏 {
+    position: fixed;
+    bottom: 20px;
+    left: calc(0vw + 20px);
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 5;
+}
+
+/* 左侧圆形按钮 */
+.AI圆形按钮 {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    border: none;
+    color: white;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.AI圆形按钮:active {
+    background: rgba(102,102,102,0.5);
+    transform: scale(0.95);
+}
+
+/* 右侧操作按钮 */
+.AI操作按钮 {
+    width: 70px;
+    height: 30px;
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 11px;
+    color: white;
+    font-size: 13px;
+    font-family: monospace;
+    cursor: pointer;
+}
+
+.AI操作按钮:active {
+    background: rgba(102,102,102,0.5);
+    transform: scale(0.96);
+}
+/* ========== AI 对话区 ========== */
+.AI对话区 {
+    padding: 0 20px 160px 8px;  /* 原来是 0 20px 0 8px，改最后一个值 */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ========== AI 消息（头像 + 文本） ========== */
+.AI消息行 {
+    display: flex;
+    flex-direction: column;      /* 竖排 */
+    align-items: flex-start;      /* 左对齐 */
+    gap: 6px;                     /* 头像和文字上下间距 */
+}
+
+.AI头像 {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(225,225,225,0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.AI纯文本 {
+    padding: 10px 14px;
+    padding-left: 15px;          /* 32px头像宽 + 6px间距，让文字和头像左对齐 */
+    color: white;
+    font-size: 10px;
+    font-family: monospace;
+    line-height: 1.6;
+}
+
+/* ========== 用户消息（只有气泡） ========== */
+.AI用户气泡 {
+    align-self: flex-end;
+    max-width: 80%;
+    padding: 10px 16px;
+    background: rgba(0,180,255,0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,180,255,0.3);
+    border-radius: 16px 4px 16px 16px;
+    color: white;
+    font-size: 10px;
+    font-family: monospace;
+    line-height: 1.6;
+    word-break: break-all;       /* 长英文/数字强制换行 */
+    overflow-wrap: break-word;   /* 长单词换行 */
+    white-space: pre-wrap;
+}
+/* ========== AI 配置弹窗 ========== */
+.AI配置弹窗 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.05);
+    backdrop-filter: blur(2px);
+    z-index: 50004;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.AI配置弹窗.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.AI配置弹窗内容 {
+    width: 85vw;
+    max-width: 340px;
+    background: rgba(20,20,30,0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 24px 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.AI配置弹窗标题 {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.AI配置帮助 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    color: #888;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.AI配置行 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.AI配置标签 {
+    width: 55px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    flex-shrink: 0;
+}
+
+.AI配置输入 {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 10px 2px;
+    color: white;
+    font-size: 13px;
+    font-family: monospace;
+    outline: none;
+}
+
+.AI配置输入::placeholder {
+    color: rgba(255,255,255,0.3);
+}
+
+/* 选择器 */
+.AI配置选择 {
+    flex: 0;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 10px 10px;
+    color: white;
+    font-size: 10px;
+    font-family: monospace;
+    outline: none;
+}
+
+.AI配置选择 option {
+    background: #1a1a2e;
+    color: white;
+}
+
+/* 单选框组 */
+.AI配置单选组 {
+    display: flex;
+    gap: 12px;
+    flex: 1;
+}
+
+.AI单选 {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.AI单选 input[type="radio"] {
+    accent-color: #00ccff;
+}
+
+.AI配置状态 {
+    font-size: 12px;
+    color: #888;
+    margin: 12px 0 16px;
+}
+
+.AI配置按钮区 {
+    display: flex;
+    gap: 10px;
+}
+
+.AI配置按钮 {
+    flex: 1;
+    padding: 10px 0;
+    border-radius: 12px;
+    font-size: 13px;
+    font-family: monospace;
+    cursor: pointer;
+    border: none;
+    color: white;
+}
+/* 修复 AI 命令弹窗关闭按钮不居中 */
+#AI关闭命令弹窗 {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.AI配置按钮.确认 {
+    background: rgba(0,200,255,0.35);
+    border: 1px solid rgba(0,200,255,0.5);
+}
+
+.AI配置按钮.取消 {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.AI配置按钮:active {
+    transform: scale(0.96);
+}
+
+/* ========== 配置列表弹窗 ========== */
+.AI配置名单 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.05);
+    backdrop-filter: blur(2px);
+    z-index: 50006;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.AI配置名单.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.AI配置列表区 {
+    max-height: 50vh;
+    overflow-y: auto;
+    margin-bottom: 16px;
+}
+
+.AI配置列表项 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+}
+
+.优先级标签 {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 8px;
+    background: rgba(0,200,255,0.2);
+    color: #00ccff;
+}
+.AI配置名单 .AI配置按钮.取消 {
+    width: 100%;
+    margin-top: 8px;
+}
+/* ========== 自定义 JS 编辑弹窗 ========== */
+.AI自定义JS弹窗 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.05);
+    backdrop-filter: blur(2px);
+    z-index: 50005;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.AI自定义JS弹窗.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.AI自定义JS弹窗内容 {
+    width: 90vw;
+    max-width: 500px;
+    max-height: 85vh;
+    background: rgba(20,20,30,0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 24px 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.AI自定义JS输入 {
+    flex: 1;
+    min-height: 400px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: #00ff88;
+    font-size: 13px;
+    font-family: monospace;
+    outline: none;
+    resize: none;
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+/* ========== 可执行命令弹窗 ========== */
+.AI命令弹窗 {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.05);
+    backdrop-filter: blur(2px);
+    z-index: 50002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+}
+
+.AI命令弹窗.打开 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.AI命令弹窗内容 {
+    width: 90vw;
+    max-width: 420px;
+    max-height: 80vh;
+    background: rgba(20,20,30,0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 24px 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+/* 命令列表滚动区 */
+.AI命令列表 {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 50vh;
+    margin: 8px 0;
+    padding-right: 4px;
+}
+
+/* 原生滚动条 */
+.AI命令列表::-webkit-scrollbar {
+    width: 5px;
+}
+
+.AI命令列表::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 3px;
+}
+
+.AI命令列表::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.25);
+    border-radius: 3px;
+}
+
+/* 分类标题 */
+.AI命令分类 {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    padding: 10px 0 6px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+}
+
+.AI命令分类::before {
+    content: '▸';
+    font-size: 10px;
+    transition: transform 0.2s;
+}
+
+.AI命令分类.展开::before {
+    transform: rotate(90deg);
+}
+
+/* 分类下命令容器 */
+.AI命令子列表 {
+    display: none;
+    padding-left: 12px;
+}
+
+.AI命令子列表.打开 {
+    display: block;
+}
+
+/* 单条命令 */
+.AI命令项 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    margin: 2px 0;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    font-size: 13px;
+    color: white;
+    font-family: monospace;
+}
+
+.AI命令项 .命令名 {
+    flex: 1;
+}
+
+.AI命令项 .命令状态 {
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.7);
+    user-select: none;
+    transition: all 0.2s;
+}
+
+.AI命令项 .命令状态.询问 {
+    background: rgba(0,255,136,0.2);
+    color: #00ff88;
+}
+
+.AI命令项 .命令状态.允许 {
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.5);
+}
+
+.AI命令项 .命令状态.禁用 {
+    background: rgba(255,0,0,0.15);
+    color: #ff6666;
+}
+/* ==================== 全局悬浮进度条 ==================== */
+.全局进度条 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background: rgba(0, 0, 0, 0.01);
+    backdrop-filter: blur(3px);
+    z-index: 60000;
+    transform: translateY(-100%);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.全局进度条.显示 {
+    transform: translateY(0);
+}
+
+.全局进度条内容 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 16px;
+    gap: 12px;
+}
+
+.全局进度条左侧 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.全局进度条图标 {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(0, 200, 255, 0.2);
+    border: 1px solid rgba(0, 200, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    animation: 进度条旋转 1s linear infinite;
+}
+
+@keyframes 进度条旋转 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.全局进度条信息 {
+    flex: 1;
+}
+
+.全局进度条标题 {
+    font-size: 13px;
+    color: #00ccff;
+    font-weight: bold;
+}
+
+.全局进度条详情 {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 2px;
+}
+
+.全局进度条进度区域 {
+    width: 120px;
+}
+
+.全局进度条进度条 {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.全局进度条进度填充 {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #00ff88, #00ccff);
+    transition: width 0.3s ease;
+}
+
+.全局进度条百分比 {
+    font-size: 11px;
+    color: #00ff88;
+    text-align: right;
+    margin-top: 4px;
+}
+
+.全局进度条状态 {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    min-width: 60px;
+    text-align: right;
+}
+
+/* 进度条控制菜单弹窗 */
+.进度条菜单弹窗 {
+    position: fixed;
+    top: 48px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    background: rgba(20, 20, 30, 0.1);
+    backdrop-filter: blur(3px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    z-index: 60001;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    min-width: 160px;
+    overflow: hidden;
+}
+
+.进度条菜单弹窗.打开 {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+}
+
+.进度条菜单项 {
+    padding: 12px 20px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.进度条菜单项:last-child {
+    border-bottom: none;
+}
+
+.进度条菜单项:active {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.进度条菜单项.暂停中 {
+    color: #ffaa00;
+}
+
+.进度条菜单项.取消中 {
+    color: #ff8888;
+}
+/* 隐藏复制按钮 */
+#浮动复制按钮 {
+    display: none !important;
+}
+
+/* 修改后的浮动工具栏样式 - 只显示修改和重新生成，靠右对齐 */
+#AI浮动工具栏 {
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 10002;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: rgba(30, 30, 40, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 6px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 工具栏按钮样式 */
+#AI浮动工具栏 > div {
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 12px;
+    transition: background 0.2s;
+}
+
+#AI浮动工具栏 > div:active {
+    background: rgba(255, 255, 255, 0.2);
+}
+/* AI 浮动工具栏透明样式 */
+#AI用户浮动工具栏,
+#AI消息浮动工具栏 {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+#用户修改按钮,
+#AI重新生成按钮 {
+    background: transparent !important;
+    backdrop-filter: none !important;
+}
+
+#用户修改按钮:active,
+#AI重新生成按钮:active {
+    transform: scale(0.9);
 }
