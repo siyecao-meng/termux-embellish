@@ -946,7 +946,7 @@ setTimeout(() => {
     }
 });
 // ==================== 全局版本号 ====================
-const 当前版本号 = '1.0.2';  // 每次发布新版本时修改这里
+const 当前版本号 = '1.0.3';  // 每次发布新版本时修改这里
 
 // ==================== 更新日志功能 ====================
 let 更新日志缓存 = null;
@@ -1840,6 +1840,175 @@ document.querySelectorAll('[data-help-token]').forEach(btn => {
 
 // 初始化
 更新UI统计();
+// ==================== 界面主题切换 ====================
+const 主题玻璃按钮 = document.getElementById('主题玻璃');
+const 主题兼容按钮 = document.getElementById('主题兼容');
+const 主题提示 = document.getElementById('主题提示');
+
+// 检测 Android 版本（改为低于 8 才自动切兼容模式）
+const 用户UA = navigator.userAgent;
+const 安卓匹配 = 用户UA.match(/Android\s([0-9.]+)/);
+const 安卓版本 = 安卓匹配 ? parseFloat(安卓匹配[1]) : 0;
+
+// 是否低于 Android 8（原来是 10，现在改为 8）
+const 低于安卓8 = 安卓版本 > 0 && 安卓版本 < 8;
+
+// 加载保存的主题设置（低版本默认兼容模式）
+let 当前主题 = localStorage.getItem('界面主题') || (低于安卓8 ? '模拟' : '玻璃');
+
+// 添加提示文字
+if (低于安卓8 && 主题提示) {
+    主题提示.innerHTML = '⚠️ 您的系统低于 Android 8，已自动切换为兼容模式。';
+    主题提示.style.color = '#ffaa00';
+}
+
+// 全局主题样式ID
+const 主题样式ID = '界面主题样式';
+
+// 应用主题 CSS - 适配所有元素
+function 应用界面主题(主题名) {
+    const 旧样式 = document.getElementById(主题样式ID);
+    if (旧样式) 旧样式.remove();
+
+    if (主题名 === '模拟') {
+        // 兼容模式：直接修改每个弹窗/抽屉的背景属性，不使用 backdrop-filter
+        const 新样式 = document.createElement('style');
+        新样式.id = 主题样式ID;
+        新样式.textContent = `
+            /* 所有弹窗和抽屉 - 兼容模式 */
+            .设置面板,
+            .颜色弹窗,
+            .字体弹窗,
+            .输入弹窗,
+            .欢迎弹窗,
+            .高级弹窗,
+            .帮助弹窗,
+            .关于弹窗,
+            .更新日志弹窗,
+            .主题商店弹窗,
+            .服务请求弹窗,
+            .确认弹窗,
+            .通用弹窗,
+            .抽屉,
+            .AI抽屉,
+            .AI配置弹窗,
+            .AI配置名单,
+            .AI自定义JS弹窗,
+            .AI命令弹窗,
+            .键盘抽屉 {
+                background: rgba(20, 20, 30, 0.92) !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+            
+            /* 弹窗内容区域 */
+            .设置内容,
+            .颜色弹窗内容,
+            .字体弹窗内容,
+            .输入弹窗内容,
+            .欢迎弹窗内容,
+            .高级弹窗内容,
+            .帮助弹窗内容,
+            .关于弹窗内容,
+            .更新日志弹窗内容,
+            .主题商店弹窗内容,
+            .服务请求弹窗内容,
+            .确认弹窗内容,
+            .通用弹窗内容,
+            .抽屉内容,
+            .AI抽屉内容,
+            .AI配置弹窗内容,
+            .AI配置名单 .AI配置弹窗内容,
+            .AI自定义JS弹窗内容,
+            .AI命令弹窗内容 {
+                background: transparent !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+            
+            /* 底部按钮栏 */
+            .底部按钮栏 {
+                background: rgba(0, 0, 0, 0.75) !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+            
+            /* 键盘遮罩 */
+            .键盘遮罩 {
+                background: rgba(0, 0, 0, 0.3) !important;
+            }
+            
+            /* AI 相关组件 */
+            .AI输入框,
+            .AI用户气泡,
+            .AI消息行 .AI纯文本,
+            .AI操作按钮,
+            .AI圆形按钮 {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+            
+            /* AI 输入框 */
+            .AI输入框 {
+                background: rgba(30, 30, 40, 0.95) !important;
+            }
+            
+            /* AI 气泡 */
+            .AI用户气泡 {
+                background: rgba(0, 120, 200, 0.85) !important;
+            }
+            
+            /* AI 消息行 */
+            .AI消息行 .AI纯文本 {
+                background: transparent !important;
+            }
+            
+            /* 键盘抽屉 */
+            .键盘抽屉 {
+                background: rgba(30, 30, 40, 0.95) !important;
+                backdrop-filter: none !important;
+            }
+            
+            /* 键位 */
+            .键位 {
+                background: rgba(255, 255, 255, 0.15) !important;
+                backdrop-filter: none !important;
+            }
+        `;
+        document.head.appendChild(新样式);
+        if (主题提示) 主题提示.textContent = '兼容模式已应用（Android 8+ 支持）';
+    } else {
+        // 玻璃主题：移除兼容样式，恢复原生毛玻璃
+        if (主题提示 && !低于安卓8) 主题提示.textContent = '玻璃主题已应用';
+        if (低于安卓8) {
+            // 低版本点玻璃，强制切回兼容模式
+            localStorage.setItem('界面主题', '模拟');
+            应用界面主题('模拟');
+            return;
+        }
+    }
+
+    localStorage.setItem('界面主题', 主题名);
+}
+
+// 默认模式按钮 → 尝试玻璃（低版本会自动降级为兼容模式）
+if (主题玻璃按钮) {
+    主题玻璃按钮.onclick = function() { 应用界面主题('玻璃'); };
+}
+// 兼容模式按钮 → 手动切换
+if (主题兼容按钮) {
+    主题兼容按钮.onclick = function() { 应用界面主题('模拟'); };
+}
+
+// 首次加载时应用保存的主题
+应用界面主题(当前主题);
+
+// 如果不支持玻璃，禁用玻璃按钮并显示提示
+if (低于安卓8 && 主题玻璃按钮) {
+    主题玻璃按钮.style.opacity = '0.5';
+    主题玻璃按钮.style.cursor = 'not-allowed';
+    主题玻璃按钮.title = '您的系统版本低于 Android 8，不支持原生毛玻璃效果';
+}
 // 启动
 // ==================== 通用弹窗关闭管理器 ====================
 // 强制关闭所有弹窗的函数
@@ -1903,7 +2072,59 @@ document.querySelectorAll('[class*="弹窗"]').forEach(弹窗 => {
         }
     });
 });
+// ==================== 强制关闭设置面板（点击非按钮区域） ====================
+const 设置面板元素 = document.getElementById('设置面板');
+const 设置内容区域 = document.querySelector('.设置内容');
 
+if (设置面板元素 && 设置内容区域) {
+    设置面板元素.addEventListener('click', function(e) {
+        // 检查点击的目标是否是按钮
+        const 是按钮 = e.target.tagName === 'BUTTON' || e.target.closest('button');
+        
+        // 检查点击的目标是否在设置内容区域内
+        const 在内容区 = 设置内容区域.contains(e.target);
+        
+        // 如果不是按钮，并且不在内容区域内（或者点击的是面板背景），则关闭
+        if (!是按钮 && !在内容区) {
+            设置面板元素.classList.remove('打开');
+            console.log('点击非按钮区域，关闭设置面板');
+        }
+    });
+}
+// ==================== AI 抽屉功能 ====================
+const AI按钮 = document.getElementById('ai');
+const AI抽屉 = document.getElementById('AI抽屉');
+
+if (AI按钮 && AI抽屉) {
+    AI按钮.onclick = (e) => {
+        e.stopPropagation();
+        
+        // 如果已打开就关闭
+        if (AI抽屉.classList.contains('打开')) {
+            AI抽屉.classList.remove('打开');
+            遮罩层.classList.remove('显示');
+            return;
+        }
+        
+        // 关闭其他抽屉
+        if (抽屉.classList.contains('打开')) {
+            关闭抽屉();
+        }
+        
+        AI抽屉.classList.add('打开');
+        遮罩层.classList.add('显示');
+        遮罩层.style.zIndex = '10000';
+        AI抽屉.style.zIndex = '10001';
+    };
+
+    // 点击遮罩关闭
+    遮罩层.addEventListener('click', (e) => {
+        if (e.target === 遮罩层 && AI抽屉.classList.contains('打开')) {
+            AI抽屉.classList.remove('打开');
+            遮罩层.classList.remove('显示');
+        }
+    });
+}
 console.log('通用弹窗关闭管理器已启动');
 连接服务器();
 console.log('Termux:Embellish 已启动');
